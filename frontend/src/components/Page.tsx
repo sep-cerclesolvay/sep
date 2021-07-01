@@ -49,10 +49,10 @@ const Page: React.FC<PageProps> = ({ title, backButton = false, backUrl = '/', b
       </IonHeader>
 
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
+        <IonHeader>
+          {/* <IonToolbar>
             <IonTitle size="large">{title}</IonTitle>
-          </IonToolbar>
+          </IonToolbar> */}
         </IonHeader>
         <div className={className}>{children}</div>
       </IonContent>
