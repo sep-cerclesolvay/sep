@@ -126,6 +126,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Activate Django-Heroku.
 # Required to deploy the web site on my hosting provider
-import django_heroku
-
-django_heroku.settings(locals())
+import django_on_heroku
+django_on_heroku.settings(locals())
