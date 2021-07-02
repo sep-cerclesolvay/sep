@@ -1,0 +1,11 @@
+@use 'theme/breakpoints';
+
+.logout {
+  span {
+    display: none;
+
+    @include breakpoints.mq(sm) {
+      display: inline;
+    }
+  }
+}

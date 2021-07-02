@@ -12,6 +12,7 @@ import {
 } from '@ionic/react';
 import { logOutOutline, logOutSharp } from 'ionicons/icons';
 import { useParams } from 'react-router-dom';
+import classes from './Page.module.scss';
 
 export interface PageProps {
   title: string;
@@ -41,8 +42,9 @@ const Page: React.FC<PageProps> = ({ title, backButton = false, backUrl = '/', b
           </IonButtons>
           <IonTitle>{title}</IonTitle>
           <IonButtons slot="end">
-            <IonButton fill="clear" size="small" shape="round">
-              <IonIcon slot="start" ios={logOutOutline} md={logOutSharp} />
+            <IonButton fill="clear" size="small" shape="round" className={classes.logout}>
+              <span>Se déconnecter</span>
+              <IonIcon slot="end" ios={logOutOutline} md={logOutSharp} />
             </IonButton>
           </IonButtons>
         </IonToolbar>

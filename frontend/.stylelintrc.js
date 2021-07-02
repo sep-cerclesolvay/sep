@@ -29,7 +29,7 @@ module.exports = {
         {
           type: 'at-rule',
           name: 'include',
-          parameter: '(breakpoints.)?mq-props',
+          parameter: '(breakpoints.)?mq(-props)?',
         },
         'rules',
       ],
