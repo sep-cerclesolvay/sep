@@ -22,6 +22,7 @@ import {
   statsChartSharp,
 } from 'ionicons/icons';
 import classes from './Menu.module.scss';
+import useUser from 'hooks/useUser';
 
 interface AppPage {
   url: string;
@@ -59,11 +60,13 @@ const appPages: AppPage[] = [
 
 const Menu: React.FC = () => {
   const location = useLocation();
+  const user = useUser();
 
   return (
     <IonMenu contentId="main" type="overlay" className={classes.menu}>
       <IonContent>
         <IonList class="inbox_list">
+          {user.name}
           <IonListHeader>SEP</IonListHeader>
           <IonNote>Solvay Entraide et Publication</IonNote>
           {appPages.map((appPage, index) => {

@@ -10,10 +10,6 @@ const useEntries = (): Entry[] => [
       sellPrice: 15,
     },
     quantity: 27,
-    createdBy: {
-      firstName: 'Luke',
-      lastName: 'Skywalker',
-    },
   },
 ];
 

@@ -18,10 +18,6 @@ const useSales = (): Sale[] => [
         quantity: 3,
       },
     ],
-    createdBy: {
-      firstName: 'Luke',
-      lastName: 'Skywalker',
-    },
   },
   {
     id: 2,
@@ -40,10 +36,6 @@ const useSales = (): Sale[] => [
         quantity: 1,
       },
     ],
-    createdBy: {
-      firstName: 'Luke',
-      lastName: 'Skywalker',
-    },
   },
   {
     id: 3,
@@ -71,10 +63,6 @@ const useSales = (): Sale[] => [
         quantity: 1,
       },
     ],
-    createdBy: {
-      firstName: 'Luke',
-      lastName: 'Skywalker',
-    },
   },
   {
     id: 4,
@@ -111,10 +99,6 @@ const useSales = (): Sale[] => [
         quantity: 1,
       },
     ],
-    createdBy: {
-      firstName: 'Luke',
-      lastName: 'Skywalker',
-    },
   },
   {
     id: 5,
@@ -133,10 +117,6 @@ const useSales = (): Sale[] => [
         quantity: 3,
       },
     ],
-    createdBy: {
-      firstName: 'Luke',
-      lastName: 'Skywalker',
-    },
   },
 ];
 
