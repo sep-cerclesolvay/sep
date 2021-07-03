@@ -10,10 +10,10 @@ import {
 } from '@ionic/react';
 import Page from 'components/Page';
 import useProducts from 'hooks/useProducts';
-import React from 'react';
+import { VFC } from 'react';
 import classes from './Stock.module.scss';
 
-const Stock: React.VFC = () => {
+const Stock: VFC = () => {
   const products = useProducts();
   return (
     <Page title="Stock">

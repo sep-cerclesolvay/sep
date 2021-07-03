@@ -11,18 +11,10 @@ import {
 } from '@ionic/react';
 
 import { useLocation } from 'react-router-dom';
-import {
-  fileTrayOutline,
-  fileTrayFullSharp,
-  cartOutline,
-  cartSharp,
-  cubeOutline,
-  cubeSharp,
-  statsChartOutline,
-  statsChartSharp,
-} from 'ionicons/icons';
+import { fileTrayOutline, fileTrayFullSharp, cartOutline, cartSharp, cubeOutline, cubeSharp } from 'ionicons/icons';
 import classes from './Menu.module.scss';
 import useUser from 'hooks/useUser';
+import { VFC } from 'react';
 
 interface AppPage {
   url: string;
@@ -50,15 +42,9 @@ const appPages: AppPage[] = [
     iosIcon: fileTrayOutline,
     mdIcon: fileTrayFullSharp,
   },
-  {
-    title: 'Statistiques',
-    url: '/statistiques',
-    iosIcon: statsChartOutline,
-    mdIcon: statsChartSharp,
-  },
 ];
 
-const Menu: React.FC = () => {
+const Menu: VFC = () => {
   const location = useLocation();
   const user = useUser();
 
@@ -66,7 +52,7 @@ const Menu: React.FC = () => {
     <IonMenu contentId="main" type="overlay" className={classes.menu}>
       <IonContent>
         <IonList class="inbox_list">
-          {user.name}
+          {user?.name}
           <IonListHeader>SEP</IonListHeader>
           <IonNote>Solvay Entraide et Publication</IonNote>
           {appPages.map((appPage, index) => {

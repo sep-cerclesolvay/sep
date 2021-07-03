@@ -1,11 +1,11 @@
 // @see https://www.carlrippon.com/react-context-with-typescript-p4/
 
-import React from 'react';
+import { useContext, createContext, Provider } from 'react';
 
-export const createCtx = <ContextType>(): readonly [() => ContextType, React.Provider<ContextType | undefined>] => {
-  const ctx = React.createContext<ContextType | undefined>(undefined);
+export const createCtx = <ContextType>(): readonly [() => ContextType, Provider<ContextType | undefined>] => {
+  const ctx = createContext<ContextType | undefined>(undefined);
   function useCtx() {
-    const c = React.useContext(ctx);
+    const c = useContext(ctx);
     if (!c) throw new Error('useCtx must be inside a Provider with a value');
     return c;
   }
