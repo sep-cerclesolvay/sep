@@ -51,7 +51,7 @@ const Menu: VFC = () => {
   return (
     <IonMenu contentId="main" type="overlay" className={classes.menu}>
       <IonContent>
-        <IonList class="inbox_list">
+        <IonList className={classes.inbox_list}>
           {user?.name}
           <IonListHeader>SEP</IonListHeader>
           <IonNote>Solvay Entraide et Publication</IonNote>
@@ -59,7 +59,7 @@ const Menu: VFC = () => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
                 <IonItem
-                  className={location.pathname === appPage.url ? 'selected' : ''}
+                  className={location.pathname === appPage.url ? classes.selected : undefined}
                   routerLink={appPage.url}
                   routerDirection="none"
                   lines="none"

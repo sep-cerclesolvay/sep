@@ -17,13 +17,20 @@ import classes from './Page.module.scss';
 export interface PageProps {
   title: string;
   backButton?: boolean;
-  backUrl?: string;
+  defaultBackUrl?: string;
   backText?: string;
   headerEndButtons?: React.ReactNode;
   className?: string;
 }
 
-const Page: React.FC<PageProps> = ({ title, backButton = false, backUrl = '/', backText, className, children }) => {
+const Page: React.FC<PageProps> = ({
+  title,
+  backButton = false,
+  defaultBackUrl = '/',
+  backText,
+  className,
+  children,
+}) => {
   const { name } = useParams<{ name: string }>();
   if (!title) title = name;
   return (
@@ -33,8 +40,8 @@ const Page: React.FC<PageProps> = ({ title, backButton = false, backUrl = '/', b
           <IonButtons slot="start">
             {backButton ? (
               <>
-                <IonBackButton className="ios-only" defaultHref={backUrl} text={backText} />
-                <IonBackButton className="md-only" defaultHref={backUrl} />
+                <IonBackButton className="ios-only" defaultHref={defaultBackUrl} text={backText} />
+                <IonBackButton className="md-only" defaultHref={defaultBackUrl} />
               </>
             ) : (
               <IonMenuButton />

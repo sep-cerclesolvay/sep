@@ -21,18 +21,42 @@ const Router: React.VFC = () => {
       <IonSplitPane contentId="main">
         <Menu />
         <IonRouterOutlet id="main">
-          <Route path="/qr" component={QrCode} exact={true} strict={true} />
-          <Route path="/qr/:id" component={QrCode} exact={true} strict={true} />
-          <RestrictedRoute path="/connexion" canAccess={!user} redirectTo="/stock" component={Login} />
-          <RestrictedRoute path="/stock" canAccess={!!user} component={Stock} />
-          <RestrictedRoute path="/ventes" canAccess={!!user} component={Sales} />
-          <RestrictedRoute path="/ventes/pannier" canAccess={!!user} component={Basket} />
-          <RestrictedRoute path="/ventes/scanner" canAccess={!!user} component={Scanner} />
-          <RestrictedRoute path="/ventes/:id/pannier" canAccess={!!user} component={Basket} />
-          <RestrictedRoute path="/ventes/:id/scanner" canAccess={!!user} component={Scanner} />
-          <RestrictedRoute path="/entrees" canAccess={!!user} component={Entries} />
-          <RestrictedRoute path="/entrees/ajouter" canAccess={!!user} component={EntryForm} />
-          <RestrictedRoute path="/entrees/:id" canAccess={!!user} component={EntryForm} />
+          <Route path="/qr" exact={true} strict={true}>
+            <QrCode />
+          </Route>
+          <Route path="/qr/:id" exact={true} strict={true}>
+            <QrCode />
+          </Route>
+          <RestrictedRoute path="/connexion" canAccess={!user} redirectTo="/stock" exact={true} strict={true}>
+            <Login />
+          </RestrictedRoute>
+          <RestrictedRoute path="/stock" canAccess={!!user} exact={true} strict={true}>
+            <Stock />
+          </RestrictedRoute>
+          <RestrictedRoute path="/ventes" canAccess={!!user} exact={true} strict={true}>
+            <Sales />
+          </RestrictedRoute>
+          <RestrictedRoute path="/ventes/pannier" canAccess={!!user} exact={true} strict={true}>
+            <Basket />
+          </RestrictedRoute>
+          <RestrictedRoute path="/ventes/scanner" canAccess={!!user} exact={true} strict={true}>
+            <Scanner />
+          </RestrictedRoute>
+          <RestrictedRoute path="/ventes/:id/pannier" canAccess={!!user} component={Basket} exact={true} strict={true}>
+            <Basket />
+          </RestrictedRoute>
+          <RestrictedRoute path="/ventes/:id/scanner" canAccess={!!user} exact={true} strict={true}>
+            <Scanner />
+          </RestrictedRoute>
+          <RestrictedRoute path="/entrees" canAccess={!!user} exact={true} strict={true}>
+            <Entries />
+          </RestrictedRoute>
+          <RestrictedRoute path="/entrees/ajouter" canAccess={!!user} exact={true} strict={true}>
+            <EntryForm />
+          </RestrictedRoute>
+          <RestrictedRoute path="/entrees/:id" canAccess={!!user} exact={true} strict={true}>
+            <EntryForm />
+          </RestrictedRoute>
           <Route path="/" exact={true} strict={false}>
             {user ? <Redirect to="/stock" /> : <Redirect to="/qr" />}
           </Route>

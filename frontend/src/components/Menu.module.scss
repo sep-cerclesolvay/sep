@@ -113,7 +113,7 @@ ion-menu.menu {
     color: var(--ion-color-medium-shade);
   }
 
-  ion-item:global(.selected) {
+  ion-item.selected {
     --color: var(--ion-color-primary);
   }
 }

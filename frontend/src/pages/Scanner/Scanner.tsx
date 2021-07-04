@@ -1,4 +1,4 @@
-import { IonAlert, IonButton, NavContext } from '@ionic/react';
+import { IonAlert, IonButton, NavContext, useIonRouter } from '@ionic/react';
 import Page from 'components/Page';
 import ScannerBox from 'components/ScannerBox';
 import environment from 'environment';
@@ -9,6 +9,7 @@ import classes from './Scanner.module.scss';
 const Scanner: VFC = () => {
   const [showQrOverride, setShowQrOverride] = useState(false);
   const navContext = useContext(NavContext);
+  const router = useIonRouter();
   const Toast = useToast();
 
   const handleScan = (result: string, onlyValue = false) => {
@@ -28,13 +29,21 @@ const Scanner: VFC = () => {
     }
   };
 
+  console.log(router.canGoBack());
+
   return (
-    <Page title="Scan" className={classes.scanner}>
+    <Page
+      title="Scan"
+      className={classes.scanner}
+      backButton={true}
+      defaultBackUrl="/ventes"
+      backText={router.routeInfo.pushedByRoute === '/ventes/pannier' ? 'Pannier' : 'Ventes'}
+    >
       <div>
         <ScannerBox enableOnlyOnRoute="/ventes/scanner" onScan={handleScan} />
       </div>
       <div className={classes.tips_and_manual}>
-        <p className={classes.tips}>Dirigez votre téléphone vers un QR Code</p>
+        <p className={classes.tips}>Dirigez votre appareil vers un QR Code</p>
         <p>ou</p>
         <IonButton onClick={() => setShowQrOverride(true)} expand="block">
           Entez un code manuellement
