@@ -1,0 +1,33 @@
+.scanner_box {
+  position: relative;
+  max-width: 450px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+}
+
+.qr_scanner {
+  width: 100%;
+}
+
+.loading_container,
+.legacy_container {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+.loading_container::after,
+.legacy_container::after {
+  display: block;
+  padding-bottom: 100%;
+  content: '';
+}
+
+.legacy_container {
+  width: calc(100% - 2px);
+  border: 1px solid var(--ion-color-dark);
+}

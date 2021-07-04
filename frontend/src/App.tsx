@@ -1,15 +1,15 @@
-import { IonApp, IonSpinner } from '@ionic/react';
-import { Suspense } from 'react';
+import { IonApp } from '@ionic/react';
 import Router from 'router/Router';
+import { ToastProvider } from '@agney/ir-toast';
 import './theme/index.scss';
 
 const App: React.FC = () => {
   return (
-    <Suspense fallback={<IonSpinner color="primary" />}>
-      <IonApp>
+    <IonApp>
+      <ToastProvider value={{ duration: 2000 }}>
         <Router />
-      </IonApp>
-    </Suspense>
+      </ToastProvider>
+    </IonApp>
   );
 };
 
