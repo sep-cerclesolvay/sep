@@ -18,18 +18,6 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_staffuser(self, name, password):
-        """
-        Creates and saves a staff user with the given name and password.
-        """
-        user = self.create_user(
-            name,
-            password=password,
-        )
-        user.admin = True
-        user.save(using=self._db)
-        return user
-
     def create_superuser(self, name, password):
         """
         Creates and saves a superuser with the given name and password.
@@ -77,7 +65,7 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         "Is the user a member of staff?"
-        return self.superuser
+        return True
 
     @property
     def is_admin(self):
