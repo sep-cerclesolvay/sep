@@ -6,7 +6,7 @@ class Product(models.Model):
     name = models.CharField(max_length=64)
     buy_price = models.DecimalField(decimal_places=3, max_digits=6)
     sell_price = models.DecimalField(decimal_places=3, max_digits=6)
-    quantity = models.SmallIntegerField()
+    # quantity = models.SmallIntegerField()
 
     def __str__(self) -> str:
         return f'{self.name}'
