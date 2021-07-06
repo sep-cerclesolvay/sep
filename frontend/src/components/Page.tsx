@@ -20,17 +20,9 @@ export interface PageProps {
   defaultBackUrl?: string;
   backText?: string;
   headerEndButtons?: React.ReactNode;
-  className?: string;
 }
 
-const Page: React.FC<PageProps> = ({
-  title,
-  backButton = false,
-  defaultBackUrl = '/',
-  backText,
-  className,
-  children,
-}) => {
+const Page: React.FC<PageProps> = ({ title, backButton = false, defaultBackUrl = '/', backText, children }) => {
   const { name } = useParams<{ name: string }>();
   if (!title) title = name;
   return (
@@ -63,7 +55,7 @@ const Page: React.FC<PageProps> = ({
             <IonTitle size="large">{title}</IonTitle>
           </IonToolbar> */}
         </IonHeader>
-        <div className={className}>{children}</div>
+        {children}
       </IonContent>
     </IonPage>
   );

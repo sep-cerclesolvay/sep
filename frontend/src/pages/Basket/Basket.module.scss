@@ -1,0 +1,20 @@
+.basket {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  text-align: center;
+
+  > ion-list {
+    flex-grow: 1;
+  }
+}
+
+.save_btn {
+  margin: 0.2rem;
+}
+
+.scanner_btn {
+  bottom: 4em;
+  right: 1.4em;
+}

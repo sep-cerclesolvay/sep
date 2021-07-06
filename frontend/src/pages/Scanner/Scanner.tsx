@@ -34,20 +34,21 @@ const Scanner: VFC = () => {
   return (
     <Page
       title="Scan"
-      className={classes.scanner}
       backButton={true}
       defaultBackUrl="/ventes"
       backText={router.routeInfo.pushedByRoute === '/ventes/pannier' ? 'Pannier' : 'Ventes'}
     >
-      <div>
-        <ScannerBox enableOnlyOnRoute="/ventes/scanner" onScan={handleScan} />
-      </div>
-      <div className={classes.tips_and_manual}>
-        <p className={classes.tips}>Dirigez votre appareil vers un QR Code</p>
-        <p>ou</p>
-        <IonButton onClick={() => setShowQrOverride(true)} expand="block">
-          Entez un code manuellement
-        </IonButton>
+      <div className={classes.scanner}>
+        <div>
+          <ScannerBox enableOnlyOnRoute="/ventes/scanner" onScan={handleScan} />
+        </div>
+        <div className={classes.tips_and_manual}>
+          <p className={classes.tips}>Dirigez votre appareil vers un QR Code</p>
+          <p>ou</p>
+          <IonButton onClick={() => setShowQrOverride(true)} expand="block">
+            Entez un code manuellement
+          </IonButton>
+        </div>
       </div>
       <IonAlert
         isOpen={showQrOverride}

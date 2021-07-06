@@ -1,0 +1,26 @@
+@use 'theme/breakpoints';
+
+.content {
+  display: flex;
+
+  :first-child {
+    flex-grow: 1;
+    margin-top: 11px;
+    margin-bottom: 10px;
+  }
+}
+
+.ion_label {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.button {
+  display: none;
+  min-width: 4.5em;
+  min-height: 3em;
+
+  @include breakpoints.mq(sm) {
+    display: block;
+  }
+}

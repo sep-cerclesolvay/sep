@@ -1,11 +1,18 @@
 .not_found {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   min-height: 100%;
+  padding: 0.2rem;
   text-align: center;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+  }
 
   h1 {
     margin: 0;
@@ -14,6 +21,5 @@
 
   p {
     margin: 0 0 4rem;
-    font-size: 1.8rem;
   }
 }
