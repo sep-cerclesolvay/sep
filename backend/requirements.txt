@@ -1,4 +1,6 @@
 Django
 djangorestframework
+uritemplate
+pyyaml
 gunicorn
 django-on-heroku

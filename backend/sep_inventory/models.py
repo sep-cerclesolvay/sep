@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from django.db.models.deletion import RESTRICT
 
 
@@ -6,7 +7,20 @@ class Product(models.Model):
     name = models.CharField(max_length=64)
     buy_price = models.DecimalField(decimal_places=3, max_digits=6)
     sell_price = models.DecimalField(decimal_places=3, max_digits=6)
-    # quantity = models.SmallIntegerField()
+
+    @property
+    def quantity(self):
+        entries_sum = Entry.objects.filter(
+            product=self).aggregate(total=Sum('quantity'))['total']
+        if entries_sum == None:
+            entries_sum = 0
+
+        sales_sum = SaleItem.objects.filter(
+            product=self).aggregate(total=Sum('quantity'))['total']
+        if sales_sum == None:
+            sales_sum = 0
+
+        return entries_sum - sales_sum
 
     def __str__(self) -> str:
         return f'{self.name}'

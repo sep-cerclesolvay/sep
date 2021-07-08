@@ -1,7 +1,12 @@
 from django.contrib import admin
 from .models import Product, Pack, Entry, PaymentMethod, Sale, SaleItem
 
-admin.site.register(Product)
+
+class ProductAdmin(admin.ModelAdmin):
+    readonly_fields = ('quantity',)
+
+
+admin.site.register(Product, ProductAdmin)
 admin.site.register(Pack)
 admin.site.register(Entry)
 admin.site.register(PaymentMethod)
