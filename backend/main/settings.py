@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-6mqw4#osf25!#ol8lay#dv$aqm%j2xva8el94%bj(0&dw5qa-z
 # Note : Django App for Heroku : set SECRET_KEY in environment variables
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 
 ALLOWED_HOSTS = []
 
