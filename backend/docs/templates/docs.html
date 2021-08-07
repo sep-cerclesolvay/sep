@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Docs</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/responsive.css" />
+    <style>
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: unset;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">
+        <div id="branding">
+          <h1 id="site-name"><a href="{% url docs_url %}">Docs</a></h1>
+        </div>
+        <div id="user-tools">
+          Welcome <strong>{{ username }}</strong>. <a href="{% url admin_url %}">Go to admin panel</a>
+        </div>
+      </div>
+      <div id="main" class="main">
+        {% if is_authorized %}
+        <iframe src="{% url swagger_ui_url %}"></iframe>
+        {% else %}
+        <div class="content">
+          <!-- Content -->
+          <div id="content" class="colMS">
+            <h1>API documentation</h1>
+            <div id="content-main">
+              <p>You don’t have permission to view the documentation.</p>
+            </div>
+            <br class="clear" />
+          </div>
+          <!-- END Content -->
+          <div id="footer"></div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

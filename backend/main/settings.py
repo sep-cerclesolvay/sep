@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'main',
+    'docs',
     'sep_custom_auth',
     'sep_inventory'
 ]
@@ -148,7 +149,7 @@ django_on_heroku.settings(locals())
 
 # Rest Framework
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'main.openapi.CustomSchema',
+    'DEFAULT_SCHEMA_CLASS': 'docs.openapi.CustomSchema',
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework.parsers.JSONParser',
     ),

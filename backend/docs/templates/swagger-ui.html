@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Swagger</title>
+    <title>Swagger UI</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="//unpkg.com/swagger-ui-dist@3/swagger-ui.css" />
+    <style>
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: initial;
+          margin: 0;
+        }
+        .swagger-ui {
+          filter: invert(100%) hue-rotate(180deg);
+        }
+        .swagger-ui .highlight-code,
+        .swagger-ui .microlight {
+          filter: invert(100%) hue-rotate(180deg);
+        }
+        .swagger-ui .scheme-container {
+          background-color: #dedcde;
+        }
+      }
+      .swagger-ui .info {
+        margin: 20px 0;
+      }
+    </style>
   </head>
   <body>
     <div id="swagger-ui"></div>

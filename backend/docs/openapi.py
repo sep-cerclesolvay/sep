@@ -1,9 +1,9 @@
 from rest_framework.permissions import AllowAny
-from rest_framework.schemas.openapi import AutoSchema, SchemaGenerator as JSONAPISchemaGenerator
+from rest_framework.schemas.openapi import AutoSchema, SchemaGenerator
 from rest_framework.compat import uritemplate
 
 
-class OASSchemaGenerator(JSONAPISchemaGenerator):
+class OASSchemaGenerator(SchemaGenerator):
     """
     Describe my OAS schema info in detail (overriding what DRF put in) and list the servers where it can be found.
     """

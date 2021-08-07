@@ -13,28 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import include, url
+from django.conf.urls import include
 from django.contrib import admin
-from django.urls import path
-from django.views.generic.base import TemplateView
-from rest_framework.schemas import get_schema_view
-from rest_framework.authentication import SessionAuthentication
-
-from sep_custom_auth.auth import IsSuperUser
-from .openapi import OASSchemaGenerator
+from django.urls import path, reverse
+from django.urls.conf import re_path
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/', include("sep_custom_auth.urls")),
-    path('api/', include("sep_inventory.urls")),
-    path('openapi', get_schema_view(
-        title="SEP API",
-        generator_class=OASSchemaGenerator,
-        authentication_classes=[SessionAuthentication],
-        permission_classes=[IsSuperUser]
-    ), name='openapi-schema'),
-    path('docs/', TemplateView.as_view(
-        template_name='swagger-ui.html',
-        extra_context={'schema_url': 'openapi-schema'}
-    ), name='swagger-ui'),
+    path('docs/', include('docs.urls')),
+    path('', include("sep_inventory.urls")),
+    path('', include("sep_custom_auth.urls")),
+    re_path(r'^.*$', RedirectView.as_view(url='/docs/',
+            permanent=False), name='index')
 ]
