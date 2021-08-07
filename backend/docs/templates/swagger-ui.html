@@ -8,7 +8,7 @@
     <style>
       @media (prefers-color-scheme: dark) {
         body {
-          background-color: initial;
+          background-color: #121212;
           margin: 0;
         }
         .swagger-ui {
@@ -36,6 +36,7 @@
         dom_id: '#swagger-ui',
         presets: [SwaggerUIBundle.presets.apis, SwaggerUIBundle.SwaggerUIStandalonePreset],
         layout: 'BaseLayout',
+        persistAuthorization: true,
         requestInterceptor: (request) => {
           request.headers['X-CSRFToken'] = '{{ csrf_token }}';
           return request;
