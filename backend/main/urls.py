@@ -18,14 +18,20 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic.base import TemplateView
 from rest_framework.schemas import get_schema_view
-from .OASSchemaGenerator import OASSchemaGenerator
+from rest_framework.authentication import SessionAuthentication
+
+from sep_custom_auth.auth import IsSuperUser
+from .openapi import OASSchemaGenerator
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('auth/', include("sep_custom_auth.urls")),
     path('api/', include("sep_inventory.urls")),
     path('openapi', get_schema_view(
         title="SEP API",
         generator_class=OASSchemaGenerator,
+        authentication_classes=[SessionAuthentication],
+        permission_classes=[IsSuperUser]
     ), name='openapi-schema'),
     path('docs/', TemplateView.as_view(
         template_name='swagger-ui.html',
