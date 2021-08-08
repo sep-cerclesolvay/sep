@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-6mqw4#osf25!#ol8lay#dv$aqm%j2xva8el94%bj(0&dw5qa-z
 DEBUG = os.environ.get('RUNNING_ON_HEROKU', '') != 'True'
 
 ALLOWED_HOSTS = []
-
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
     'main',
     'docs',
     'sep_custom_auth',
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

@@ -1,0 +1,33 @@
+.form {
+  max-width: 800px;
+  margin: auto;
+  padding-top: 1rem;
+
+  .logo_container {
+    display: flex;
+    margin: 1em;
+
+    img {
+      max-width: 200px;
+      margin: auto;
+    }
+  }
+
+  ion-item {
+    margin: 0.5rem;
+  }
+
+  ion-note {
+    &:global(.md) {
+      margin: 0 0.75em;
+    }
+
+    &:global(.ios) {
+      margin: 0 1.85em;
+    }
+  }
+
+  ion-button {
+    margin: 1rem 0.5rem 0.5rem;
+  }
+}

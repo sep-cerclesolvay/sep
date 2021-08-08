@@ -1,0 +1,10 @@
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  pointer-events: none;
+  transition-timing-function: linear;
+  transition-property: opacity;
+}

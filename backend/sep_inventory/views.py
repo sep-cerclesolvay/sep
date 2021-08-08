@@ -1,11 +1,29 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
-from .serializers import ProductSerializer
-from .models import Product
+from .serializers import PackSerializer, PaymentMethodSerializer, ProductSerializer, ReadOnlyPackSerializer
+from .models import Pack, PaymentMethod, Product
 
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class ReadOnlyPackViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Pack.objects.all()
+    serializer_class = ReadOnlyPackSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class PackViewSet(viewsets.ModelViewSet):
+    queryset = Pack.objects.all()
+    serializer_class = PackSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class PaymentMethodViewSet(viewsets.ModelViewSet):
+    queryset = PaymentMethod.objects.all()
+    serializer_class = PaymentMethodSerializer
     permission_classes = [IsAuthenticated]

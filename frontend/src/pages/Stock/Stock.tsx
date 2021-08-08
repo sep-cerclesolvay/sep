@@ -1,20 +1,25 @@
-import {
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonItem,
-  IonLabel,
-  IonSelect,
-  IonSelectOption,
-} from '@ionic/react';
+import { IonItem, IonLabel, IonSelect, IonSelectOption } from '@ionic/react';
 import Page from 'components/Page';
-import useProducts from 'hooks/useProducts';
-import { VFC } from 'react';
-import classes from './Stock.module.scss';
+import StateAwareList from 'components/StateAwareList';
+import { useEffect, VFC } from 'react';
+import { useAppDispatch } from 'redux/hooks';
+import { loadProducts, useProducts } from 'redux/productsSlice';
+import StockEmpty from './StockEmpty';
+import StockItem from './StockItem';
+import StockLoading from './StockLoading';
 
 const Stock: VFC = () => {
   const products = useProducts();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(loadProducts());
+  }, [dispatch]);
+
+  const handleRemoveButtonClick = () => {
+    console.log('delete, product');
+  };
+
   return (
     <Page title="Stock">
       <IonItem>
@@ -24,20 +29,16 @@ const Stock: VFC = () => {
           <IonSelectOption value="male">Male</IonSelectOption>
         </IonSelect>
       </IonItem>
-      {products.map((product) => (
-        <IonCard key={product.id}>
-          <IonCardHeader>
-            <IonCardTitle>{product.name}</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <div className={classes.item}>
-              <p>Prix de vente {product.sellPrice}€</p>
-              <p>Prix d&apos;achat {product.buyPrice}€</p>
-              <p>Quantité en stock : {product.quantity}</p>
-            </div>
-          </IonCardContent>
-        </IonCard>
-      ))}
+      <StateAwareList
+        state={{ isLoading: products.isLoading, items: products.data, error: products.error }}
+        renderItem={(product) => (
+          <StockItem product={product} onEditButtonClick={handleRemoveButtonClick.bind(this, product)} />
+        )}
+        keyResolver={(product) => `${product.id}`}
+        loadingComponent={<StockLoading />}
+        emptyComponent={<StockEmpty />}
+        renderError={(error) => <IonItem>Error: {JSON.stringify(error, undefined, 2)}</IonItem>}
+      />
     </Page>
   );
 };

@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  > ion-button {
+    --ion-color-primary: var(--ion-color-contrast);
+    margin: 0;
+  }
+}

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Product } from 'types/Product';
-import { AsyncState } from './AsyncState';
-import { fetchBasket } from './fetchBasket';
+import { AsyncState } from '../types/AsyncState';
+import { fetchBasket } from '../api/fetchBasket';
 import { RootState } from './store';
 import { addAsyncThunk } from './utils';
 

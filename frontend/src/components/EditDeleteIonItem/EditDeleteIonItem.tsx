@@ -5,6 +5,7 @@ import { FC } from 'react';
 import classes from './EditDeleteIonItem.module.scss';
 
 export interface EditDeleteIonItemProps {
+  card?: boolean;
   editButton?: boolean;
   onClickEditButton?: () => void;
   deleteButton?: boolean;
@@ -13,6 +14,7 @@ export interface EditDeleteIonItemProps {
 
 const EditDeleteIonItem: FC<EditDeleteIonItemProps> = ({
   children,
+  card = false,
   editButton = false,
   onClickEditButton = () => {
     return;
@@ -24,8 +26,8 @@ const EditDeleteIonItem: FC<EditDeleteIonItemProps> = ({
 }) => {
   const { minBreakpoint } = useBreakpoints();
   return (
-    <IonItemSliding disabled={minBreakpoint('md') ? true : false}>
-      <IonItem>
+    <IonItemSliding className={card ? classes.card : undefined} disabled={minBreakpoint('md') ? true : false}>
+      <IonItem className={classes.ion_item}>
         <IonLabel className={classes.ion_label}>
           <div className={classes.content}>
             <div>{children}</div>

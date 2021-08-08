@@ -11,10 +11,19 @@ import {
 } from '@ionic/react';
 
 import { useLocation } from 'react-router-dom';
-import { fileTrayOutline, fileTrayFullSharp, cartOutline, cartSharp, cubeOutline, cubeSharp } from 'ionicons/icons';
+import {
+  fileTrayOutline,
+  fileTrayFullSharp,
+  cartOutline,
+  cartSharp,
+  cubeOutline,
+  cubeSharp,
+  logInSharp,
+  logInOutline,
+} from 'ionicons/icons';
 import classes from './Menu.module.scss';
-import useUser from 'hooks/useUser';
 import { VFC } from 'react';
+import { useUser } from 'redux/userSlice';
 
 interface AppPage {
   url: string;
@@ -23,7 +32,16 @@ interface AppPage {
   title: string;
 }
 
-const appPages: AppPage[] = [
+const anonPages: AppPage[] = [
+  {
+    title: 'Se Connecter',
+    url: '/connexion',
+    iosIcon: logInOutline,
+    mdIcon: logInSharp,
+  },
+];
+
+const userPages: AppPage[] = [
   {
     title: 'Stock',
     url: '/stock',
@@ -48,16 +66,18 @@ const Menu: VFC = () => {
   const location = useLocation();
   const user = useUser();
 
+  const pages = user.data ? userPages : anonPages;
+
   return (
     <IonMenu contentId="main" type="overlay" className={classes.menu}>
       <IonContent>
         <IonList className={classes.inbox_list}>
-          {user?.name}
+          {user.data?.name}
           <IonListHeader>SEP</IonListHeader>
           <IonNote>Solvay Entraide et Publication</IonNote>
-          {appPages.map((appPage, index) => {
+          {pages.map((appPage) => {
             return (
-              <IonMenuToggle key={index} autoHide={false}>
+              <IonMenuToggle key={appPage.url} autoHide={false}>
                 <IonItem
                   className={location.pathname === appPage.url ? classes.selected : undefined}
                   routerLink={appPage.url}

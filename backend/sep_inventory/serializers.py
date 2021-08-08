@@ -1,10 +1,31 @@
 from rest_framework import serializers
-from .models import Product
+from .models import Pack, PaymentMethod, Product
 
 
-class ProductSerializer(serializers.HyperlinkedModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     quantity = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Product
-        fields = ('url', 'id', 'name', 'buy_price', 'sell_price', 'quantity')
+        fields = ('id', 'name', 'buy_price', 'sell_price', 'quantity')
+
+
+class ReadOnlyPackSerializer(serializers.ModelSerializer):
+    products = ProductSerializer(many=True)
+
+    class Meta:
+        model = Pack
+        fields = ('name', 'products')
+
+
+class PackSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Pack
+        fields = ('id', 'name', 'products')
+
+
+class PaymentMethodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PaymentMethod
+        fields = ('id', 'name')

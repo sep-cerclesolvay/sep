@@ -2,8 +2,9 @@
 
 .content {
   display: flex;
+  align-items: center;
 
-  :first-child {
+  > :first-child {
     flex-grow: 1;
     margin-top: 11px;
     margin-bottom: 10px;
@@ -22,5 +23,29 @@
 
   @include breakpoints.mq(sm) {
     display: block;
+  }
+}
+
+.card {
+  .ion_item {
+    --background: var(--ion-card-background, var(--ion-item-background, var(--ion-background-color, #fff)));
+    --inner-border-width: 0;
+    --padding-start: var(--ion-safe-area-left, 0);
+    --color: var(--ion-card-color, var(--ion-item-color, var(--ion-color-step-600, #666)));
+  }
+
+  // stylelint-disable-next-line selector-class-pattern
+  :global(.item-options-ios.item-options-end) {
+    border-bottom-width: 0;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+
+    > :first-child {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
   }
 }

@@ -13,7 +13,7 @@ const useSales = (): Sale[] => [
         product: {
           id: 1,
           name: 'Produit 1',
-          sellPrice: 15,
+          sell_price: '15',
         },
         quantity: 3,
       },
@@ -31,7 +31,7 @@ const useSales = (): Sale[] => [
         product: {
           id: 5,
           name: 'Produit 5',
-          sellPrice: 15,
+          sell_price: '15',
         },
         quantity: 1,
       },
@@ -49,7 +49,7 @@ const useSales = (): Sale[] => [
         product: {
           id: 2,
           name: 'Produit 2',
-          sellPrice: 10,
+          sell_price: '10',
         },
         quantity: 1,
       },
@@ -58,7 +58,7 @@ const useSales = (): Sale[] => [
         product: {
           id: 3,
           name: 'Produit 3',
-          sellPrice: 17,
+          sell_price: '17',
         },
         quantity: 1,
       },
@@ -76,7 +76,7 @@ const useSales = (): Sale[] => [
         product: {
           id: 1,
           name: 'Produit 1',
-          sellPrice: 15,
+          sell_price: '15',
         },
         quantity: 1,
       },
@@ -85,7 +85,7 @@ const useSales = (): Sale[] => [
         product: {
           id: 2,
           name: 'Produit 2',
-          sellPrice: 10,
+          sell_price: '10',
         },
         quantity: 1,
       },
@@ -94,7 +94,7 @@ const useSales = (): Sale[] => [
         product: {
           id: 3,
           name: 'Produit 3',
-          sellPrice: 17,
+          sell_price: '17',
         },
         quantity: 1,
       },
@@ -112,7 +112,7 @@ const useSales = (): Sale[] => [
         product: {
           id: 1,
           name: 'Produit 1',
-          sellPrice: 15,
+          sell_price: '15',
         },
         quantity: 3,
       },

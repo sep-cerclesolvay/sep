@@ -1,9 +1,8 @@
 from django.conf.urls import include
-from django.urls.conf import path, re_path
-from django.views.generic.base import RedirectView
+from django.urls.conf import path
 from rest_framework import routers
 
-from .views import ProductViewSet
+from .views import PackViewSet, PaymentMethodViewSet, ProductViewSet, ReadOnlyPackViewSet
 
 
 class Router(routers.DefaultRouter):
@@ -11,7 +10,10 @@ class Router(routers.DefaultRouter):
 
 
 router = Router()
-router.register('product', ProductViewSet)
+router.register('products', ProductViewSet)
+router.register('packs-detailed', ReadOnlyPackViewSet)
+router.register('packs', PackViewSet)
+router.register('payement-methods', PaymentMethodViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

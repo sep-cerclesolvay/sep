@@ -6,8 +6,8 @@ const useEntries = (): Entry[] => [
     product: {
       id: 1,
       name: 'Produit 1',
-      buyPrice: 10,
-      sellPrice: 15,
+      buy_price: '10',
+      sell_price: '15',
     },
     quantity: 27,
   },

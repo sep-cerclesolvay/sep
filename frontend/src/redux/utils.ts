@@ -1,5 +1,5 @@
 import { ActionReducerMapBuilder, AsyncThunk } from '@reduxjs/toolkit';
-import { AsyncState } from './AsyncState';
+import { AsyncState } from '../types/AsyncState';
 
 export const addAsyncThunk = <State extends AsyncState<unknown>, ThunkResult>(
   builder: ActionReducerMapBuilder<State>,

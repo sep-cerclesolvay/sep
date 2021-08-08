@@ -10,8 +10,10 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
-import { logOutOutline, logOutSharp } from 'ionicons/icons';
+import { logOutOutline, logOutSharp, logInOutline, logInSharp } from 'ionicons/icons';
 import { useParams } from 'react-router-dom';
+import { useAppDispatch } from 'redux/hooks';
+import { logout, useUser } from 'redux/userSlice';
 import classes from './Page.module.scss';
 
 export interface PageProps {
@@ -24,7 +26,15 @@ export interface PageProps {
 
 const Page: React.FC<PageProps> = ({ title, backButton = false, defaultBackUrl = '/', backText, children }) => {
   const { name } = useParams<{ name: string }>();
+  const user = useUser();
+  const dispatch = useAppDispatch();
+
+  const handleLogoutClick = () => {
+    dispatch(logout());
+  };
+
   if (!title) title = name;
+
   return (
     <IonPage>
       <IonHeader>
@@ -41,10 +51,17 @@ const Page: React.FC<PageProps> = ({ title, backButton = false, defaultBackUrl =
           </IonButtons>
           <IonTitle>{title}</IonTitle>
           <IonButtons slot="end">
-            <IonButton fill="clear" size="small" shape="round" className={classes.logout}>
-              <span>Se déconnecter</span>
-              <IonIcon slot="end" ios={logOutOutline} md={logOutSharp} />
-            </IonButton>
+            {user.data ? (
+              <IonButton fill="clear" size="small" shape="round" className={classes.logout} onClick={handleLogoutClick}>
+                <span>Se déconnecter</span>
+                <IonIcon slot="end" ios={logOutOutline} md={logOutSharp} />
+              </IonButton>
+            ) : (
+              <IonButton fill="clear" size="small" shape="round" className={classes.logout} routerLink="/connexion">
+                <span>Se Connecter</span>
+                <IonIcon slot="end" ios={logInOutline} md={logInSharp} />
+              </IonButton>
+            )}
           </IonButtons>
         </IonToolbar>
       </IonHeader>
