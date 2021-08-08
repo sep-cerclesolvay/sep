@@ -1,14 +1,16 @@
-import { IonItem, IonLabel, IonSelect, IonSelectOption } from '@ionic/react';
+import { IonItem, IonLabel, IonSelect, IonSelectOption, useIonRouter } from '@ionic/react';
 import Page from 'components/Page';
 import StateAwareList from 'components/StateAwareList';
 import { useEffect, VFC } from 'react';
 import { useAppDispatch } from 'redux/hooks';
 import { loadProducts, useProducts } from 'redux/productsSlice';
+import { Product } from 'types/Product';
 import StockEmpty from './StockEmpty';
 import StockItem from './StockItem';
 import StockLoading from './StockLoading';
 
 const Stock: VFC = () => {
+  const router = useIonRouter();
   const products = useProducts();
   const dispatch = useAppDispatch();
 
@@ -16,8 +18,12 @@ const Stock: VFC = () => {
     dispatch(loadProducts());
   }, [dispatch]);
 
-  const handleRemoveButtonClick = () => {
-    console.log('delete, product');
+  const handleEditButtonClick = (product: Product) => {
+    console.log('edit', product);
+  };
+
+  const handleQrCodeButtonClick = (product: Product) => {
+    router.push(`/qr/${product.id}`);
   };
 
   return (
@@ -32,7 +38,11 @@ const Stock: VFC = () => {
       <StateAwareList
         state={{ isLoading: products.isLoading, items: products.data, error: products.error }}
         renderItem={(product) => (
-          <StockItem product={product} onEditButtonClick={handleRemoveButtonClick.bind(this, product)} />
+          <StockItem
+            product={product}
+            onQrCodeButtonClick={handleQrCodeButtonClick}
+            onEditButtonClick={handleEditButtonClick}
+          />
         )}
         keyResolver={(product) => `${product.id}`}
         loadingComponent={<StockLoading />}

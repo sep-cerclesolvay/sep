@@ -2,12 +2,14 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import productsReducer from './productsSlice';
 import basketReducer from './basketSlice';
 import userReducer from './userSlice';
+import qrCodeReducer from './qrCodeSlice';
 
 export const store = configureStore({
   reducer: {
     basket: basketReducer,
     user: userReducer,
     products: productsReducer,
+    qrCode: qrCodeReducer,
   },
 });
 

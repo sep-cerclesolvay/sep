@@ -3,7 +3,7 @@ import { Product } from 'types/Product';
 import { AsyncState } from '../types/AsyncState';
 import { RootState } from './store';
 import { addAsyncThunk } from './utils';
-import { fetchProducts } from 'api/fetchProducts';
+import { fetchProducts } from 'api/productAPI';
 import { useAppSelector } from './hooks';
 
 type ProductsState = AsyncState<Product[]>;

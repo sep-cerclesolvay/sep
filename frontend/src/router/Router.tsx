@@ -21,12 +21,9 @@ const Router: React.VFC = () => {
       <IonSplitPane contentId="main">
         <Menu />
         <IonRouterOutlet id="main">
-          <Route path="/qr" exact={true} strict={true}>
+          <RestrictedRoute path="/qr/:id" canAccess={!!user.data} exact={true} strict={true}>
             <QrCode />
-          </Route>
-          <Route path="/qr/:id" exact={true} strict={true}>
-            <QrCode />
-          </Route>
+          </RestrictedRoute>
           <RestrictedRoute path="/connexion" canAccess={!user.data} redirectTo="/stock" exact={true} strict={true}>
             <Login />
           </RestrictedRoute>

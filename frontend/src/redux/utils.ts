@@ -1,9 +1,9 @@
 import { ActionReducerMapBuilder, AsyncThunk } from '@reduxjs/toolkit';
 import { AsyncState } from '../types/AsyncState';
 
-export const addAsyncThunk = <State extends AsyncState<unknown>, ThunkResult>(
+export const addAsyncThunk = <State extends AsyncState<unknown>, ThunkResult, ThunkParam>(
   builder: ActionReducerMapBuilder<State>,
-  thunk: AsyncThunk<ThunkResult, void, Record<string, never>>
+  thunk: AsyncThunk<ThunkResult, ThunkParam, Record<string, never>>
 ): void => {
   builder
     .addCase(thunk.pending, (state) => {
@@ -19,6 +19,6 @@ export const addAsyncThunk = <State extends AsyncState<unknown>, ThunkResult>(
     .addCase(thunk.rejected, (state, action) => {
       state.isLoading = false;
       state.data = undefined;
-      state.error = action.error;
+      state.error = action.payload;
     });
 };

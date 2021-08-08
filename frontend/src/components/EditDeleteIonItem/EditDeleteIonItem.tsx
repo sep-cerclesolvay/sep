@@ -2,6 +2,7 @@ import { IonButton, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSlid
 import useBreakpoints from 'hooks/useBreakpoints';
 import { pencilOutline, pencilSharp, trashBinOutline, trashBinSharp } from 'ionicons/icons';
 import { FC } from 'react';
+import { Color } from '@ionic/core/dist/types/interface';
 import classes from './EditDeleteIonItem.module.scss';
 
 export interface EditDeleteIonItemProps {
@@ -10,6 +11,15 @@ export interface EditDeleteIonItemProps {
   onClickEditButton?: () => void;
   deleteButton?: boolean;
   onClickDeleteButton?: () => void;
+  customButtons?: Button[];
+}
+
+export interface Button {
+  id: string;
+  iosIcon: string;
+  mdIcon: string;
+  onClick: () => void;
+  color?: Color;
 }
 
 const EditDeleteIonItem: FC<EditDeleteIonItemProps> = ({
@@ -23,38 +33,57 @@ const EditDeleteIonItem: FC<EditDeleteIonItemProps> = ({
   onClickDeleteButton = () => {
     return;
   },
+  customButtons = [],
 }) => {
   const { minBreakpoint } = useBreakpoints();
+
+  let buttons: Button[] = customButtons;
+
+  if (editButton) {
+    buttons = [
+      ...buttons,
+      {
+        id: 'edit',
+        iosIcon: pencilOutline,
+        mdIcon: pencilSharp,
+        onClick: onClickEditButton,
+      },
+    ];
+  }
+
+  if (deleteButton) {
+    buttons = [
+      ...buttons,
+      {
+        id: 'delete',
+        iosIcon: trashBinOutline,
+        mdIcon: trashBinSharp,
+        onClick: onClickDeleteButton,
+        color: 'danger',
+      },
+    ];
+  }
+
   return (
     <IonItemSliding className={card ? classes.card : undefined} disabled={minBreakpoint('md') ? true : false}>
       <IonItem className={classes.ion_item}>
         <IonLabel className={classes.ion_label}>
           <div className={classes.content}>
             <div>{children}</div>
-            {editButton && (
-              <IonButton className={classes.button} onClick={onClickEditButton}>
-                <IonIcon slot="icon-only" ios={pencilOutline} md={pencilSharp} />
+            {buttons.map((button) => (
+              <IonButton key={button.id} className={classes.button} onClick={button.onClick} color={button.color}>
+                <IonIcon slot="icon-only" ios={button.iosIcon} md={button.mdIcon} />
               </IonButton>
-            )}
-            {deleteButton && (
-              <IonButton className={classes.button} onClick={onClickDeleteButton} color="danger">
-                <IonIcon slot="icon-only" ios={trashBinOutline} md={trashBinSharp} />
-              </IonButton>
-            )}
+            ))}
           </div>
         </IonLabel>
       </IonItem>
       <IonItemOptions side="end">
-        {editButton && (
-          <IonItemOption onClick={onClickEditButton}>
-            <IonIcon slot="icon-only" ios={pencilOutline} md={pencilSharp} />
+        {buttons.map((button) => (
+          <IonItemOption key={button.id} onClick={button.onClick} color={button.color}>
+            <IonIcon slot="icon-only" ios={button.iosIcon} md={button.mdIcon} />
           </IonItemOption>
-        )}
-        {deleteButton && (
-          <IonItemOption onClick={onClickDeleteButton} color="danger">
-            <IonIcon slot="icon-only" ios={trashBinOutline} md={trashBinSharp} />
-          </IonItemOption>
-        )}
+        ))}
       </IonItemOptions>
     </IonItemSliding>
   );

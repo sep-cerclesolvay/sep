@@ -1,0 +1,32 @@
+.qr_code_page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  > *:not(.content) {
+    flex-shrink: 0;
+  }
+
+  ion-button {
+    margin: 0.2rem;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding-bottom: 4em;
+  overflow: auto;
+
+  h2 {
+    margin-bottom: 0.75em;
+    text-align: center;
+  }
+}
+
+.qr_code_container {
+  margin: auto;
+  overflow: auto;
+  background-color: #fff;
+}

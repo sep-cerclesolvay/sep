@@ -1,5 +1,6 @@
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/react';
-import EditDeleteIonItem from 'components/EditDeleteIonItem';
+import EditDeleteIonItem, { Button } from 'components/EditDeleteIonItem';
+import { qrCodeOutline, qrCodeSharp } from 'ionicons/icons';
 import { VFC } from 'react';
 import { Product } from 'types/Product';
 import { removeDecimalZeros } from 'utils/math';
@@ -7,10 +8,21 @@ import classes from './Stock.module.scss';
 
 export interface BasketListProps {
   product: Product;
+  onQrCodeButtonClick: (product: Product) => void;
   onEditButtonClick: (product: Product) => void;
 }
 
-const BasketList: VFC<BasketListProps> = ({ product, onEditButtonClick }) => {
+const BasketList: VFC<BasketListProps> = ({ product, onQrCodeButtonClick, onEditButtonClick }) => {
+  const customButtons: Button[] = [
+    {
+      id: 'qr-code',
+      iosIcon: qrCodeOutline,
+      mdIcon: qrCodeSharp,
+      onClick: () => onQrCodeButtonClick(product),
+      color: 'secondary',
+    },
+  ];
+
   return (
     <IonCard>
       <EditDeleteIonItem
@@ -18,6 +30,7 @@ const BasketList: VFC<BasketListProps> = ({ product, onEditButtonClick }) => {
         card={true}
         editButton={true}
         onClickEditButton={onEditButtonClick.bind(this, product)}
+        customButtons={customButtons}
       >
         <IonCardHeader>
           <IonCardTitle>{product.name}</IonCardTitle>
