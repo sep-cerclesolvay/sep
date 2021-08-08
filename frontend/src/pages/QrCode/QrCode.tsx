@@ -8,14 +8,14 @@ import { loadQrCode, useQrCode } from 'redux/qrCodeSlice';
 import classes from './QrCode.module.scss';
 
 const QrCode: VFC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { slug, id } = useParams<{ slug: string; id: string }>();
   const [size, setSize] = useState(256);
   const qrCode = useQrCode();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(loadQrCode(parseInt(id)));
-  }, [id, dispatch]);
+    dispatch(loadQrCode({ type: slug, id: parseInt(id) }));
+  }, [slug, id, dispatch]);
 
   const onImageDownload = () => {
     const svg = document.getElementById('QRCode');
@@ -32,7 +32,7 @@ const QrCode: VFC = () => {
           ctx.drawImage(img, size / 17, size / 17, size - (size / 17) * 2, size - (size / 17) * 2);
           const pngFile = canvas.toDataURL('image/png');
           const downloadLink = document.createElement('a');
-          downloadLink.download = 'QRCode';
+          downloadLink.download = `QRCode_${qrCode.data?.value.name}`;
           downloadLink.href = `${pngFile}`;
           downloadLink.click();
         };
@@ -63,19 +63,19 @@ const QrCode: VFC = () => {
         <div className={classes.content}>
           <h2 style={{ color: !qrCode.isLoading && qrCode.error ? 'var(--ion-color-danger, #f00)' : undefined }}>
             {qrCode.isLoading && <IonSkeletonText animated style={{ width: '75%', height: '26px', margin: 'auto' }} />}
-            {qrCode.error ? qrCode.error : qrCode.data?.name}
+            {qrCode.error ? qrCode.error : qrCode.data?.value.name}
           </h2>
           <div className={classes.qr_code_container} style={{ padding: `${size / 17}px` }}>
             <QRCodeGenerator
               id="QRCode"
-              value={`sep:product:${id}`}
+              value={`sep:${qrCode.data?.type}:${qrCode.data?.value.id}`}
               size={size - 17}
               fgColor={qrCode.isLoading || qrCode.error ? '#fff' : undefined}
             />
           </div>
         </div>
 
-        <IonButton expand="block" onClick={onImageDownload}>
+        <IonButton expand="block" onClick={onImageDownload} disabled={qrCode.isLoading || !!qrCode.error}>
           Télécharger le QR Code
         </IonButton>
       </div>

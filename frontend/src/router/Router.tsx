@@ -13,6 +13,7 @@ import RestrictedRoute from './RestrictedRoute';
 import QrCode from 'pages/QrCode';
 import Login from 'pages/Login';
 import { useUser } from 'redux/userSlice';
+import Packs from 'pages/Packs';
 
 const Router: React.VFC = () => {
   const user = useUser();
@@ -21,7 +22,7 @@ const Router: React.VFC = () => {
       <IonSplitPane contentId="main">
         <Menu />
         <IonRouterOutlet id="main">
-          <RestrictedRoute path="/qr/:id" canAccess={!!user.data} exact={true} strict={true}>
+          <RestrictedRoute path="/qr/:slug/:id" canAccess={!!user.data} exact={true} strict={true}>
             <QrCode />
           </RestrictedRoute>
           <RestrictedRoute path="/connexion" canAccess={!user.data} redirectTo="/stock" exact={true} strict={true}>
@@ -29,6 +30,9 @@ const Router: React.VFC = () => {
           </RestrictedRoute>
           <RestrictedRoute path="/stock" canAccess={!!user.data} exact={true} strict={true}>
             <Stock />
+          </RestrictedRoute>
+          <RestrictedRoute path="/packs" canAccess={!!user.data} exact={true} strict={true}>
+            <Packs />
           </RestrictedRoute>
           <RestrictedRoute path="/ventes" canAccess={!!user.data} exact={true} strict={true}>
             <Sales />

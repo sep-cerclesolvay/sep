@@ -1,4 +1,4 @@
-import { IonItem, IonLabel, IonSelect, IonSelectOption, useIonRouter } from '@ionic/react';
+import { IonItem, useIonRouter } from '@ionic/react';
 import Page from 'components/Page';
 import StateAwareList from 'components/StateAwareList';
 import { useEffect, VFC } from 'react';
@@ -23,18 +23,18 @@ const Stock: VFC = () => {
   };
 
   const handleQrCodeButtonClick = (product: Product) => {
-    router.push(`/qr/${product.id}`);
+    router.push(`/qr/product/${product.id}`);
   };
 
   return (
     <Page title="Stock">
-      <IonItem>
+      {/* <IonItem>
         <IonLabel>Trier par</IonLabel>
         <IonSelect interface="popover" placeholder="Select One" onIonChange={(e) => console.log(e.detail.value)}>
           <IonSelectOption value="female">Female</IonSelectOption>
           <IonSelectOption value="male">Male</IonSelectOption>
         </IonSelect>
-      </IonItem>
+      </IonItem> */}
       <StateAwareList
         state={{ isLoading: products.isLoading, items: products.data, error: products.error }}
         renderItem={(product) => (

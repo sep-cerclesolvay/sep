@@ -6,21 +6,35 @@ import { addAsyncThunk } from './utils';
 import { fetchProductById } from 'api/productAPI';
 import { useAppSelector } from './hooks';
 import { Id } from 'types/Id';
+import { Pack } from 'types/Pack';
+import { fetchPackById } from 'api/packAPI';
 
-type QrCodeState = AsyncState<Product>;
+type QrCodeData = { type: 'product' | 'pack'; value: Product | Pack };
+
+type QrCodeState = AsyncState<QrCodeData>;
 
 const initialState: QrCodeState = {
   isLoading: true,
 };
 
-export const loadQrCode = createAsyncThunk('products/fetchProductById', async (productId: Id, { rejectWithValue }) => {
-  try {
-    const response = await fetchProductById(productId);
-    return response;
-  } catch (e) {
-    return rejectWithValue(e.toString());
+export const loadQrCode = createAsyncThunk(
+  'products/fetchProductById',
+  async ({ type, id }: { type: string; id: Id }, { rejectWithValue }) => {
+    try {
+      if (type === 'product') {
+        const response = await fetchProductById(id);
+        return { type, value: response };
+      }
+      if (type === 'pack') {
+        const response = await fetchPackById(id);
+        return { type, value: response };
+      }
+      return rejectWithValue('Type inconnu');
+    } catch (e) {
+      return rejectWithValue(e.toString());
+    }
   }
-});
+);
 
 export const qrCodeSlice = createSlice({
   name: 'qrCode',
@@ -32,6 +46,6 @@ export const qrCodeSlice = createSlice({
 });
 
 export const selectQrCode = (state: RootState): QrCodeState => state.qrCode;
-export const useQrCode = (): AsyncState<Product> => useAppSelector(selectQrCode);
+export const useQrCode = (): AsyncState<QrCodeData> => useAppSelector(selectQrCode);
 
 export default qrCodeSlice.reducer;

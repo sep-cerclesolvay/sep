@@ -20,6 +20,8 @@ import {
   cubeSharp,
   logInSharp,
   logInOutline,
+  fileTrayStackedOutline,
+  fileTrayStackedSharp,
 } from 'ionicons/icons';
 import classes from './Menu.module.scss';
 import { VFC } from 'react';
@@ -45,6 +47,12 @@ const userPages: AppPage[] = [
   {
     title: 'Stock',
     url: '/stock',
+    iosIcon: fileTrayStackedOutline,
+    mdIcon: fileTrayStackedSharp,
+  },
+  {
+    title: 'Packs',
+    url: '/packs',
     iosIcon: cubeOutline,
     mdIcon: cubeSharp,
   },

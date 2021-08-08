@@ -29,8 +29,6 @@ const Scanner: VFC = () => {
     }
   };
 
-  console.log(router.canGoBack());
-
   return (
     <Page
       title="Scan"
