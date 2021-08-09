@@ -1,6 +1,6 @@
 export interface Environment {
   API_URL: string;
-  QR_CODE_URL: string;
+  QR_CODE_NAMESPACE: string;
 }
 
 const REACT_APP_API_URL = (): string => {
@@ -12,7 +12,7 @@ const REACT_APP_API_URL = (): string => {
 
 const environment: Environment = {
   API_URL: REACT_APP_API_URL(),
-  QR_CODE_URL: 'OK',
+  QR_CODE_NAMESPACE: 'sep:',
 };
 
 export default environment;

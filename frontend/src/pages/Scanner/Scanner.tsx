@@ -2,31 +2,44 @@ import { IonAlert, IonButton, NavContext, useIonRouter } from '@ionic/react';
 import Page from 'components/Page';
 import ScannerBox from 'components/ScannerBox';
 import environment from 'environment';
-import { useContext, useState, VFC } from 'react';
+import { useContext, useEffect, useState, VFC } from 'react';
 import { useToast } from '@agney/ir-toast';
 import classes from './Scanner.module.scss';
+import { useAppDispatch } from 'redux/hooks';
+import { add, loadBasket } from 'redux/basketSlice';
 
 const Scanner: VFC = () => {
   const [showQrOverride, setShowQrOverride] = useState(false);
   const navContext = useContext(NavContext);
   const router = useIonRouter();
   const Toast = useToast();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(loadBasket());
+  }, [dispatch]);
 
   const handleScan = (result: string, onlyValue = false) => {
-    const { QR_CODE_URL } = environment;
+    const { QR_CODE_NAMESPACE } = environment;
 
-    const qrRoute = '/qr/';
-    const qrRouteFull = QR_CODE_URL + qrRoute;
+    if (result.startsWith(QR_CODE_NAMESPACE) || onlyValue) {
+      const qrCodeData = onlyValue ? result : result.replace(QR_CODE_NAMESPACE, '');
 
-    if ((qrRouteFull && result.startsWith(qrRouteFull)) || onlyValue) {
-      const qrUuid = onlyValue ? result : result.replace(qrRouteFull, '');
-
-      if (qrUuid) {
-        navContext.navigate(qrRoute + qrUuid);
+      if (qrCodeData) {
+        const qrCodeDataParts = qrCodeData.split(':');
+        if (qrCodeDataParts.length === 2) {
+          const [type, id] = qrCodeDataParts;
+          if (type === 'product') {
+            dispatch(add({ id: parseInt(id), name: 'test', buy_price: '3', sell_price: '5', quantity: 1 }));
+          }
+          // navContext.navigate('/qr/' + qrCodeDataParts.join('/'));
+          navContext.navigate('/ventes/pannier');
+          return;
+        }
       }
-    } else {
-      Toast.error('QrCode non supporté');
     }
+
+    Toast.error('QrCode non supporté');
   };
 
   return (

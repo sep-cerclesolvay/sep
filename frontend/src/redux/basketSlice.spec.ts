@@ -7,15 +7,15 @@ describe('counter reducer', () => {
       {
         id: 1,
         name: 'Product 1',
-        buyPrice: 3.5,
-        sellPrice: 5,
+        buy_price: '3.5',
+        sell_price: '5',
         quantity: 1,
       },
       {
         id: 2,
         name: 'Product 2',
-        buyPrice: 2,
-        sellPrice: 4,
+        buy_price: '2',
+        sell_price: '4',
         quantity: 5,
       },
     ],
@@ -32,8 +32,8 @@ describe('counter reducer', () => {
       add({
         id: 3,
         name: 'Product 3',
-        buyPrice: 1.25,
-        sellPrice: 3.5,
+        buy_price: '1.25',
+        sell_price: '3.5',
         quantity: 2,
       })
     );
@@ -44,8 +44,8 @@ describe('counter reducer', () => {
         {
           id: 3,
           name: 'Product 3',
-          buyPrice: 1.25,
-          sellPrice: 3.5,
+          buy_price: '1.25',
+          sell_price: '3.5',
           quantity: 2,
         },
       ],
@@ -58,8 +58,8 @@ describe('counter reducer', () => {
       add({
         id: 1,
         name: 'Product 1',
-        buyPrice: 3.5,
-        sellPrice: 5,
+        buy_price: '3.5',
+        sell_price: '5',
         quantity: 2,
       })
     );
@@ -69,20 +69,22 @@ describe('counter reducer', () => {
         {
           id: 1,
           name: 'Product 1',
-          buyPrice: 3.5,
-          sellPrice: 5,
+          buy_price: '3.5',
+          sell_price: '5',
           quantity: 3,
         },
         {
           id: 2,
           name: 'Product 2',
-          buyPrice: 2,
-          sellPrice: 4,
+          buy_price: '2',
+          sell_price: '4',
           quantity: 5,
         },
       ],
     });
   });
+
+  // TODO: test addAll
 
   it('should handle removeOne with item quantity equals to 1', () => {
     const actual = basketReducer(initialState, removeOne({ id: 1 }));
@@ -92,8 +94,8 @@ describe('counter reducer', () => {
         {
           id: 2,
           name: 'Product 2',
-          buyPrice: 2,
-          sellPrice: 4,
+          buy_price: '2',
+          sell_price: '4',
           quantity: 5,
         },
       ],
@@ -108,15 +110,15 @@ describe('counter reducer', () => {
         {
           id: 1,
           name: 'Product 1',
-          buyPrice: 3.5,
-          sellPrice: 5,
+          buy_price: '3.5',
+          sell_price: '5',
           quantity: 1,
         },
         {
           id: 2,
           name: 'Product 2',
-          buyPrice: 2,
-          sellPrice: 4,
+          buy_price: '2',
+          sell_price: '4',
           quantity: 4,
         },
       ],
@@ -131,8 +133,8 @@ describe('counter reducer', () => {
         {
           id: 2,
           name: 'Product 2',
-          buyPrice: 2,
-          sellPrice: 4,
+          buy_price: '2',
+          sell_price: '4',
           quantity: 5,
         },
       ],
@@ -147,8 +149,8 @@ describe('counter reducer', () => {
         {
           id: 1,
           name: 'Product 1',
-          buyPrice: 3.5,
-          sellPrice: 5,
+          buy_price: '3.5',
+          sell_price: '5',
           quantity: 1,
         },
       ],
