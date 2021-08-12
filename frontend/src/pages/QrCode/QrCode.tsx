@@ -1,4 +1,4 @@
-import { IonButton, IonItem, IonLabel, IonSelect, IonSelectOption, IonSkeletonText } from '@ionic/react';
+import { IonButton, IonItem, IonLabel, IonSelect, IonSelectOption, IonSkeletonText, IonToggle } from '@ionic/react';
 import Page from 'components/Page';
 import environment from 'environment';
 import { useEffect, useState, VFC } from 'react';
@@ -17,6 +17,7 @@ const QrCode: VFC = () => {
   const { slug, base58Id } = useParams<{ slug: string; base58Id: string }>();
   const shortName = `${typesMap[slug as TypesMapKeys]}${base58Id}`;
   const [size, setSize] = useState(256);
+  const [background, setBackground] = useState(true);
   const qrCode = useQrCode();
   const dispatch = useAppDispatch();
 
@@ -35,8 +36,10 @@ const QrCode: VFC = () => {
         img.onload = () => {
           canvas.width = size;
           canvas.height = size + (size / 16) * 1.5;
-          ctx.fillStyle = '#fff';
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          if (background) {
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+          }
           ctx.drawImage(img, size / 16, size / 16, size - size / 8, size - size / 8);
           ctx.fillStyle = '#000';
           ctx.fillStyle = '#000';
@@ -72,6 +75,10 @@ const QrCode: VFC = () => {
             <IonSelectOption value="2048">x2048</IonSelectOption>
           </IonSelect>
         </IonItem>
+        <IonItem>
+          <IonLabel>Fond blanc</IonLabel>
+          <IonToggle checked={background} onIonChange={(e) => setBackground(e.detail.checked)} />
+        </IonItem>
         <div className={classes.content}>
           <h2 style={{ color: !qrCode.isLoading && qrCode.error ? 'var(--ion-color-danger, #f00)' : undefined }}>
             {qrCode.isLoading && <IonSkeletonText animated style={{ width: '75%', height: '26px', margin: 'auto' }} />}
@@ -83,6 +90,7 @@ const QrCode: VFC = () => {
                 id="QRCode"
                 value={`${QR_CODE_URL}/qr/${qrCode.data?.type}/${base58Id}`}
                 size={size - size / 8}
+                bgColor={background ? '#fff' : '#00000000'}
                 fgColor={qrCode.isLoading || qrCode.error ? '#fff' : undefined}
               />
             </div>
