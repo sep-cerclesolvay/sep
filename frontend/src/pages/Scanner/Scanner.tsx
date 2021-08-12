@@ -7,6 +7,11 @@ import { useToast } from '@agney/ir-toast';
 import classes from './Scanner.module.scss';
 import { useAppDispatch } from 'redux/hooks';
 import { add, loadBasket } from 'redux/basketSlice';
+import { reverseMapping } from 'utils/collections';
+import { typesMap } from 'types/typesMap';
+import { Base58 } from 'utils/base58';
+
+const base58 = new Base58();
 
 const Scanner: VFC = () => {
   const [showQrOverride, setShowQrOverride] = useState(false);
@@ -19,18 +24,23 @@ const Scanner: VFC = () => {
     dispatch(loadBasket());
   }, [dispatch]);
 
-  const handleScan = (result: string, onlyValue = false) => {
+  const handleScan = (result: string, isShortName = false) => {
     const { QR_CODE_URL } = environment;
+    const prefix = `${QR_CODE_URL}/qr/`;
 
-    if (result.startsWith(QR_CODE_URL) || onlyValue) {
-      const qrCodeData = onlyValue ? result : result.replace(QR_CODE_URL, '');
+    if (isShortName) {
+      result = `${reverseMapping(typesMap)[result[0]]}/${result.substr(1)}`;
+    }
+
+    if (result.startsWith(prefix) || isShortName) {
+      const qrCodeData = isShortName ? result : result.replace(prefix, '');
 
       if (qrCodeData) {
-        const qrCodeDataParts = qrCodeData.split(':');
+        const qrCodeDataParts = qrCodeData.split('/');
         if (qrCodeDataParts.length === 2) {
-          const [type, id] = qrCodeDataParts;
+          const [type, shortName] = qrCodeDataParts;
           if (type === 'product') {
-            dispatch(add({ id: parseInt(id), name: 'test', buy_price: '3', sell_price: '5', quantity: 1 }));
+            dispatch(add({ id: base58.decode(shortName), name: 'test', buy_price: '3', sell_price: '5', quantity: 1 }));
           }
           // navContext.navigate('/qr/' + qrCodeDataParts.join('/'));
           navContext.navigate('/ventes/pannier');
