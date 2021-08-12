@@ -20,10 +20,10 @@ const Scanner: VFC = () => {
   }, [dispatch]);
 
   const handleScan = (result: string, onlyValue = false) => {
-    const { QR_CODE_NAMESPACE } = environment;
+    const { QR_CODE_URL } = environment;
 
-    if (result.startsWith(QR_CODE_NAMESPACE) || onlyValue) {
-      const qrCodeData = onlyValue ? result : result.replace(QR_CODE_NAMESPACE, '');
+    if (result.startsWith(QR_CODE_URL) || onlyValue) {
+      const qrCodeData = onlyValue ? result : result.replace(QR_CODE_URL, '');
 
       if (qrCodeData) {
         const qrCodeDataParts = qrCodeData.split(':');

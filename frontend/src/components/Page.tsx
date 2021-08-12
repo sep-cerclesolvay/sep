@@ -9,6 +9,7 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  useIonRouter,
 } from '@ionic/react';
 import { logOutOutline, logOutSharp, logInOutline, logInSharp } from 'ionicons/icons';
 import { useParams } from 'react-router-dom';
@@ -28,9 +29,11 @@ const Page: React.FC<PageProps> = ({ title, backButton = false, defaultBackUrl =
   const { name } = useParams<{ name: string }>();
   const user = useUser();
   const dispatch = useAppDispatch();
+  const router = useIonRouter();
 
   const handleLogoutClick = () => {
     dispatch(logout());
+    router.push('/');
   };
 
   if (!title) title = name;

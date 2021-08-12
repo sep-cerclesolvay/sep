@@ -1,7 +1,7 @@
 import Page from 'components/Page';
 import { useState, VFC } from 'react';
 import { useFormik } from 'formik';
-import { IonInput, IonItem, IonLabel, IonNote, IonSpinner } from '@ionic/react';
+import { IonInput, IonItem, IonLabel, IonNote, IonSpinner, useIonRouter } from '@ionic/react';
 import classes from './Login.module.scss';
 import * as yup from 'yup';
 import { loginUser } from 'api/loginUser';
@@ -21,9 +21,10 @@ const validationSchema = yup.object({
 });
 
 const Login: VFC = () => {
+  const dispatch = useAppDispatch();
+  const router = useIonRouter();
   const initialValues: LoginFormValues = { username: '', password: '' };
   const [errors, setErrors] = useState<string | undefined>(undefined);
-  const dispatch = useAppDispatch();
   const formik = useFormik<LoginFormValues>({
     initialValues,
     validationSchema,
@@ -32,6 +33,7 @@ const Login: VFC = () => {
         const result = await loginUser(values.username, values.password);
         setErrors(undefined);
         dispatch(login(result));
+        router.push('/stock');
       } catch (e) {
         setErrors('Utilisateur ou mot de passe incorrect');
         console.error(e);

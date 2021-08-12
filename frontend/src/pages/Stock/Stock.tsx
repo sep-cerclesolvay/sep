@@ -5,9 +5,12 @@ import { useEffect, VFC } from 'react';
 import { useAppDispatch } from 'redux/hooks';
 import { loadProducts, useProducts } from 'redux/productsSlice';
 import { Product } from 'types/Product';
+import { Base58 } from 'utils/base58';
 import StockEmpty from './StockEmpty';
 import StockItem from './StockItem';
 import StockLoading from './StockLoading';
+
+const base58 = new Base58();
 
 const Stock: VFC = () => {
   const router = useIonRouter();
@@ -23,7 +26,7 @@ const Stock: VFC = () => {
   };
 
   const handleQrCodeButtonClick = (product: Product) => {
-    router.push(`/qr/product/${product.id}`);
+    router.push(`/qr/product/${base58.encode(product.id)}`);
   };
 
   return (
