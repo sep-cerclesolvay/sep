@@ -9,6 +9,7 @@ import FormSubmitButton from 'components/FormSubmitButton';
 import Message from 'components/Message';
 import { useAppDispatch } from 'redux/hooks';
 import { login } from 'redux/userSlice';
+import { isRequestStatusError } from 'types/RequestStatusError';
 
 interface LoginFormValues {
   username: string;
@@ -24,18 +25,22 @@ const Login: VFC = () => {
   const dispatch = useAppDispatch();
   const router = useIonRouter();
   const initialValues: LoginFormValues = { username: '', password: '' };
-  const [errors, setErrors] = useState<string | undefined>(undefined);
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
   const formik = useFormik<LoginFormValues>({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
       try {
         const result = await loginUser(values.username, values.password);
-        setErrors(undefined);
+        setErrorMessage(undefined);
         dispatch(login(result));
         router.push('/stock');
       } catch (e) {
-        setErrors('Utilisateur ou mot de passe incorrect');
+        if (isRequestStatusError(e)) {
+          setErrorMessage(e.message);
+        } else {
+          setErrorMessage(e.toString());
+        }
         console.error(e);
       }
     },
@@ -46,9 +51,9 @@ const Login: VFC = () => {
         <div className={classes.logo_container}>
           <img src="/assets/icon/icon.png" alt="logo" />
         </div>
-        {errors && (
-          <Message color="danger" onDismiss={() => setErrors(undefined)}>
-            {errors}
+        {errorMessage && (
+          <Message color="danger" onDismiss={() => setErrorMessage(undefined)}>
+            {errorMessage}
           </Message>
         )}
         <IonItem>
