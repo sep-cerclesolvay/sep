@@ -1,4 +1,4 @@
-import EditDeleteIonItem from 'components/EditDeleteIonItem';
+import ListItem from 'components/ListItem';
 import { VFC } from 'react';
 import { Product } from 'types/Product';
 
@@ -9,13 +9,9 @@ export interface BasketListProps {
 
 const BasketList: VFC<BasketListProps> = ({ product, onRemoveButtonClick }) => {
   return (
-    <EditDeleteIonItem
-      key={product.id}
-      deleteButton={true}
-      onClickDeleteButton={onRemoveButtonClick.bind(this, product)}
-    >
+    <ListItem key={product.id} deleteButton={true} onClickDeleteButton={onRemoveButtonClick.bind(this, product)}>
       {product.name}
-    </EditDeleteIonItem>
+    </ListItem>
   );
 };
 

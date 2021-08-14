@@ -1,5 +1,5 @@
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/react';
-import EditDeleteIonItem, { Button } from 'components/EditDeleteIonItem';
+import ListItem, { ListItemButton } from 'components/ListItem';
 import { qrCodeOutline, qrCodeSharp } from 'ionicons/icons';
 import { VFC } from 'react';
 import { Product } from 'types/Product';
@@ -13,7 +13,7 @@ export interface BasketListProps {
 }
 
 const BasketList: VFC<BasketListProps> = ({ product, onQrCodeButtonClick, onEditButtonClick }) => {
-  const customButtons: Button[] = [
+  const customButtons: ListItemButton[] = [
     {
       id: 'qr-code',
       iosIcon: qrCodeOutline,
@@ -25,7 +25,7 @@ const BasketList: VFC<BasketListProps> = ({ product, onQrCodeButtonClick, onEdit
 
   return (
     <IonCard>
-      <EditDeleteIonItem
+      <ListItem
         key={product.id}
         card={true}
         editButton={true}
@@ -42,7 +42,7 @@ const BasketList: VFC<BasketListProps> = ({ product, onQrCodeButtonClick, onEdit
             <p>Quantité en stock : {product.quantity}</p>
           </div>
         </IonCardContent>
-      </EditDeleteIonItem>
+      </ListItem>
     </IonCard>
   );
 };

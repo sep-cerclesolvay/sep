@@ -1,20 +1,20 @@
 import { IonButton, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel } from '@ionic/react';
 import useBreakpoints from 'hooks/useBreakpoints';
 import { pencilOutline, pencilSharp, trashBinOutline, trashBinSharp } from 'ionicons/icons';
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { Color } from '@ionic/core/dist/types/interface';
-import classes from './EditDeleteIonItem.module.scss';
+import classes from './ListItem.module.scss';
 
-export interface EditDeleteIonItemProps {
+export interface ListItemProps {
   card?: boolean;
   editButton?: boolean;
   onClickEditButton?: () => void;
   deleteButton?: boolean;
   onClickDeleteButton?: () => void;
-  customButtons?: Button[];
+  customButtons?: ListItemButton[];
 }
 
-export interface Button {
+export interface ListItemButton {
   id: string;
   iosIcon: string;
   mdIcon: string;
@@ -22,7 +22,7 @@ export interface Button {
   color?: Color;
 }
 
-const EditDeleteIonItem: FC<EditDeleteIonItemProps> = ({
+const ListItem: FC<ListItemProps> = ({
   children,
   card = false,
   editButton = false,
@@ -35,9 +35,17 @@ const EditDeleteIonItem: FC<EditDeleteIonItemProps> = ({
   },
   customButtons = [],
 }) => {
+  const ionItemSlidingRef = useRef<HTMLIonItemSlidingElement>(null);
   const { minBreakpoint } = useBreakpoints();
+  const small = !minBreakpoint('md');
 
-  let buttons: Button[] = customButtons;
+  useEffect(() => {
+    if (!small) {
+      ionItemSlidingRef.current?.close();
+    }
+  }, [small]);
+
+  let buttons: ListItemButton[] = customButtons;
 
   if (editButton) {
     buttons = [
@@ -65,7 +73,7 @@ const EditDeleteIonItem: FC<EditDeleteIonItemProps> = ({
   }
 
   return (
-    <IonItemSliding className={card ? classes.card : undefined} disabled={minBreakpoint('md') ? true : false}>
+    <IonItemSliding ref={ionItemSlidingRef} className={card ? classes.card : undefined} disabled={small ? false : true}>
       <IonItem className={classes.ion_item}>
         <IonLabel className={classes.ion_label}>
           <div className={classes.content}>
@@ -89,4 +97,4 @@ const EditDeleteIonItem: FC<EditDeleteIonItemProps> = ({
   );
 };
 
-export default EditDeleteIonItem;
+export default ListItem;
