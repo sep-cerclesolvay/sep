@@ -35,5 +35,11 @@ class UserAdmin(BaseUserAdmin):
     ordering = ['name']
     filter_horizontal = ()
 
+    def has_delete_permission(self, request, obj=None):
+        if obj is None:
+            return True
+        else:
+            return request.user != obj
+
 
 admin.site.register(User, UserAdmin)
