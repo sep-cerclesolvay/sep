@@ -79,10 +79,22 @@ const Menu: VFC = () => {
   return (
     <IonMenu contentId="main" type="overlay" className={classes.menu}>
       <IonContent>
-        <IonList className={classes.inbox_list}>
-          {user.data?.name}
-          <IonListHeader>SEP</IonListHeader>
-          <IonNote>Solvay Entraide et Publication</IonNote>
+        <IonList>
+          {user.data && (
+            <>
+              <div className={classes.user_box}>
+                <IonNote>
+                  Bonjour, <strong>{user.data.name}</strong>
+                </IonNote>
+              </div>
+              <hr />
+            </>
+          )}
+          <div className={classes.brand_box}>
+            <IonListHeader>SEP</IonListHeader>
+            <IonNote>Solvay Entraide et Publication</IonNote>
+          </div>
+          <hr />
           {pages.map((appPage) => {
             return (
               <IonMenuToggle key={appPage.url} autoHide={false}>
