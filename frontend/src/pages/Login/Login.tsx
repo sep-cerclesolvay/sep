@@ -58,14 +58,26 @@ const Login: VFC = () => {
         )}
         <IonItem>
           <IonLabel position="stacked">Nom</IonLabel>
-          <IonInput type="text" name="username" value={formik.values.username} onIonChange={formik.handleChange} />
+          <IonInput
+            type="text"
+            name="username"
+            value={formik.values.username}
+            onIonChange={formik.handleChange}
+            disabled={formik.isSubmitting}
+          />
         </IonItem>
         {formik.touched.username && Boolean(formik.errors.username) && (
           <IonNote color="danger">{formik.touched.username && formik.errors.username}</IonNote>
         )}
         <IonItem>
           <IonLabel position="stacked">Mot de passe</IonLabel>
-          <IonInput type="password" name="password" value={formik.values.password} onIonChange={formik.handleChange} />
+          <IonInput
+            type="password"
+            name="password"
+            value={formik.values.password}
+            onIonChange={formik.handleChange}
+            disabled={formik.isSubmitting}
+          />
         </IonItem>
         {formik.touched.password && Boolean(formik.errors.password) && (
           <IonNote color="danger">{formik.touched.password && formik.errors.password}</IonNote>
