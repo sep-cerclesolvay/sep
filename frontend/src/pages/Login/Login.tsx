@@ -10,6 +10,7 @@ import Message from 'components/Message';
 import { useAppDispatch } from 'redux/hooks';
 import { login } from 'redux/userSlice';
 import { isRequestStatusError } from 'types/RequestStatusError';
+import RequiredAsterisk from 'components/RequiredAsterisk';
 
 interface LoginFormValues {
   username: string;
@@ -57,7 +58,10 @@ const Login: VFC = () => {
           </Message>
         )}
         <IonItem>
-          <IonLabel position="stacked">Nom</IonLabel>
+          <IonLabel position="stacked">
+            Nom
+            <RequiredAsterisk />
+          </IonLabel>
           <IonInput
             type="text"
             name="username"
@@ -70,7 +74,10 @@ const Login: VFC = () => {
           <IonNote color="danger">{formik.touched.username && formik.errors.username}</IonNote>
         )}
         <IonItem>
-          <IonLabel position="stacked">Mot de passe</IonLabel>
+          <IonLabel position="stacked">
+            Mot de passe
+            <RequiredAsterisk />
+          </IonLabel>
           <IonInput
             type="password"
             name="password"
