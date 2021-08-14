@@ -10,11 +10,20 @@ export const loginUser = async (username: string, password: string): Promise<Use
     }),
     body: JSON.stringify({ username, password }),
   });
+  const content = await resp.json();
   if (resp.status === 400) {
-    const content = await resp.json();
     if (content.non_field_errors) {
       throw new RequestStatusError(resp.status, resp.statusText, content.non_field_errors.join(','));
     }
   }
-  return await resp.json();
+  if (resp.status === 403) {
+    if (content.error === 'superuser') {
+      throw new RequestStatusError(
+        resp.status,
+        resp.statusText,
+        "Les supers utilisateurs ne peuvent utiliser que le panneau d'administration. Essayez de vous connecter avec un autre compte."
+      );
+    }
+  }
+  return content;
 };

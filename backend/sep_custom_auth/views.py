@@ -1,4 +1,4 @@
-from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED
+from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_403_FORBIDDEN
 from rest_framework.authtoken.models import Token
 from rest_framework.parsers import JSONParser
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -24,6 +24,8 @@ class CustomAuthToken(ObtainAuthToken):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
+        if user.superuser:
+            return Response({'error': 'superuser'}, status=HTTP_403_FORBIDDEN)
         token, created = Token.objects.get_or_create(user=user)
         userSerialized = AuthTokenSerializer(user).data
         userSerialized['token'] = token.key
