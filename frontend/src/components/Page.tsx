@@ -7,11 +7,14 @@ import {
   IonIcon,
   IonMenuButton,
   IonPage,
+  IonRefresher,
+  IonRefresherContent,
   IonTitle,
   IonToolbar,
   useIonRouter,
 } from '@ionic/react';
 import { logOutOutline, logOutSharp, logInOutline, logInSharp } from 'ionicons/icons';
+import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from 'redux/hooks';
 import { logout, useUser } from 'redux/userSlice';
@@ -26,10 +29,17 @@ export interface PageProps {
 }
 
 const Page: React.FC<PageProps> = ({ title, backButton = false, defaultBackUrl = '/', backText, children }) => {
+  const ionContentRef = useRef<HTMLIonContentElement>(null);
   const { name } = useParams<{ name: string }>();
   const user = useUser();
   const dispatch = useAppDispatch();
   const router = useIonRouter();
+
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = 'main { overflow-y: auto!important; }';
+    ionContentRef.current?.shadowRoot?.appendChild(style);
+  }, []);
 
   const handleLogoutClick = () => {
     dispatch(logout());
@@ -69,12 +79,15 @@ const Page: React.FC<PageProps> = ({ title, backButton = false, defaultBackUrl =
         </IonToolbar>
       </IonHeader>
 
-      <IonContent>
+      <IonContent ref={ionContentRef}>
         <IonHeader>
           {/* <IonToolbar>
             <IonTitle size="large">{title}</IonTitle>
           </IonToolbar> */}
         </IonHeader>
+        <IonRefresher slot="fixed" disabled={true}>
+          <IonRefresherContent />
+        </IonRefresher>
         {children}
       </IonContent>
     </IonPage>
