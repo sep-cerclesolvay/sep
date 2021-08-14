@@ -1,6 +1,8 @@
 import { IonItem, useIonRouter } from '@ionic/react';
+import Fab from 'components/Fab';
 import Page from 'components/Page';
 import StateAwareList from 'components/StateAwareList';
+import { addCircleOutline, addCircleSharp } from 'ionicons/icons';
 import { useEffect, VFC } from 'react';
 import { useAppDispatch } from 'redux/hooks';
 import { loadProducts, useProducts } from 'redux/productsSlice';
@@ -52,6 +54,7 @@ const Stock: VFC = () => {
         emptyComponent={<StockEmpty />}
         renderError={(error) => <IonItem>Error: {JSON.stringify(error, undefined, 2)}</IonItem>}
       />
+      <Fab text="Ajouter un produit" iosIcon={addCircleOutline} mdIcon={addCircleSharp} />
     </Page>
   );
 };
