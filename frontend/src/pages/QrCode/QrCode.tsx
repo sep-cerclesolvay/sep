@@ -16,8 +16,8 @@ const QrCode: VFC = () => {
   const { QR_CODE_URL } = environment;
   const { slug, base58Id } = useParams<{ slug: string; base58Id: string }>();
   const shortName = `${typesMap[slug as TypesMapKeys]}${base58Id}`;
-  const [size, setSize] = useState(256);
-  const [background, setBackground] = useState(true);
+  const [size, setSize] = useState(+(localStorage.getItem('qr-code-size') || 256));
+  const [background, setBackground] = useState((localStorage.getItem('qr-code-background') || 'true') === 'true');
   const qrCode = useQrCode();
   const dispatch = useAppDispatch();
 
@@ -45,7 +45,7 @@ const QrCode: VFC = () => {
           ctx.fillStyle = '#000';
           ctx.font = `${(size / 16) * 1.5}px Arial`;
           ctx.textAlign = 'center';
-          ctx.fillText(`Value: ${shortName}`, canvas.width / 2, size + (canvas.height - size) / 2);
+          ctx.fillText(`Valeur: ${shortName}`, canvas.width / 2, size + (canvas.height - size) / 2);
           const pngFile = canvas.toDataURL('image/png');
           const downloadLink = document.createElement('a');
           downloadLink.download = `QRCode_${qrCode.data?.value.name}`;
@@ -57,17 +57,25 @@ const QrCode: VFC = () => {
     }
   };
 
+  const handleSizeChange = (e: CustomEvent) => {
+    const size = parseInt(e.detail.value);
+    localStorage.setItem('qr-code-size', `${size}`);
+    setSize(size);
+  };
+
+  const handleBackgroundChange = (e: CustomEvent) => {
+    const checked = e.detail.checked;
+    console.log(checked);
+    localStorage.setItem('qr-code-background', checked);
+    setBackground(checked);
+  };
+
   return (
     <Page title="Qr Code" backButton={true} defaultBackUrl="/stock" backText={'Stock'}>
       <div className={classes.qr_code_page}>
         <IonItem>
-          <IonLabel>Size</IonLabel>
-          <IonSelect
-            interface="popover"
-            placeholder={'Size'}
-            value={`${size}`}
-            onIonChange={(e) => setSize(parseInt(e.detail.value))}
-          >
+          <IonLabel>Taille</IonLabel>
+          <IonSelect interface="popover" placeholder={'Size'} value={`${size}`} onIonChange={handleSizeChange}>
             <IonSelectOption value="128">x128</IonSelectOption>
             <IonSelectOption value="256">x256</IonSelectOption>
             <IonSelectOption value="512">x512</IonSelectOption>
@@ -77,7 +85,7 @@ const QrCode: VFC = () => {
         </IonItem>
         <IonItem>
           <IonLabel>Fond blanc</IonLabel>
-          <IonToggle checked={background} onIonChange={(e) => setBackground(e.detail.checked)} />
+          <IonToggle checked={background} onIonChange={handleBackgroundChange} />
         </IonItem>
         <div className={classes.content}>
           <h2 style={{ color: !qrCode.isLoading && qrCode.error ? 'var(--ion-color-danger, #f00)' : undefined }}>
@@ -94,7 +102,7 @@ const QrCode: VFC = () => {
                 fgColor={qrCode.isLoading || qrCode.error ? '#fff' : undefined}
               />
             </div>
-            <p style={{ margin: `${size / 16}px` }}>Value: {shortName}</p>
+            <p style={{ margin: `${size / 16}px` }}>Valeur: {shortName}</p>
           </div>
         </div>
 

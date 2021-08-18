@@ -1,10 +1,13 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/react';
+import { IonBadge, IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/react';
 import ListItem, { ListItemButton } from 'components/ListItem';
 import { qrCodeOutline, qrCodeSharp } from 'ionicons/icons';
 import { VFC } from 'react';
 import { Product } from 'types/Product';
+import { Base58 } from 'utils/base58';
 import { removeDecimalZeros } from 'utils/math';
 import classes from './Stock.module.scss';
+
+const base58 = new Base58();
 
 export interface BasketListProps {
   product: Product;
@@ -33,7 +36,10 @@ const BasketList: VFC<BasketListProps> = ({ product, onQrCodeButtonClick, onEdit
         customButtons={customButtons}
       >
         <IonCardHeader>
-          <IonCardTitle>{product.name}</IonCardTitle>
+          <IonCardTitle className={classes.item_title}>
+            <span className={classes.text}>{product.name}</span>
+            <IonBadge>#P{base58.encode(product.id)}</IonBadge>
+          </IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
           <div className={classes.item}>
