@@ -32,6 +32,10 @@
     --inner-border-width: 0;
     --padding-start: var(--ion-safe-area-left, 0);
     --color: var(--ion-card-color, var(--ion-item-color, var(--ion-color-step-600, #666)));
+
+    @include breakpoints.mq(xs, sm) {
+      --inner-padding-end: var(--ion-safe-area-right, 0);
+    }
   }
 
   // stylelint-disable-next-line selector-class-pattern
@@ -46,6 +50,7 @@
     > :first-child {
       margin-top: 0;
       margin-bottom: 0;
+      overflow: hidden;
     }
   }
 }

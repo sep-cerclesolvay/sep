@@ -1,23 +1,30 @@
 .item_title {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  font-size: 1.2em;
 
   .text {
     margin-right: 0.5em;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
   }
 }
 
 .item {
   display: grid;
   grid-template-areas: 'sell-price' 'by-price' 'quantity';
+  grid-template-columns: 1fr;
   width: 100%;
 
   @media (min-width: 32em) {
     grid-template-areas: 'sell-price quantity' 'by-price quantity';
+    grid-template-columns: 1fr 1fr;
   }
 
   @media (min-width: 48em) {
     grid-template-areas: 'sell-price by-price quantity';
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
   p:nth-child(1) {
