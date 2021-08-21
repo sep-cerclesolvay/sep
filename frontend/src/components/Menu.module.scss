@@ -5,7 +5,8 @@ ion-menu.menu {
     max-width: var(--max-width);
   }
 
-  ion-content {
+  ion-content,
+  ion-content ion-item {
     --background: var(--ion-item-background, var(--ion-background-color, #fff));
   }
 
