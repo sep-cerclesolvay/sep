@@ -23,7 +23,7 @@ Afin de garantir une compatibilité entre tout appareils. L'interface est dével
 
 ## Plateformes
 
-Le projet va être déployer sur Heroku (pour la REST API) et sur Vercel (pour l'interface). C'est deux service offres des plans gratuit. Si jamais le projet accède ces plan gratuits, il vaut peut-être mieux chercher une alternative.
+Le projet va être déployé sur Heroku (pour la REST API) et sur Vercel (pour l'interface). C'est deux service offres des plans gratuit. Si jamais le projet dépasse ces plan gratuits, il vaut peut-être mieux chercher une alternative.
 
 ## Maquettes
 
@@ -39,16 +39,3 @@ Le projet va être déployer sur Heroku (pour la REST API) et sur Vercel (pour l
 - [ ] `En cours...` Implémentation des liens de l'API REST
 - [ ] `En cours...` Implémentation de l'interface
 - [ ] Test (unit ?, e2e ?, acceptance ?)
-
-## Questions / TODO
-
-- Le QR code doit-il inclure un logo ?
-- Le QR code doit-il être utilisable par n'importe qui ? Ces personnes serait alors dirigées vers un page l'explications...
-- Il font créer un compte Vercel et Heroku. Et me donner le mot de passe ou faire avec moi la configuration.
-- Vous avez un ou plusieurs logo ?
-
-## Temps
-
-- Temps déjà passé : 12h
-- Temps total estimé : 30h
-- Contrainte : "Acceptance test" max mi-août
