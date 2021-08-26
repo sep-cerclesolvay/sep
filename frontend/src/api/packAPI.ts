@@ -16,8 +16,8 @@ export const fetchPacks = async (): Promise<Product[] | undefined> => {
   return await resp.json();
 };
 
-export const fetchPackById = async (productId: Id): Promise<Product | undefined> => {
-  const resp = await fetch(`${environment.API_URL}/packs/${productId}/`, {
+export const fetchPackById = async (packId: Id): Promise<Product | undefined> => {
+  const resp = await fetch(`${environment.API_URL}/packs/${packId}/`, {
     method: 'GET',
     headers: new Headers({
       'Content-Type': 'application/json',

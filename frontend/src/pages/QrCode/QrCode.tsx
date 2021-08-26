@@ -71,7 +71,7 @@ const QrCode: VFC = () => {
   };
 
   return (
-    <Page title="Qr Code" backButton={true} defaultBackUrl="/stock" backText={'Stock'}>
+    <Page title="Qr Code" backButton={true} defaultBackUrl={slug === 'pack' ? '/packs' : '/stock'} backText={'Stock'}>
       <div className={classes.qr_code_page}>
         <IonItem>
           <IonLabel>Taille</IonLabel>

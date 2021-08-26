@@ -11,7 +11,7 @@ class Router(routers.DefaultRouter):
 
 router = Router()
 router.register('products', ProductViewSet)
-router.register('packs-detailed', ReadOnlyPackViewSet)
+router.register('packs', ReadOnlyPackViewSet)
 router.register('packs', PackViewSet)
 router.register('payement-methods', PaymentMethodViewSet)
 

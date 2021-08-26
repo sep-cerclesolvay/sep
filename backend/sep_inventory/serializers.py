@@ -15,7 +15,7 @@ class ReadOnlyPackSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pack
-        fields = ('name', 'products')
+        fields = ('id', 'name', 'products')
 
 
 class PackSerializer(serializers.ModelSerializer):

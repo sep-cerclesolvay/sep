@@ -70,17 +70,19 @@ const StateAwareList = <T,>({
   return (
     <>
       {!minBreakpoint('md') && !!onRefresh && <Refresher isLoading={state.isLoading} onRefresh={onRefresh} />}
-      <IonToolbar color="light">
-        <IonButtons slot="start">
-          {toolbarButtons}
-          {minBreakpoint('md') && (
-            <IonButton fill="clear" shape="round" onClick={() => !!onRefresh && onRefresh()}>
-              <IonIcon slot="start" ios={refreshOutline} md={refreshSharp} />
-              Mettre à jour
-            </IonButton>
-          )}
-        </IonButtons>
-      </IonToolbar>
+      {((!!toolbarButtons && toolbarButtons.length > 1) || minBreakpoint('md')) && (
+        <IonToolbar color="light">
+          <IonButtons slot="start">
+            {toolbarButtons}
+            {minBreakpoint('md') && (
+              <IonButton fill="clear" shape="round" onClick={() => !!onRefresh && onRefresh()}>
+                <IonIcon slot="start" ios={refreshOutline} md={refreshSharp} />
+                Mettre à jour
+              </IonButton>
+            )}
+          </IonButtons>
+        </IonToolbar>
+      )}
       {content}
     </>
   );

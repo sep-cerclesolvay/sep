@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import mixins, viewsets
 from rest_framework.permissions import IsAuthenticated
 
 from .serializers import PackSerializer, PaymentMethodSerializer, ProductSerializer, ReadOnlyPackSerializer
@@ -17,7 +17,10 @@ class ReadOnlyPackViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticated]
 
 
-class PackViewSet(viewsets.ModelViewSet):
+class PackViewSet(mixins.CreateModelMixin,
+                  mixins.UpdateModelMixin,
+                  mixins.DestroyModelMixin,
+                  viewsets.GenericViewSet):
     queryset = Pack.objects.all()
     serializer_class = PackSerializer
     permission_classes = [IsAuthenticated]
