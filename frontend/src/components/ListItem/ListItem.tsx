@@ -45,7 +45,13 @@ const ListItem: FC<ListItemProps> = ({
     }
   }, [small]);
 
-  let buttons: ListItemButton[] = customButtons;
+  let buttons: ListItemButton[] = customButtons.map((customButton) => ({
+    ...customButton,
+    onClick: () => {
+      ionItemSlidingRef.current?.close();
+      customButton.onClick();
+    },
+  }));
 
   if (editButton) {
     buttons = [
@@ -54,7 +60,10 @@ const ListItem: FC<ListItemProps> = ({
         id: 'edit',
         iosIcon: pencilOutline,
         mdIcon: pencilSharp,
-        onClick: onClickEditButton,
+        onClick: () => {
+          ionItemSlidingRef.current?.close();
+          onClickEditButton();
+        },
       },
     ];
   }
@@ -66,7 +75,10 @@ const ListItem: FC<ListItemProps> = ({
         id: 'delete',
         iosIcon: trashBinOutline,
         mdIcon: trashBinSharp,
-        onClick: onClickDeleteButton,
+        onClick: () => {
+          ionItemSlidingRef.current?.close();
+          onClickDeleteButton();
+        },
         color: 'danger',
       },
     ];
