@@ -15,11 +15,11 @@ const base58 = new Base58();
 const QrCode: VFC = () => {
   const { QR_CODE_URL } = environment;
   const { slug, base58Id } = useParams<{ slug: string; base58Id: string }>();
-  const shortName = `${typesMap[slug as TypesMapKeys]}${base58Id}`;
   const [size, setSize] = useState(+(localStorage.getItem('qr-code-size') || 256));
   const [background, setBackground] = useState((localStorage.getItem('qr-code-background') || 'true') === 'true');
   const qrCode = useQrCode();
   const dispatch = useAppDispatch();
+  const shortName = qrCode.error ? '-' : `${typesMap[slug as TypesMapKeys]}${base58Id}`;
 
   useEffect(() => {
     dispatch(loadQrCode({ type: slug, id: base58.decode(base58Id) }));
