@@ -7,8 +7,6 @@ import {
   IonIcon,
   IonMenuButton,
   IonPage,
-  IonRefresher,
-  IonRefresherContent,
   IonTitle,
   IonToolbar,
   useIonRouter,
@@ -85,9 +83,6 @@ const Page: React.FC<PageProps> = ({ title, backButton = false, defaultBackUrl =
             <IonTitle size="large">{title}</IonTitle>
           </IonToolbar> */}
         </IonHeader>
-        <IonRefresher slot="fixed" disabled={true}>
-          <IonRefresherContent />
-        </IonRefresher>
         {children}
       </IonContent>
     </IonPage>

@@ -7,7 +7,7 @@ const BasketLoading: VFC = () => {
     <IonCard>
       <IonCardHeader>
         <IonCardTitle>
-          <IonSkeletonText animated style={{ width: '35%', height: '26px' }} />
+          <IonSkeletonText animated style={{ width: '35%', height: '20px' }} />
         </IonCardTitle>
       </IonCardHeader>
       <IonCardContent>

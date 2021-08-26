@@ -29,6 +29,10 @@ const Stock: VFC = () => {
     router.push(`/qr/product/${base58.encode(product.id)}`);
   };
 
+  const handleRefresh = () => {
+    dispatch(loadProducts());
+  };
+
   return (
     <Page title="Stock">
       {/* <IonItem>
@@ -48,11 +52,19 @@ const Stock: VFC = () => {
           />
         )}
         keyResolver={(product) => `${product.id}`}
+        toolbarButtons={
+          [
+            // <IonButton key="1" fill="clear" shape="round">
+            //   <IonIcon slot="start" ios={addOutline} md={addSharp} />
+            //   Nouveau produit
+            // </IonButton>,
+          ]
+        }
         loadingComponent={<StockLoading />}
         emptyComponent={<StockEmpty />}
         renderError={(error) => <IonItem>Error: {JSON.stringify(error, undefined, 2)}</IonItem>}
+        onRefresh={handleRefresh}
       />
-      {/* <Fab text="Ajouter un produit" iosIcon={addCircleOutline} mdIcon={addCircleSharp} /> */}
     </Page>
   );
 };
