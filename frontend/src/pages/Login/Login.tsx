@@ -50,7 +50,7 @@ const Login: VFC = () => {
     <Page title="Connexion">
       <form onSubmit={formik.handleSubmit} className={classes.form}>
         <div className={classes.logo_container}>
-          <img src="/assets/icon/icon.png" alt="logo" />
+          <img src="/assets/icon/sep.svg" alt="logo" />
         </div>
         {errorMessage && (
           <Message color="danger" onDismiss={() => setErrorMessage(undefined)}>
