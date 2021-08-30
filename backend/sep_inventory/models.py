@@ -73,8 +73,10 @@ class Sale(models.Model):
 
 
 class SaleItem(models.Model):
-    product = models.ForeignKey('Product', on_delete=RESTRICT)
-    sale = models.ForeignKey('Sale', on_delete=RESTRICT)
+    product = models.ForeignKey(
+        'Product', on_delete=RESTRICT, related_name='product_to_sale')
+    sale = models.ForeignKey('Sale', on_delete=RESTRICT,
+                             related_name='sale_to_product')
     quantity = models.SmallIntegerField()
 
     def __str__(self) -> str:
