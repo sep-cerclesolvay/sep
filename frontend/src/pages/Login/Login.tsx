@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { IonInput, IonItem, IonLabel, IonNote, IonSpinner, useIonRouter } from '@ionic/react';
 import classes from './Login.module.scss';
 import * as yup from 'yup';
-import { loginUser } from 'api/loginUser';
+import { loginUser } from 'api/userAPI';
 import FormSubmitButton from 'components/FormSubmitButton';
 import Message from 'components/Message';
 import { useAppDispatch } from 'redux/hooks';

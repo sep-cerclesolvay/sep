@@ -1,6 +1,6 @@
 import environment from 'environment';
 import { RequestStatusError } from 'types/RequestStatusError';
-import { UserWithToken } from 'types/User';
+import { User, UserWithToken } from 'types/User';
 
 export const loginUser = async (username: string, password: string): Promise<UserWithToken> => {
   const resp = await fetch(`${environment.API_URL}/login/`, {
@@ -26,4 +26,21 @@ export const loginUser = async (username: string, password: string): Promise<Use
     }
   }
   return content;
+};
+
+export const fetchCurrentUser = async (): Promise<User | undefined> => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    return undefined;
+  }
+  const resp = await fetch(`${environment.API_URL}/current-user/`, {
+    method: 'GET',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    }),
+  });
+  if (resp.status === 401) localStorage.removeItem('token');
+  if (resp.status >= 400) throw new Error(`${resp.status} ${resp.statusText}`);
+  return await resp.json();
 };
