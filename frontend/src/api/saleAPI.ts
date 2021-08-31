@@ -1,11 +1,11 @@
 import environment from 'environment';
 import { Id } from 'types/Id';
-import { Pack } from 'types/Pack';
+import { Sale } from 'types/Sale';
 
 // const sleep = async (duration: number) => await new Promise((r) => setTimeout(r, duration));
 
-export const fetchPacks = async (): Promise<Pack[] | undefined> => {
-  const resp = await fetch(`${environment.API_URL}/packs/`, {
+export const fetchSales = async (): Promise<Sale[] | undefined> => {
+  const resp = await fetch(`${environment.API_URL}/sales/`, {
     method: 'GET',
     headers: new Headers({
       'Content-Type': 'application/json',
@@ -16,8 +16,8 @@ export const fetchPacks = async (): Promise<Pack[] | undefined> => {
   return await resp.json();
 };
 
-export const fetchPackById = async (packId: Id): Promise<Pack | undefined> => {
-  const resp = await fetch(`${environment.API_URL}/packs/${packId}/`, {
+export const fetchSaleById = async (packId: Id): Promise<Sale | undefined> => {
+  const resp = await fetch(`${environment.API_URL}/sales/${packId}/`, {
     method: 'GET',
     headers: new Headers({
       'Content-Type': 'application/json',

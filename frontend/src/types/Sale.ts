@@ -5,5 +5,6 @@ import { SaleItem } from './SaleItem';
 export interface Sale {
   id: Id;
   paymentMethod: PaymentMethod;
+  total: string;
   items: SaleItem[];
 }

@@ -3,18 +3,18 @@ import { AsyncState } from '../types/AsyncState';
 import { RootState } from './store';
 import { addAsyncThunk } from './utils';
 import { useAppSelector } from './hooks';
-import { Pack } from 'types/Pack';
-import { fetchPacks } from 'api/packAPI';
+import { fetchSales } from 'api/saleAPI';
+import { Sale } from 'types/Sale';
 
-type PacksState = AsyncState<Pack[]>;
+type SalesState = AsyncState<Sale[]>;
 
-const initialState: PacksState = {
+const initialState: SalesState = {
   isLoading: true,
 };
 
-export const loadPacks = createAsyncThunk('packs/fetchPacks', async (_i, { rejectWithValue }) => {
+export const loadSales = createAsyncThunk('sales/fetchSales', async (_i, { rejectWithValue }) => {
   try {
-    const response = await fetchPacks();
+    const response = await fetchSales();
     return response;
   } catch (e) {
     return rejectWithValue(e.data);
@@ -22,15 +22,15 @@ export const loadPacks = createAsyncThunk('packs/fetchPacks', async (_i, { rejec
 });
 
 export const productsSlice = createSlice({
-  name: 'packs',
+  name: 'sales',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    addAsyncThunk(builder, loadPacks);
+    addAsyncThunk(builder, loadSales);
   },
 });
 
-export const selectPacks = (state: RootState): PacksState => state.packs;
-export const usePacks = (): AsyncState<Pack[]> => useAppSelector(selectPacks);
+export const selectSales = (state: RootState): SalesState => state.sales;
+export const useSales = (): AsyncState<Sale[]> => useAppSelector(selectSales);
 
 export default productsSlice.reducer;

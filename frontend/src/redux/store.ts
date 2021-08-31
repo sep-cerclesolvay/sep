@@ -1,6 +1,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import productsReducer from './productsSlice';
 import packsReducer from './packsSlice';
+import salesReducer from './salesSlice';
 import basketReducer from './basketSlice';
 import userReducer from './userSlice';
 import qrCodeReducer from './qrCodeSlice';
@@ -11,6 +12,7 @@ export const store = configureStore({
     user: userReducer,
     products: productsReducer,
     packs: packsReducer,
+    sales: salesReducer,
     qrCode: qrCodeReducer,
   },
 });

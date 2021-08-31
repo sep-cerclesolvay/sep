@@ -31,7 +31,7 @@ const BasketList: VFC<BasketListProps> = ({ product, onQrCodeButtonClick, onEdit
       <ListItem
         key={product.id}
         card={true}
-        editButton={true}
+        editButton={false}
         onClickEditButton={onEditButtonClick.bind(this, product)}
         customButtons={customButtons}
       >

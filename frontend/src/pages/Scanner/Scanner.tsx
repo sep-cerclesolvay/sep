@@ -5,8 +5,8 @@ import environment from 'environment';
 import { useContext, useEffect, useState, VFC } from 'react';
 import { useToast } from '@agney/ir-toast';
 import classes from './Scanner.module.scss';
-import { useAppDispatch } from 'redux/hooks';
-import { add, loadBasket } from 'redux/basketSlice';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { addItem, clear, selectBasket } from 'redux/basketSlice';
 import { reverseMapping } from 'utils/collections';
 import { typesMap } from 'types/typesMap';
 import { Base58 } from 'utils/base58';
@@ -18,11 +18,12 @@ const Scanner: VFC = () => {
   const navContext = useContext(NavContext);
   const router = useIonRouter();
   const Toast = useToast();
+  const basket = useAppSelector(selectBasket);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(loadBasket());
-  }, [dispatch]);
+    if (basket.isLoading) dispatch(clear());
+  }, [basket, dispatch]);
 
   const handleScan = (result: string, isShortName = false) => {
     const { QR_CODE_URL } = environment;
@@ -40,7 +41,13 @@ const Scanner: VFC = () => {
         if (qrCodeDataParts.length === 2) {
           const [type, shortName] = qrCodeDataParts;
           if (type === 'product') {
-            dispatch(add({ id: base58.decode(shortName), name: 'test', buy_price: '3', sell_price: '5', quantity: 1 }));
+            dispatch(
+              addItem({
+                id: base58.decode(shortName),
+                product: { id: 1, name: 'test', sell_price: '5' },
+                quantity: 1,
+              })
+            );
           }
           // navContext.navigate('/qr/' + qrCodeDataParts.join('/'));
           navContext.navigate('/ventes/pannier');
