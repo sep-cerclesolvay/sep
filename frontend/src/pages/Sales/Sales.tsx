@@ -1,9 +1,7 @@
-import { IonButton, IonIcon, IonItem, useIonRouter } from '@ionic/react';
+import { IonItem } from '@ionic/react';
 import Page from 'components/Page';
 import StateAwareList from 'components/StateAwareList';
-import { addOutline, addSharp } from 'ionicons/icons';
 import { useEffect, VFC } from 'react';
-import { clear } from 'redux/basketSlice';
 import { useAppDispatch } from 'redux/hooks';
 import { loadSales, useSales } from 'redux/salesSlice';
 import SaleEmpty from './SaleEmpty';
@@ -13,7 +11,7 @@ import SaleLoading from './SaleLoading';
 const Sales: VFC = () => {
   const sales = useSales();
   const dispatch = useAppDispatch();
-  const router = useIonRouter();
+  // const router = useIonRouter();
 
   useEffect(() => {
     dispatch(loadSales());
@@ -23,10 +21,10 @@ const Sales: VFC = () => {
     dispatch(loadSales());
   };
 
-  const handleAddButtonClick = () => {
-    dispatch(clear());
-    router.push('/ventes/scanner');
-  };
+  // const handleAddButtonClick = () => {
+  //   dispatch(clear());
+  //   router.push('/ventes/scanner');
+  // };
 
   return (
     <Page title="Ventes">
