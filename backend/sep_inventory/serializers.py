@@ -69,4 +69,4 @@ class ReadOnlySaleSerializer(serializers.ModelSerializer):
         model = Sale
         depth = 1
         fields = ('id', 'created_date', 'updated_date',
-                  'payment_method', 'items')
+                  'payment_method', 'total', 'items')

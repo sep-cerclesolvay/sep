@@ -31,7 +31,7 @@ const PackItem: VFC<PackItemProps> = ({ pack, onQrCodeButtonClick, onEditButtonC
       <ListItem
         key={pack.id}
         card={true}
-        editButton={true}
+        editButton={false}
         onClickEditButton={onEditButtonClick.bind(this, pack)}
         customButtons={customButtons}
         after={

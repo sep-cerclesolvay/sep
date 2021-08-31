@@ -1,6 +1,8 @@
+import decimal
 from django.db import models
 from django.db.models import Sum
 from django.db.models.deletion import RESTRICT
+from django.db.models.expressions import F
 
 
 class Product(models.Model):
@@ -61,6 +63,15 @@ class Sale(models.Model):
     updated_date = models.DateTimeField(blank=True, null=True)
     deleted_date = models.DateTimeField(blank=True, null=True)
 
+    @property
+    def total(self):
+        total = SaleItem.objects.filter(
+            sale=self).annotate(item_total=F('quantity') * F('product__buy_price')).aggregate(total=Sum('item_total'))['total']
+        if total == None:
+            total = decimal.Decimal('0.000')
+
+        return str(total)
+
     def __str__(self) -> str:
         date = self.created_date
         if self.updated_date is not None:
@@ -78,6 +89,9 @@ class SaleItem(models.Model):
     sale = models.ForeignKey('Sale', on_delete=RESTRICT,
                              related_name='sale_to_product')
     quantity = models.SmallIntegerField()
+
+    class Meta:
+        unique_together = ('product', 'sale')
 
     def __str__(self) -> str:
         return f'Vente {self.sale.id} - {self.product}'

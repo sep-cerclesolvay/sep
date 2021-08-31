@@ -1,30 +1,30 @@
 import { IonAlert } from '@ionic/react';
 import { VFC } from 'react';
-import { removeAll, removeOne } from 'redux/basketSlice';
+import { removeAllItems, removeItem } from 'redux/basketSlice';
 import { useAppDispatch } from 'redux/hooks';
-import { Product } from 'types/Product';
+import { SaleItem } from 'types/SaleItem';
 
 export interface BasketRemoveItemProps {
-  product?: Product;
+  saleItem?: SaleItem;
   onDidDismiss?: () => void;
 }
 
-const BasketRemoveItem: VFC<BasketRemoveItemProps> = ({ product, onDidDismiss }) => {
+const BasketRemoveItem: VFC<BasketRemoveItemProps> = ({ saleItem, onDidDismiss }) => {
   const dispatch = useAppDispatch();
 
   return (
     <IonAlert
-      isOpen={!!product}
+      isOpen={!!saleItem}
       onDidDismiss={onDidDismiss}
-      header={`Supprimer ${product?.name} ?`}
-      subHeader={`Il y a ${product?.quantity} ${product?.name} dans le pannier`}
+      header={`Supprimer ${saleItem?.product.name} ?`}
+      subHeader={`Il y a ${saleItem?.quantity} ${saleItem?.product.name} dans le pannier`}
       buttons={[
         {
           text: 'Supprimer 1 seul',
           role: 'destructive',
           handler: () => {
-            if (product) {
-              dispatch(removeOne({ id: product.id }));
+            if (saleItem) {
+              dispatch(removeItem({ id: saleItem.id }));
             }
           },
         },
@@ -32,8 +32,8 @@ const BasketRemoveItem: VFC<BasketRemoveItemProps> = ({ product, onDidDismiss })
           text: 'Tous supprimer',
           role: 'destructive',
           handler: () => {
-            if (product) {
-              dispatch(removeAll({ id: product.id }));
+            if (saleItem) {
+              dispatch(removeAllItems({ id: saleItem.id }));
             }
           },
         },
