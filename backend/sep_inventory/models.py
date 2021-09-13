@@ -66,7 +66,7 @@ class Sale(models.Model):
     @property
     def total(self):
         total = SaleItem.objects.filter(
-            sale=self).annotate(item_total=F('quantity') * F('product__buy_price')).aggregate(total=Sum('item_total'))['total']
+            sale=self).annotate(item_total=F('quantity') * F('product__sell_price')).aggregate(total=Sum('item_total'))['total']
         if total == None:
             total = decimal.Decimal('0.000')
 
