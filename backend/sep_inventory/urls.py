@@ -15,7 +15,7 @@ router.register('packs', ReadOnlyPackViewSet)
 router.register('packs', PackViewSet)
 router.register('entries', ReadOnlyEntryViewSet)
 router.register('sales', ReadOnlySaleViewSet)
-router.register('payement-methods', PaymentMethodViewSet)
+router.register('payment-methods', PaymentMethodViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
