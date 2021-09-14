@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AsyncState } from '../types/AsyncState';
 import { RootState } from './store';
 import { addAsyncThunk } from './utils';
@@ -15,8 +15,8 @@ const initialState: SalesState = {
 export const loadSales = createAsyncThunk('sales/fetchSales', async (_i, { rejectWithValue }) => {
   try {
     const response = await fetchSales();
-    return response;
-  } catch (e) {
+    return response?.sort((a, b) => b.created_date.localeCompare(a.created_date));
+  } catch (e: any) {
     return rejectWithValue(e.data);
   }
 });
@@ -24,11 +24,19 @@ export const loadSales = createAsyncThunk('sales/fetchSales', async (_i, { rejec
 export const productsSlice = createSlice({
   name: 'sales',
   initialState,
-  reducers: {},
+  reducers: {
+    add: (state, action: PayloadAction<Sale>) => {
+      if (state.data) {
+        return { ...state, data: [action.payload, ...state.data] };
+      }
+    },
+  },
   extraReducers: (builder) => {
     addAsyncThunk(builder, loadSales);
   },
 });
+
+export const { add } = productsSlice.actions;
 
 export const selectSales = (state: RootState): SalesState => state.sales;
 export const useSales = (): AsyncState<Sale[]> => useAppSelector(selectSales);

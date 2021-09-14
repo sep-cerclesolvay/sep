@@ -2,7 +2,7 @@ from django.conf.urls import include
 from django.urls.conf import path
 from rest_framework import routers
 
-from .views import PackViewSet, PaymentMethodViewSet, ProductViewSet, ReadOnlyEntryViewSet, ReadOnlyPackViewSet, ReadOnlySaleViewSet
+from .views import PackViewSet, PaymentMethodViewSet, ProductViewSet, EntryViewSet, SaleViewSet
 
 
 class Router(routers.DefaultRouter):
@@ -11,10 +11,9 @@ class Router(routers.DefaultRouter):
 
 router = Router()
 router.register('products', ProductViewSet)
-router.register('packs', ReadOnlyPackViewSet)
 router.register('packs', PackViewSet)
-router.register('entries', ReadOnlyEntryViewSet)
-router.register('sales', ReadOnlySaleViewSet)
+router.register('entries', EntryViewSet)
+router.register('sales', SaleViewSet)
 router.register('payment-methods', PaymentMethodViewSet)
 
 urlpatterns = [

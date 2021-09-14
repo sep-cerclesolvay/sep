@@ -1,7 +1,9 @@
-import { IonCard, IonCardHeader, IonCardTitle } from '@ionic/react';
+import { IonCard, IonCardHeader, IonCardTitle, useIonRouter } from '@ionic/react';
 import Accordions from 'components/Accordions';
 import ListItem from 'components/ListItem';
 import { VFC } from 'react';
+import { loadSaleIntoBasket } from 'redux/basketSlice';
+import { useAppDispatch } from 'redux/hooks';
 import { Sale } from 'types/Sale';
 import classes from '../Stock/Stock.module.scss';
 
@@ -10,8 +12,16 @@ export interface SaleItemProps {
 }
 
 const SaleItem: VFC<SaleItemProps> = ({ sale }) => {
+  const dispatch = useAppDispatch();
+  const router = useIonRouter();
+
   const nbrOfItems = sale.items.length;
   const nbrOfProducts = sale.items.reduce((acc, item) => acc + item.quantity, 0);
+
+  const handleEditButtonClick = () => {
+    dispatch(loadSaleIntoBasket(sale));
+    router.push('/ventes/pannier');
+  };
 
   return (
     <IonCard>
@@ -39,6 +49,8 @@ const SaleItem: VFC<SaleItemProps> = ({ sale }) => {
             ]}
           />
         }
+        editButton={true}
+        onClickEditButton={handleEditButtonClick}
       >
         <IonCardHeader>
           <IonCardTitle className={classes.item_title}>

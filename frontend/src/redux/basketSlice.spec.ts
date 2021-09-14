@@ -1,4 +1,4 @@
-import basketReducer, { addItem, removeItem, removeAllItems } from './basketSlice';
+import basketReducer, { addItem, removeItemById, removeOneProductById } from './basketSlice';
 
 describe('counter reducer', () => {
   const initialState = {
@@ -87,7 +87,7 @@ describe('counter reducer', () => {
   // TODO: test addAll
 
   it('should handle removeOne with item quantity equals to 1', () => {
-    const actual = basketReducer(initialState, removeItem({ id: 1 }));
+    const actual = basketReducer(initialState, removeItemById({ id: 1 }));
     expect(actual).toEqual({
       isLoading: false,
       data: [
@@ -103,7 +103,7 @@ describe('counter reducer', () => {
   });
 
   it('should handle removeOne with item quantity greater than 1', () => {
-    const actual = basketReducer(initialState, removeItem({ id: 2 }));
+    const actual = basketReducer(initialState, removeItemById({ id: 2 }));
     expect(actual).toEqual({
       isLoading: false,
       data: [
@@ -126,7 +126,7 @@ describe('counter reducer', () => {
   });
 
   it('should handle removeAll with item quantity equals to 1', () => {
-    const actual = basketReducer(initialState, removeAllItems({ id: 1 }));
+    const actual = basketReducer(initialState, removeOneProductById({ id: 1 }));
     expect(actual).toEqual({
       isLoading: false,
       data: [
@@ -142,7 +142,7 @@ describe('counter reducer', () => {
   });
 
   it('should handle removeAll with item quantity greater than 1', () => {
-    const actual = basketReducer(initialState, removeAllItems({ id: 2 }));
+    const actual = basketReducer(initialState, removeOneProductById({ id: 2 }));
     expect(actual).toEqual({
       isLoading: false,
       data: [
@@ -158,8 +158,8 @@ describe('counter reducer', () => {
   });
 
   it('should handle removeAll with no items at the end', () => {
-    const actual1 = basketReducer(initialState, removeAllItems({ id: 1 }));
-    const actual2 = basketReducer(actual1, removeAllItems({ id: 2 }));
+    const actual1 = basketReducer(initialState, removeOneProductById({ id: 1 }));
+    const actual2 = basketReducer(actual1, removeOneProductById({ id: 2 }));
     expect(actual2).toEqual({
       isLoading: false,
       data: [],

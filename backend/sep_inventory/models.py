@@ -41,8 +41,8 @@ class Entry(models.Model):
         verbose_name_plural = "entries"
     product = models.ForeignKey('Product', on_delete=RESTRICT)
     quantity = models.SmallIntegerField()
-    created_date = models.DateTimeField()
-    updated_date = models.DateTimeField(blank=True, null=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
     deleted_date = models.DateTimeField(blank=True, null=True)
 
     def __str__(self) -> str:
@@ -59,8 +59,8 @@ class PaymentMethod(models.Model):
 class Sale(models.Model):
     payment_method = models.ForeignKey('PaymentMethod', on_delete=RESTRICT)
     items = models.ManyToManyField('Product', through='SaleItem')
-    created_date = models.DateTimeField()
-    updated_date = models.DateTimeField(blank=True, null=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
     deleted_date = models.DateTimeField(blank=True, null=True)
 
     @property

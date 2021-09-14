@@ -6,10 +6,11 @@ import { useContext, useEffect, useState, VFC } from 'react';
 import { useToast } from '@agney/ir-toast';
 import classes from './Scanner.module.scss';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { addItem, clear, selectBasket } from 'redux/basketSlice';
+import { addOneProductById, addProductsByPackId, initializeNewSale, selectBasket } from 'redux/basketSlice';
 import { reverseMapping } from 'utils/collections';
 import { typesMap } from 'types/typesMap';
 import { Base58 } from 'utils/base58';
+import { has } from 'lodash';
 
 const base58 = new Base58();
 
@@ -22,7 +23,7 @@ const Scanner: VFC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (basket.isLoading) dispatch(clear());
+    if (!basket.isLoading && !basket.data) dispatch(initializeNewSale());
   }, [basket, dispatch]);
 
   const handleScan = (result: string, isShortName = false) => {
@@ -40,17 +41,17 @@ const Scanner: VFC = () => {
         const qrCodeDataParts = qrCodeData.split('/');
         if (qrCodeDataParts.length === 2) {
           const [type, shortName] = qrCodeDataParts;
-          if (type === 'product') {
-            dispatch(
-              addItem({
-                id: base58.decode(shortName),
-                product: { id: 1, name: 'test', sell_price: '5' },
-                quantity: 1,
-              })
-            );
+          if (has(typesMap, type)) {
+            const id = base58.decode(shortName);
+            if (type === 'product') {
+              dispatch(addOneProductById(id));
+            }
+            if (type === 'pack') {
+              dispatch(addProductsByPackId(id));
+            }
+            // navContext.navigate('/qr/' + qrCodeDataParts.join('/'));
+            navContext.navigate('/ventes/pannier');
           }
-          // navContext.navigate('/qr/' + qrCodeDataParts.join('/'));
-          navContext.navigate('/ventes/pannier');
           return;
         }
       }

@@ -1,11 +1,11 @@
 import { IonAlert } from '@ionic/react';
 import { VFC } from 'react';
-import { removeAllItems, removeItem } from 'redux/basketSlice';
+import { removeOneProductById, removeItemByProductId } from 'redux/basketSlice';
 import { useAppDispatch } from 'redux/hooks';
-import { SaleItem } from 'types/SaleItem';
+import { EditableSaleItem } from 'types/SaleItem';
 
 export interface BasketRemoveItemProps {
-  saleItem?: SaleItem;
+  saleItem?: EditableSaleItem;
   onDidDismiss?: () => void;
 }
 
@@ -24,7 +24,7 @@ const BasketRemoveItem: VFC<BasketRemoveItemProps> = ({ saleItem, onDidDismiss }
           role: 'destructive',
           handler: () => {
             if (saleItem) {
-              dispatch(removeItem({ id: saleItem.id }));
+              dispatch(removeOneProductById(saleItem.product.id));
             }
           },
         },
@@ -33,7 +33,7 @@ const BasketRemoveItem: VFC<BasketRemoveItemProps> = ({ saleItem, onDidDismiss }
           role: 'destructive',
           handler: () => {
             if (saleItem) {
-              dispatch(removeAllItems({ id: saleItem.id }));
+              dispatch(removeItemByProductId(saleItem.product.id));
             }
           },
         },

@@ -5,6 +5,7 @@ import salesReducer from './salesSlice';
 import basketReducer from './basketSlice';
 import userReducer from './userSlice';
 import qrCodeReducer from './qrCodeSlice';
+import paymentMethodReducer from './paymentMethodSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     packs: packsReducer,
     sales: salesReducer,
     qrCode: qrCodeReducer,
+    paymentMethods: paymentMethodReducer,
   },
 });
 

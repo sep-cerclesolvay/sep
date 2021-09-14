@@ -1,15 +1,19 @@
 import ListItem from 'components/ListItem';
 import { VFC } from 'react';
-import { SaleItem } from 'types/SaleItem';
+import { EditableSaleItem } from 'types/SaleItem';
 
 export interface BasketListProps {
-  saleItem: SaleItem;
-  onRemoveButtonClick: (product: SaleItem) => void;
+  saleItem: EditableSaleItem;
+  onRemoveButtonClick: (saleItem: EditableSaleItem) => void;
 }
 
 const BasketList: VFC<BasketListProps> = ({ saleItem, onRemoveButtonClick }) => {
   return (
-    <ListItem key={saleItem.id} deleteButton={true} onClickDeleteButton={onRemoveButtonClick.bind(this, saleItem)}>
+    <ListItem
+      key={saleItem.product.id}
+      deleteButton={true}
+      onClickDeleteButton={onRemoveButtonClick.bind(this, saleItem)}
+    >
       {saleItem.product.name}
     </ListItem>
   );
