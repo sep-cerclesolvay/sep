@@ -16,8 +16,8 @@ export const loadUser = createAsyncThunk('user/fetchCurrentUser', async (_i, { r
   try {
     const result = await fetchCurrentUser();
     return result;
-  } catch (e) {
-    return rejectWithValue(e.data);
+  } catch (e: unknown) {
+    return rejectWithValue(JSON.stringify(e));
   }
 });
 

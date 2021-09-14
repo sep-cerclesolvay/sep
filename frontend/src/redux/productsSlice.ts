@@ -17,7 +17,7 @@ export const loadProducts = createAsyncThunk('products/fetchProducts', async (_i
     const response = await fetchProducts();
     return response;
   } catch (e) {
-    return rejectWithValue(e.data);
+    return rejectWithValue(JSON.stringify(e));
   }
 });
 

@@ -16,8 +16,8 @@ export const loadSales = createAsyncThunk('sales/fetchSales', async (_i, { rejec
   try {
     const response = await fetchSales();
     return response?.sort((a, b) => b.created_date.localeCompare(a.created_date));
-  } catch (e: any) {
-    return rejectWithValue(e.data);
+  } catch (e) {
+    return rejectWithValue(JSON.stringify(e));
   }
 });
 

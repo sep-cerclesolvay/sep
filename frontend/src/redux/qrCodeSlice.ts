@@ -31,7 +31,7 @@ export const loadQrCode = createAsyncThunk(
       }
       return rejectWithValue('Type inconnu');
     } catch (e) {
-      return rejectWithValue(e.toString());
+      return rejectWithValue(JSON.stringify(e));
     }
   }
 );

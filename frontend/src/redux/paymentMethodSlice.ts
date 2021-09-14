@@ -18,8 +18,8 @@ export const loadPaymentMethods = createAsyncThunk(
     try {
       const response = await fetchPaymentMethods();
       return response;
-    } catch (e: any) {
-      return rejectWithValue(e.data);
+    } catch (e) {
+      return rejectWithValue(JSON.stringify(e));
     }
   }
 );

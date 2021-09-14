@@ -17,7 +17,7 @@ export const loadPacks = createAsyncThunk('packs/fetchPacks', async (_i, { rejec
     const response = await fetchPacks();
     return response;
   } catch (e) {
-    return rejectWithValue(e.data);
+    return rejectWithValue(JSON.stringify(e));
   }
 });
 
