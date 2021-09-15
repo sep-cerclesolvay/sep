@@ -5,6 +5,7 @@ import { VFC } from 'react';
 import { loadSaleIntoBasket } from 'redux/basketSlice';
 import { useAppDispatch } from 'redux/hooks';
 import { Sale } from 'types/Sale';
+import { removeDecimalZeros } from 'utils/math';
 import classes from '../Stock/Stock.module.scss';
 
 export interface SaleItemProps {
@@ -55,7 +56,7 @@ const SaleItem: VFC<SaleItemProps> = ({ sale }) => {
         <IonCardHeader>
           <IonCardTitle className={classes.item_title}>
             <span className={classes.text}>
-              Vente {sale.id} - Total : {sale.total}€
+              Vente {sale.id} - Total : {removeDecimalZeros(sale.total)}€
             </span>
           </IonCardTitle>
         </IonCardHeader>
