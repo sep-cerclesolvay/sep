@@ -27,7 +27,7 @@ export const productsSlice = createSlice({
   reducers: {
     add: (state, action: PayloadAction<Sale>) => {
       if (state.data) {
-        return { ...state, data: [action.payload, ...state.data] };
+        return { ...state, data: [action.payload, ...state.data.filter((sale) => sale.id !== action.payload.id)] };
       }
     },
   },
