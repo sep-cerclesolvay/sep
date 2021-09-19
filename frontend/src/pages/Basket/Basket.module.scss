@@ -18,3 +18,14 @@
   bottom: 4em;
   right: 1.4em;
 }
+
+.basket_item {
+  display: grid;
+  grid-template-columns: 12fr minmax(40px, 1fr) minmax(40px, 1fr);
+  gap: 0.5em;
+  width: 100%;
+
+  > :first-child {
+    white-space: normal;
+  }
+}

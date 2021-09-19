@@ -1,4 +1,4 @@
-import { IonAlert } from '@ionic/react';
+import { AlertButton, IonAlert } from '@ionic/react';
 import { VFC } from 'react';
 import { removeOneProductById, removeItemByProductId } from 'redux/basketSlice';
 import { useAppDispatch } from 'redux/hooks';
@@ -12,36 +12,45 @@ export interface BasketRemoveItemProps {
 const BasketRemoveItem: VFC<BasketRemoveItemProps> = ({ saleItem, onDidDismiss }) => {
   const dispatch = useAppDispatch();
 
+  const buttons: (string | AlertButton)[] = [];
+
+  if (saleItem) {
+    if (saleItem?.quantity > 1) {
+      buttons.push({
+        text: 'Supprimer 1 fois',
+        role: 'destructive',
+        handler: () => {
+          if (saleItem) {
+            dispatch(removeOneProductById(saleItem.product.id));
+          }
+        },
+      });
+    }
+
+    buttons.push(
+      {
+        text: `Supprimer ${saleItem?.quantity ? `${saleItem.quantity} fois` : ''}`,
+        role: 'destructive',
+        handler: () => {
+          if (saleItem) {
+            dispatch(removeItemByProductId(saleItem.product.id));
+          }
+        },
+      },
+      {
+        text: 'Annuler',
+        role: 'cancel',
+      }
+    );
+  }
+
   return (
     <IonAlert
       isOpen={!!saleItem}
       onDidDismiss={onDidDismiss}
       header={`Supprimer ${saleItem?.product.name} ?`}
-      subHeader={`Il y a ${saleItem?.quantity} ${saleItem?.product.name} dans le pannier`}
-      buttons={[
-        {
-          text: 'Supprimer 1 seul',
-          role: 'destructive',
-          handler: () => {
-            if (saleItem) {
-              dispatch(removeOneProductById(saleItem.product.id));
-            }
-          },
-        },
-        {
-          text: 'Tous supprimer',
-          role: 'destructive',
-          handler: () => {
-            if (saleItem) {
-              dispatch(removeItemByProductId(saleItem.product.id));
-            }
-          },
-        },
-        {
-          text: 'Annuler',
-          role: 'cancel',
-        },
-      ]}
+      subHeader={`Il y a ${saleItem?.quantity} fois "${saleItem?.product.name}" dans le pannier`}
+      buttons={buttons}
     />
   );
 };

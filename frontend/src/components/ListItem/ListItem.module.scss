@@ -26,6 +26,12 @@
   }
 }
 
+.ion_item {
+  > div {
+    width: 100%;
+  }
+}
+
 .card {
   .ion_item {
     --background: var(--ion-card-background, var(--ion-item-background, var(--ion-background-color, #fff)));
@@ -36,10 +42,6 @@
     @include breakpoints.mq(xs, sm) {
       --inner-padding-end: var(--ion-safe-area-right, 0);
     }
-
-    > div {
-      width: 100%;
-    }
   }
 
   // stylelint-disable-next-line selector-class-pattern
@@ -48,9 +50,6 @@
   }
 
   .content {
-    display: flex;
-    align-items: center;
-
     > :first-child {
       margin-top: 0;
       margin-bottom: 0;

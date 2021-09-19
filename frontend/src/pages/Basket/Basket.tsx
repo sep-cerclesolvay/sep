@@ -59,7 +59,7 @@ const Basket: VFC = () => {
           renderItem={(saleItem) => (
             <BasketItem saleItem={saleItem} onRemoveButtonClick={handleRemoveButtonClick.bind(this, saleItem)} />
           )}
-          keyResolver={(product) => `${product.id}`}
+          keyResolver={(saleItem) => `${saleItem.product.id}`}
           loadingComponent={<BasketLoading />}
           emptyComponent={<BasketEmpty />}
           renderError={(error) => <IonItem>Error: {JSON.stringify(error, undefined, 2)}</IonItem>}
