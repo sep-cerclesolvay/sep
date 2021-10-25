@@ -3,25 +3,29 @@ import LoadingBar from 'components/LoadingBar';
 import Refresher from 'components/Refresher';
 import useBreakpoints from 'hooks/useBreakpoints';
 import { refreshOutline, refreshSharp } from 'ionicons/icons';
-import { Fragment, ReactElement, ReactNode } from 'react';
+import { groupBy } from 'lodash';
+import { ReactElement, ReactNode, useMemo, useState } from 'react';
+import { GroupedVirtuoso, Virtuoso } from 'react-virtuoso';
 
-export interface StateAwareList<T> {
+export interface StateAwareList<Item> {
   state: {
     isLoading: boolean;
     error?: unknown;
-    items?: T[];
+    items?: Item[];
   };
   toolbarButtons?: ReactNode[];
   loadingComponent: ReactNode;
   numberOfLoadingComponents?: number;
   emptyComponent: ReactNode;
-  renderItem: (item: T) => ReactNode;
+  renderItem: (item: Item) => ReactNode;
   renderError: (error: unknown) => ReactNode;
-  keyResolver: (item: T) => string;
+  keyResolver: (item: Item) => string;
+  groupResolver?: (item: Item) => string;
+  renderGroup?: (group: string, items: Item[]) => ReactNode;
   onRefresh?: () => void;
 }
 
-const StateAwareList = <T,>({
+const StateAwareList = <Item,>({
   toolbarButtons,
   loadingComponent,
   numberOfLoadingComponents = 5,
@@ -30,20 +34,23 @@ const StateAwareList = <T,>({
   renderError,
   state,
   keyResolver,
+  groupResolver,
+  renderGroup,
   onRefresh,
-}: StateAwareList<T>): ReactElement => {
+}: StateAwareList<Item>): ReactElement => {
   const { minBreakpoint } = useBreakpoints();
+  const [atTop, setAtTop] = useState(true);
+
+  const groups = useMemo(() => groupBy(state.items, groupResolver), [groupResolver, state.items]);
+  const groupCounts = useMemo(() => Object.keys(groups).map((index) => groups[index].length), [groups]);
 
   let content = undefined;
   if (state.isLoading) {
-    const loadingArray = new Array(numberOfLoadingComponents).fill(0);
     content = (
-      <div style={{ position: 'relative' }}>
+      <div style={{ position: 'relative', flexGrow: 1 }}>
         <LoadingBar show={true} />
-        <IonList>
-          {loadingArray.map((_e, i) => (
-            <Fragment key={i}>{loadingComponent}</Fragment>
-          ))}
+        <IonList style={{ height: '100%' }}>
+          <Virtuoso totalCount={numberOfLoadingComponents} itemContent={() => loadingComponent} />
         </IonList>
       </div>
     );
@@ -57,11 +64,25 @@ const StateAwareList = <T,>({
     if (!state.items || state.items.length === 0) {
       content = <IonList>{emptyComponent}</IonList>;
     } else {
+      const data = state.items;
+      const commonVirtuosoProps = {
+        itemContent: (index: number) => renderItem(data[index]),
+        computeItemKey: (index: number, item: Item) => (item ? keyResolver(item) : index),
+        atTopStateChange: (atTop: boolean) => setAtTop(atTop),
+      };
       content = (
-        <IonList>
-          {state.items.map((item) => (
-            <Fragment key={keyResolver(item)}>{renderItem(item)}</Fragment>
-          ))}
+        <IonList style={{ flexGrow: 1 }}>
+          {groupResolver && renderGroup ? (
+            <GroupedVirtuoso
+              groupCounts={groupCounts}
+              groupContent={(index) => (
+                <>{renderGroup(Object.keys(groups)[index], groups[Object.keys(groups)[index]])}</>
+              )}
+              {...commonVirtuosoProps}
+            />
+          ) : (
+            <Virtuoso totalCount={data.length} {...commonVirtuosoProps} />
+          )}
         </IonList>
       );
     }
@@ -78,7 +99,9 @@ const StateAwareList = <T,>({
 
   return (
     <>
-      {!minBreakpoint('md') && !!onRefresh && <Refresher isLoading={state.isLoading} onRefresh={onRefresh} />}
+      {!minBreakpoint('md') && !!onRefresh && (
+        <Refresher isLoading={state.isLoading} onRefresh={onRefresh} disabled={!atTop} />
+      )}
       {!!toolbarButtons && toolbarButtons.length > 0 && (
         <IonToolbar color="light">
           <IonButtons slot="start">{toolbarButtons}</IonButtons>
