@@ -24,18 +24,3 @@ Afin de garantir une compatibilité entre tout appareils. L'interface est dével
 ## Plateformes
 
 Le projet va être déployé sur Heroku (pour la REST API) et sur Vercel (pour l'interface). C'est deux service offres des plans gratuit. Si jamais le projet dépasse ces plan gratuits, il vaut peut-être mieux chercher une alternative.
-
-## Maquettes
-
-// TODO : ajouter les maquettes ici
-
-## TODO List:
-
-- [x] Maquettes de l'application
-- [x] Schema de modélisations de données
-- [x] Implémentation des modèle de données
-- [x] Configuration de panel django admin (en Anglais (GB))
-- [x] Initialisation de l'interface
-- [ ] `En cours...` Implémentation des liens de l'API REST
-- [ ] `En cours...` Implémentation de l'interface
-- [ ] Test (unit ?, e2e ?, acceptance ?)
