@@ -5,6 +5,7 @@ from django.db.models import Sum
 from django.db.models.functions import TruncDate
 
 from rest_framework import viewsets
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 from sep_inventory.ReadWriteSerializerMixin import ReadWriteSerializerViewSet
@@ -55,6 +56,8 @@ class SaleViewSet(ReadWriteSerializerViewSet):
     permission_classes = [IsAuthenticated]
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_sale_report(request):
     products = Product.objects.all()
     sales = Sale.objects.filter(deleted_date__isnull=True)
