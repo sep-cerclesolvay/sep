@@ -46,3 +46,21 @@ export const saveSale = async (sale?: EditableSale): Promise<Sale | undefined> =
   });
   return await response.json();
 };
+
+export const downloadSalesReport = async (): Promise<void> => {
+  const resp = await fetch(`${environment.API_URL}/reports/sales/`, {
+    method: 'GET',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    }),
+  });
+  if (resp.status >= 400) throw new Error(`${resp.status} ${resp.statusText}`);
+  const blob = await resp.blob();
+
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  const contentDisposition = resp.headers.get('Content-Disposition');
+  if (contentDisposition) link.download = contentDisposition.substr(21);
+  link.click();
+};

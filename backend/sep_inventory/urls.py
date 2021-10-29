@@ -22,6 +22,6 @@ router.register('sales', SaleViewSet)
 router.register('payment-methods', PaymentMethodViewSet)
 
 urlpatterns = [
-    path('reports/sales', get_sale_report),
+    path('reports/sales/', get_sale_report),
     path('', include(router.urls))
 ]

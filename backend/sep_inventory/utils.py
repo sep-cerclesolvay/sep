@@ -35,6 +35,7 @@ def excel_response_from_df(df, filename, sheet_name=None, multi_index=False, wor
             content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
         response['Content-Disposition'] = 'attachment; filename=%s' % filename
+        response['Access-Control-Expose-Headers'] = 'Content-Disposition'
         return response
 
 
