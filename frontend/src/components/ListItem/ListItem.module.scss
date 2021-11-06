@@ -33,8 +33,6 @@
 }
 
 .card {
-  isolation: isolate;
-
   .ion_item {
     --background: var(--ion-card-background, var(--ion-item-background, var(--ion-background-color, #fff)));
     --inner-border-width: 0;

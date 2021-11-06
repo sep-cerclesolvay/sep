@@ -35,13 +35,7 @@ const Page: React.FC<PageProps> = ({ title, backButton = false, defaultBackUrl =
 
   useEffect(() => {
     const style = document.createElement('style');
-    style.innerHTML = `
-main > slot{
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}`;
-
+    style.innerHTML = 'main { overflow-y: auto!important; }';
     ionContentRef.current?.shadowRoot?.appendChild(style);
   }, []);
 
@@ -84,11 +78,11 @@ main > slot{
       </IonHeader>
 
       <IonContent ref={ionContentRef}>
-        {/* <IonHeader>
-          <IonToolbar>
+        <IonHeader>
+          {/* <IonToolbar>
             <IonTitle size="large">{title}</IonTitle>
-          </IonToolbar>
-        </IonHeader> */}
+          </IonToolbar> */}
+        </IonHeader>
         {children}
       </IonContent>
     </IonPage>
