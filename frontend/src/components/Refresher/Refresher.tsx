@@ -4,17 +4,16 @@ import { useEffect, useRef, VFC } from 'react';
 export interface RefresherProps {
   isLoading: boolean;
   onRefresh: () => void;
-  disabled?: boolean;
 }
 
-const Refresher: VFC<RefresherProps> = ({ isLoading, onRefresh, disabled }) => {
+const Refresher: VFC<RefresherProps> = ({ isLoading, onRefresh }) => {
   const ref = useRef<HTMLIonRefresherElement>(null);
   useEffect(() => {
     if (!isLoading) ref.current?.complete();
   }, [isLoading]);
 
   return (
-    <IonRefresher ref={ref} slot="fixed" onIonRefresh={onRefresh} disabled={disabled}>
+    <IonRefresher ref={ref} slot="fixed" onIonRefresh={onRefresh}>
       <IonRefresherContent />
     </IonRefresher>
   );

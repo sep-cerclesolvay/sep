@@ -5,5 +5,3 @@ uritemplate
 pyyaml
 gunicorn
 django-on-heroku
-pandas
-openpyxl
