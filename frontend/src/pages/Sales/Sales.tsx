@@ -2,6 +2,7 @@ import { IonButton, IonIcon, IonItem, useIonRouter } from '@ionic/react';
 import Page from 'components/Page';
 import StateAwareList from 'components/StateAwareList';
 import { addOutline, addSharp, downloadOutline, downloadSharp } from 'ionicons/icons';
+import { capitalize } from 'lodash';
 import { useEffect, VFC } from 'react';
 import { initializeNewSale } from 'redux/basketSlice';
 import { useAppDispatch } from 'redux/hooks';
@@ -10,6 +11,7 @@ import SaleEmpty from './SaleEmpty';
 import SaleItem from './SaleItem';
 import SaleLoading from './SaleLoading';
 import { downloadSalesReport } from 'api/saleAPI';
+import classes from './Sale.module.scss';
 
 const Sales: VFC = () => {
   const sales = useSales();
@@ -52,6 +54,25 @@ const Sales: VFC = () => {
         loadingComponent={<SaleLoading />}
         emptyComponent={<SaleEmpty />}
         renderError={(error) => <IonItem>Error: {JSON.stringify(error, undefined, 2)}</IonItem>}
+        groupResolver={(sale) =>
+          capitalize(
+            new Date(sale.created_date).toLocaleDateString('fr-BE', {
+              weekday: 'long',
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+            })
+          )
+        }
+        renderGroup={(group, items) => (
+          <div className={classes.sale_group}>
+            <p>
+              {group} -{' '}
+              {items.reduce((acc, sale) => (acc += sale.items.reduce((acc, sale) => (acc += sale.quantity), 0)), 0)}{' '}
+              produits vendus
+            </p>
+          </div>
+        )}
         onRefresh={handleRefresh}
       />
     </Page>
