@@ -6,6 +6,7 @@ import { refreshOutline, refreshSharp } from 'ionicons/icons';
 import { groupBy } from 'lodash';
 import { ReactElement, ReactNode, useMemo, useState } from 'react';
 import { GroupedVirtuoso, Virtuoso } from 'react-virtuoso';
+import classes from './StateAwareList.module.scss';
 
 export interface StateAwareList<Item> {
   state: {
@@ -47,11 +48,13 @@ const StateAwareList = <Item,>({
   let content = undefined;
   if (state.isLoading) {
     content = (
-      <div style={{ position: 'relative', flexGrow: 1 }}>
-        <LoadingBar show={true} />
-        <IonList style={{ height: '100%' }}>
-          <Virtuoso totalCount={numberOfLoadingComponents} itemContent={() => loadingComponent} />
-        </IonList>
+      <div className={classes.container}>
+        <div style={{ position: 'relative' }}>
+          <LoadingBar show={true} />
+          <IonList style={{ height: '100%' }}>
+            <Virtuoso totalCount={numberOfLoadingComponents} itemContent={() => loadingComponent} />
+          </IonList>
+        </div>
       </div>
     );
   }
@@ -71,18 +74,20 @@ const StateAwareList = <Item,>({
         atTopStateChange: (atTop: boolean) => setAtTop(atTop),
       };
       content = (
-        <IonList style={{ flexGrow: 1 }}>
-          {groupResolver && renderGroup ? (
-            <GroupedVirtuoso
-              groupCounts={groupCounts}
-              groupContent={(index) => (
-                <>{renderGroup(Object.keys(groups)[index], groups[Object.keys(groups)[index]])}</>
-              )}
-              {...commonVirtuosoProps}
-            />
-          ) : (
-            <Virtuoso totalCount={data.length} {...commonVirtuosoProps} />
-          )}
+        <IonList className={classes.container}>
+          <div>
+            {groupResolver && renderGroup ? (
+              <GroupedVirtuoso
+                groupCounts={groupCounts}
+                groupContent={(index) => (
+                  <>{renderGroup(Object.keys(groups)[index], groups[Object.keys(groups)[index]])}</>
+                )}
+                {...commonVirtuosoProps}
+              />
+            ) : (
+              <Virtuoso totalCount={data.length} {...commonVirtuosoProps} />
+            )}
+          </div>
         </IonList>
       );
     }
