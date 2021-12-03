@@ -11,7 +11,14 @@ ion-menu.menu {
   }
 
   ion-list {
+    display: flex;
+    flex-direction: column;
     padding: 10px 0;
+    min-height: 100%;
+
+    hr {
+      width: 100%;
+    }
   }
 
   ion-note {
@@ -28,7 +35,8 @@ ion-menu.menu {
   }
 
   .brand_box,
-  .user_box {
+  .user_box,
+  .version_box {
     padding-left: var(--custom-padding-x, var(--padding-start, 0));
     padding-right: var(--custom-padding-x, var(--padding-end, 0));
   }
@@ -48,12 +56,15 @@ ion-menu.menu {
     }
   }
 
+  .version_box {
+    margin-top: auto;
+  }
+
   &:global(.md) {
     ion-content {
       --custom-padding-x: 10px;
       --padding-start: 8px;
       --padding-end: 8px;
-      --padding-bottom: 20px;
     }
 
     ion-item {
@@ -80,7 +91,6 @@ ion-menu.menu {
   &:global(.ios) {
     ion-content {
       --custom-padding-x: 16px;
-      --padding-bottom: 20px;
     }
 
     ion-item {

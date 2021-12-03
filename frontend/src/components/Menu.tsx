@@ -26,6 +26,7 @@ import {
 import classes from './Menu.module.scss';
 import { VFC } from 'react';
 import { useUser } from 'redux/userSlice';
+import Version from './Version';
 
 interface AppPage {
   url: string;
@@ -111,6 +112,10 @@ const Menu: VFC = () => {
               </IonMenuToggle>
             );
           })}
+          <hr />
+          <IonNote className={classes.version_box}>
+            <Version />
+          </IonNote>
         </IonList>
       </IonContent>
     </IonMenu>
