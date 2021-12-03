@@ -1,6 +1,7 @@
 {
   "short_name": "SEP",
   "name": "Solvay - Entraide & Publication",
+  "description": "Une application web pour aider à la  gestion des ventes du SEP.",
   "lang": "fr",
   "start_url": ".",
   "display": "standalone",
@@ -42,6 +43,28 @@
       "sizes": "192x192",
       "type": "image/png",
       "density": "4.0"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/screenshots/screenshot_login.png",
+      "type": "image/png",
+      "sizes": "440x804"
+    },
+    {
+      "src": "/assets/screenshots/screenshot_menu.png",
+      "type": "image/png",
+      "sizes": "440x804"
+    },
+    {
+      "src": "/assets/screenshots/screenshot_sales.png",
+      "type": "image/png",
+      "sizes": "440x804"
+    }
+  ],
+  "url_handlers": [
+    {
+      "origin": "%REACT_APP_QR_CODE_URL%"
     }
   ]
 }
