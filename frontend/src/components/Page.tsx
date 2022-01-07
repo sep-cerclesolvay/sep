@@ -39,7 +39,7 @@ const Page: React.FC<PageProps> = ({ title, backButton = false, defaultBackUrl =
 main > slot{
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100%;
 }`;
 
     ionContentRef.current?.shadowRoot?.appendChild(style);

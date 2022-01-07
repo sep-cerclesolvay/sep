@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: min(45ch, 90%);
+  min-height: 100%;
+  margin: auto;
+  text-align: center;
+
+  opacity: 0;
+  animation-name: appear;
+  animation-duration: 250ms;
+  animation-timing-function: ease-out;
+  animation-delay: 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+
+  > div {
+    margin: 2em 0;
+  }
+
+  .main_image {
+    width: 60%;
+    max-width: 500px;
+    filter: drop-shadow(0 0 2px #222);
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 100;
+  }
+}

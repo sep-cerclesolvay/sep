@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useEffect } from 'react';
 import { loadUser, selectUser } from 'redux/userSlice';
 import LoadingBar from 'components/LoadingBar';
+import WaitingServerConnection from 'pages/WaitingServerConnection';
 
 const App: React.FC = () => {
   const asyncUser = useAppSelector(selectUser);
@@ -19,7 +20,7 @@ const App: React.FC = () => {
     <IonApp>
       <ToastProvider value={{ duration: 2000 }}>
         <LoadingBar show={asyncUser.isLoading} />
-        {!asyncUser.isLoading && <Router />}
+        {asyncUser.isLoading ? <WaitingServerConnection /> : <Router />}
       </ToastProvider>
     </IonApp>
   );
