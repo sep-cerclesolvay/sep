@@ -95,6 +95,11 @@ function registerValidSW(swUrl: string, config?: Config) {
           }
         };
       };
+      if (registration.waiting !== null) {
+        if (config && config.onUpdate) {
+          config.onUpdate(registration);
+        }
+      }
     })
     .catch((error) => {
       console.error('Error during service worker registration:', error);

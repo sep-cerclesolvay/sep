@@ -1,4 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import bannerReducer from './bannerSlice';
 import productsReducer from './productsSlice';
 import packsReducer from './packsSlice';
 import salesReducer from './salesSlice';
@@ -9,6 +10,7 @@ import paymentMethodReducer from './paymentMethodSlice';
 
 export const store = configureStore({
   reducer: {
+    banner: bannerReducer,
     basket: basketReducer,
     user: userReducer,
     products: productsReducer,
