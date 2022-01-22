@@ -39,8 +39,10 @@ const Login: VFC = () => {
       } catch (e) {
         if (isRequestStatusError(e)) {
           setErrorMessage(e.message);
-        } else {
+        } else if (e instanceof Error) {
           setErrorMessage(e.toString());
+        } else {
+          setErrorMessage(JSON.stringify(e));
         }
         console.error(e);
       }

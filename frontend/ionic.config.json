@@ -1,7 +1,9 @@
 {
   "name": "sep",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {
+      "enabled": false
+    }
   },
   "type": "react"
 }

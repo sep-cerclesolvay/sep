@@ -1,4 +1,4 @@
-import { IonApp } from '@ionic/react';
+import { IonApp, setupIonicReact } from '@ionic/react';
 import Router from 'router/Router';
 import { ToastProvider } from '@agney/ir-toast';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
@@ -20,6 +20,8 @@ import classes from './App.module.scss';
 import useNetwork from 'hooks/useNetwork';
 import { usePWAContext } from 'contexts/PWAContext';
 import Info from 'components/Info';
+
+setupIonicReact();
 
 const App: React.FC = () => {
   const { showUpdateAvailable } = usePWAContext();
