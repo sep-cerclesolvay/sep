@@ -1,5 +1,5 @@
 import { IonAlert } from '@ionic/react';
-import { VFC } from 'react';
+import { useEffect, VFC } from 'react';
 import { selectBasket, setPaymentMethod } from 'redux/basketSlice';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { usePaymentMethods } from 'redux/paymentMethodSlice';
@@ -15,9 +15,18 @@ const PaymentPrompt: VFC<PaymentPromptProps> = ({ open, onDidDismiss, onDidFinis
   const paymentMethods = usePaymentMethods();
   const basket = useAppSelector(selectBasket);
 
+  const canAutoSelectPayment = paymentMethods.data?.length == 1;
+
+  useEffect(() => {
+    if (open && canAutoSelectPayment && paymentMethods.data?.length == 1) {
+      dispatch(setPaymentMethod(paymentMethods.data[0]));
+      onDidFinish();
+    }
+  }, [open, canAutoSelectPayment, dispatch, paymentMethods.data, onDidFinish]);
+
   return (
     <IonAlert
-      isOpen={open}
+      isOpen={open && !canAutoSelectPayment}
       onDidDismiss={onDidDismiss}
       header={'Payment'}
       subHeader={paymentMethods.data ? 'Indiquez comment le client vous a payé' : 'Chargement...'}
