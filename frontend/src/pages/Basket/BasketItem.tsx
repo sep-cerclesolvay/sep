@@ -13,8 +13,6 @@ export interface BasketListProps {
 const BasketList: VFC<BasketListProps> = ({ saleItem, onEditButtonClick, onRemoveButtonClick }) => {
   return (
     <ListItem
-      editButton={true}
-      deleteButton={true}
       onClickEditButton={onEditButtonClick.bind(this, saleItem)}
       onClickDeleteButton={onRemoveButtonClick.bind(this, saleItem)}
     >

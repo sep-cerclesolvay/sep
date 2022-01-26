@@ -7,9 +7,7 @@ import classes from './ListItem.module.scss';
 
 export interface ListItemProps {
   card?: boolean;
-  editButton?: boolean;
   onClickEditButton?: () => void;
-  deleteButton?: boolean;
   onClickDeleteButton?: () => void;
   customButtons?: ListItemButton[];
   after?: ReactNode;
@@ -26,14 +24,8 @@ export interface ListItemButton {
 const ListItem: FC<ListItemProps> = ({
   children,
   card = false,
-  editButton = false,
-  onClickEditButton = () => {
-    return;
-  },
-  deleteButton = false,
-  onClickDeleteButton = () => {
-    return;
-  },
+  onClickEditButton,
+  onClickDeleteButton,
   customButtons = [],
   after,
 }) => {
@@ -47,7 +39,32 @@ const ListItem: FC<ListItemProps> = ({
     }
   }, [small]);
 
-  let buttons: ListItemButton[] = customButtons.map((customButton) => ({
+  if (onClickEditButton) {
+    customButtons = [
+      ...customButtons,
+      {
+        id: 'edit',
+        iosIcon: pencilOutline,
+        mdIcon: pencilSharp,
+        onClick: onClickEditButton,
+      },
+    ];
+  }
+
+  if (onClickDeleteButton) {
+    customButtons = [
+      ...customButtons,
+      {
+        id: 'delete',
+        iosIcon: trashBinOutline,
+        mdIcon: trashBinSharp,
+        onClick: onClickDeleteButton,
+        color: 'danger',
+      },
+    ];
+  }
+
+  const buttons: ListItemButton[] = customButtons.map((customButton) => ({
     ...customButton,
     onClick: () => {
       ionItemSlidingRef.current?.close();
@@ -55,39 +72,9 @@ const ListItem: FC<ListItemProps> = ({
     },
   }));
 
-  if (editButton) {
-    buttons = [
-      ...buttons,
-      {
-        id: 'edit',
-        iosIcon: pencilOutline,
-        mdIcon: pencilSharp,
-        onClick: () => {
-          ionItemSlidingRef.current?.close();
-          onClickEditButton();
-        },
-      },
-    ];
-  }
-
-  if (deleteButton) {
-    buttons = [
-      ...buttons,
-      {
-        id: 'delete',
-        iosIcon: trashBinOutline,
-        mdIcon: trashBinSharp,
-        onClick: () => {
-          ionItemSlidingRef.current?.close();
-          onClickDeleteButton();
-        },
-        color: 'danger',
-      },
-    ];
-  }
-
   return (
     <IonItemSliding ref={ionItemSlidingRef} className={card ? classes.card : undefined} disabled={small ? false : true}>
+      {/* TODO: disabled off even if true. bug ? */}
       <IonItem className={classes.ion_item}>
         <div>
           <IonLabel className={classes.ion_label}>

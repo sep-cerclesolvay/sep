@@ -15,7 +15,7 @@ export interface BasketListProps {
   onEditButtonClick: (product: Product) => void;
 }
 
-const BasketList: VFC<BasketListProps> = ({ product, onQrCodeButtonClick, onEditButtonClick }) => {
+const BasketList: VFC<BasketListProps> = ({ product, onQrCodeButtonClick /*onEditButtonClick*/ }) => {
   const customButtons: ListItemButton[] = [
     {
       id: 'qr-code',
@@ -31,8 +31,7 @@ const BasketList: VFC<BasketListProps> = ({ product, onQrCodeButtonClick, onEdit
       <ListItem
         key={product.id}
         card={true}
-        editButton={false}
-        onClickEditButton={onEditButtonClick.bind(this, product)}
+        // onClickEditButton={onEditButtonClick.bind(this, product)}
         customButtons={customButtons}
       >
         <IonCardHeader>

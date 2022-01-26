@@ -50,7 +50,6 @@ const SaleItem: VFC<SaleItemProps> = ({ sale }) => {
             ]}
           />
         }
-        editButton={true}
         onClickEditButton={handleEditButtonClick}
       >
         <IonCardHeader>

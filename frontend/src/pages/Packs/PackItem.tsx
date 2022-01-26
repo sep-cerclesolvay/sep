@@ -15,7 +15,7 @@ export interface PackItemProps {
   onEditButtonClick: (pack: Pack) => void;
 }
 
-const PackItem: VFC<PackItemProps> = ({ pack, onQrCodeButtonClick, onEditButtonClick }) => {
+const PackItem: VFC<PackItemProps> = ({ pack, onQrCodeButtonClick /*onEditButtonClick*/ }) => {
   const customButtons: ListItemButton[] = [
     {
       id: 'qr-code',
@@ -31,8 +31,7 @@ const PackItem: VFC<PackItemProps> = ({ pack, onQrCodeButtonClick, onEditButtonC
       <ListItem
         key={pack.id}
         card={true}
-        editButton={false}
-        onClickEditButton={onEditButtonClick.bind(this, pack)}
+        // onClickEditButton={onEditButtonClick.bind(this, pack)}
         customButtons={customButtons}
         after={
           <Accordions
