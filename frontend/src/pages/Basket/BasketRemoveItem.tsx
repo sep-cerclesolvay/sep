@@ -49,7 +49,7 @@ const BasketRemoveItem: VFC<BasketRemoveItemProps> = ({ saleItem, onDidDismiss }
       isOpen={!!saleItem}
       onDidDismiss={onDidDismiss}
       header={`Supprimer ${saleItem?.product.name} ?`}
-      subHeader={`Il y a ${saleItem?.quantity} fois "${saleItem?.product.name}" dans le pannier`}
+      message={`Il y a ${saleItem?.quantity} fois "${saleItem?.product.name}" dans le pannier`}
       buttons={buttons}
     />
   );

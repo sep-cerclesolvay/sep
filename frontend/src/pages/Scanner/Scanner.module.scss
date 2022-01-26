@@ -17,15 +17,3 @@
   display: inline-block;
   margin: auto;
 }
-
-.alert {
-  // stylelint-disable-next-line selector-class-pattern
-  :global(.alert-message.sc-ion-alert-ios:empty) {
-    padding: 0;
-  }
-
-  // stylelint-disable-next-line selector-class-pattern
-  :global(.alert-input-group) {
-    padding-top: unset;
-  }
-}

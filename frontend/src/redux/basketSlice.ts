@@ -77,7 +77,7 @@ export const addProductsByPackId = createAsyncThunk(
   }
 );
 
-export const save = createAsyncThunk('basket/save', async (_, { getState, rejectWithValue }) => {
+export const saveBasket = createAsyncThunk('basket/save', async (_, { getState, rejectWithValue }) => {
   const state = getState() as RootState;
   try {
     const sale = await saveSale(state.basket.data?.editable);
@@ -112,17 +112,28 @@ export const basketSlice = createSlice({
       state.data.editable.items = state.data.editable.items.filter((item) => item.product.id !== action.payload);
       updateTotal(state.data.editable);
     },
-    addOneProduct: (state, action: PayloadAction<SaleItem['product']>) => {
+    // addOneProduct: (state, action: PayloadAction<SaleItem['product']>) => {
+    //   if (state.isLoading || state.data === undefined) {
+    //     throw new Error('Can not add products into the basket: Basket is loading');
+    //   }
+    //   if (state.data.editable.items.find((item) => item.product.id == action.payload.id)) {
+    //     state.data.editable.items = state.data.editable.items.map((item) =>
+    //       item.product.id === action.payload.id ? { product: action.payload, quantity: item.quantity + 1 } : item
+    //     );
+    //   } else {
+    //     state.data.editable.items.push({ product: action.payload, quantity: 1 });
+    //   }
+    //   updateTotal(state.data.editable);
+    // },
+    updateProductQuantity: (state, action: PayloadAction<{ productId: Product['id']; quantity: number }>) => {
       if (state.isLoading || state.data === undefined) {
-        throw new Error('Can not add products into the basket: Basket is loading');
+        throw new Error('Can not update quantity: Basket is loading');
       }
-      if (state.data.editable.items.find((item) => item.product.id == action.payload.id)) {
-        state.data.editable.items = state.data.editable.items.map((item) =>
-          item.product.id === action.payload.id ? { product: action.payload, quantity: item.quantity + 1 } : item
-        );
-      } else {
-        state.data.editable.items.push({ product: action.payload, quantity: 1 });
-      }
+      state.data.editable.items = state.data.editable.items
+        .map((item) =>
+          item.product.id === action.payload.productId ? { ...item, quantity: action.payload.quantity } : item
+        )
+        .filter((item) => item.quantity > 0);
       updateTotal(state.data.editable);
     },
     removeOneProductById: (state, action: PayloadAction<Product['id']>) => {
@@ -170,7 +181,7 @@ export const basketSlice = createSlice({
       state.isLoading = false;
       state.error = undefined;
     });
-    builder.addCase(save.fulfilled, (state, action) => {
+    builder.addCase(saveBasket.fulfilled, (state, action) => {
       if (action.payload) {
         state.data = { initial: action.payload, editable: action.payload, saved: true };
       }
@@ -180,8 +191,13 @@ export const basketSlice = createSlice({
   },
 });
 
-export const { removeItemByProductId, addOneProduct, removeOneProductById, initializeNewSale, setPaymentMethod } =
-  basketSlice.actions;
+export const {
+  updateProductQuantity,
+  removeItemByProductId,
+  removeOneProductById,
+  initializeNewSale,
+  setPaymentMethod,
+} = basketSlice.actions;
 
 export const selectBasket = (state: RootState): BasketState => state.basket;
 

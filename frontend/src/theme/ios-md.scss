@@ -8,6 +8,26 @@
   display: none;
 }
 
-.alert-button.alert-button-role-destructive {
-  color: var(--ion-color-danger, #eb445a);
+ion-alert {
+  .alert-message.sc-ion-alert-ios {
+    padding-top: 8px;
+    padding-bottom: 16px;
+
+    &:empty {
+      padding: 0;
+    }
+  }
+
+  .alert-message.sc-ion-alert-md {
+    padding-bottom: 16px;
+  }
+
+  .alert-input-group.sc-ion-alert-md {
+    padding-top: unset;
+    padding-bottom: 10px;
+  }
+
+  .alert-button.alert-button-role-destructive {
+    color: var(--ion-color-danger, #eb445a);
+  }
 }

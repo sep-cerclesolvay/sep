@@ -6,12 +6,18 @@ import classes from './Basket.module.scss';
 
 export interface BasketListProps {
   saleItem: EditableSaleItem;
+  onEditButtonClick: (saleItem: EditableSaleItem) => void;
   onRemoveButtonClick: (saleItem: EditableSaleItem) => void;
 }
 
-const BasketList: VFC<BasketListProps> = ({ saleItem, onRemoveButtonClick }) => {
+const BasketList: VFC<BasketListProps> = ({ saleItem, onEditButtonClick, onRemoveButtonClick }) => {
   return (
-    <ListItem deleteButton={true} onClickDeleteButton={onRemoveButtonClick.bind(this, saleItem)}>
+    <ListItem
+      editButton={true}
+      deleteButton={true}
+      onClickEditButton={onEditButtonClick.bind(this, saleItem)}
+      onClickDeleteButton={onRemoveButtonClick.bind(this, saleItem)}
+    >
       <div className={classes.basket_item}>
         <span>{saleItem.product.name}</span>
         <span>{removeDecimalZeros(saleItem.product.sell_price)}€</span>

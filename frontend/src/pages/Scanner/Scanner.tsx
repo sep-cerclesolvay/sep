@@ -85,8 +85,7 @@ const Scanner: VFC = () => {
           setShowQrOverride(false);
         }}
         header={'Alert'}
-        subHeader={'Entrez la valeur du QR code'}
-        cssClass={classes.alert}
+        message={'Entrez la valeur du QR code'}
         inputs={[
           {
             name: 'qrCodeInputValue',

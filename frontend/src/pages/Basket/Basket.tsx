@@ -2,7 +2,7 @@ import { IonButton, IonFab, IonFabButton, IonIcon, IonItem, useIonLoading, useIo
 import Page from 'components/Page';
 import { qrCodeOutline, qrCodeSharp } from 'ionicons/icons';
 import { useEffect, useState, VFC } from 'react';
-import { initializeNewSale, save, selectBasket } from 'redux/basketSlice';
+import { initializeNewSale, saveBasket, selectBasket } from 'redux/basketSlice';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import BasketEmpty from './BasketEmpty';
 import BasketLoading from './BasketLoading';
@@ -15,8 +15,10 @@ import { removeDecimalZeros } from 'utils/math';
 import PaymentPrompt from './PaymentPrompt';
 import { loadPaymentMethods } from 'redux/paymentMethodSlice';
 import { add } from 'redux/salesSlice';
+import BasketEditItem from './BasketEditItem';
 
 const Basket: VFC = () => {
+  const [editSaleItem, setEditSaleItem] = useState<EditableSaleItem | undefined>();
   const [removeSaleItem, setRemoveSaleItem] = useState<EditableSaleItem | undefined>();
   const [showPaymentPrompt, setShowPaymentPrompt] = useState<boolean>(false);
   const [present, dismiss] = useIonLoading();
@@ -42,7 +44,11 @@ const Basket: VFC = () => {
     if (!basket.isLoading && !basket.data) dispatch(initializeNewSale());
   }, [basket, dispatch]);
 
-  const handleRemoveButtonClick = (saleItem: EditableSaleItem) => {
+  const handleEditItemButtonClick = (saleItem: EditableSaleItem) => {
+    setEditSaleItem(saleItem);
+  };
+
+  const handleRemoveItemButtonClick = (saleItem: EditableSaleItem) => {
     setRemoveSaleItem(saleItem);
   };
 
@@ -57,7 +63,11 @@ const Basket: VFC = () => {
         <StateAwareList
           state={{ isLoading: basket.isLoading, items: basket.data?.editable.items, error: basket.error }}
           renderItem={(saleItem) => (
-            <BasketItem saleItem={saleItem} onRemoveButtonClick={handleRemoveButtonClick.bind(this, saleItem)} />
+            <BasketItem
+              saleItem={saleItem}
+              onEditButtonClick={handleEditItemButtonClick.bind(this, saleItem)}
+              onRemoveButtonClick={handleRemoveItemButtonClick.bind(this, saleItem)}
+            />
           )}
           keyResolver={(saleItem) => `${saleItem.product.id}`}
           loadingComponent={<BasketLoading />}
@@ -74,12 +84,13 @@ const Basket: VFC = () => {
           </IonButton>
         </div>
       </div>
+      <BasketEditItem saleItem={editSaleItem} onDidDismiss={() => setEditSaleItem(undefined)} />
       <BasketRemoveItem saleItem={removeSaleItem} onDidDismiss={() => setRemoveSaleItem(undefined)} />
       <PaymentPrompt
         open={showPaymentPrompt}
         onDidDismiss={() => setShowPaymentPrompt(false)}
         onDidFinish={() => {
-          dispatch(save());
+          dispatch(saveBasket());
           present({ message: 'Enregistrement...' });
           setShowPaymentPrompt(false);
         }}
