@@ -2,7 +2,7 @@ import { IonAlert, IonRouterOutlet, IonSplitPane } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
 import Menu from 'components/Menu';
-import NotFound from 'pages/NotFound';
+import { NotFound } from 'pages/ErrorPages';
 import Stock from 'pages/Stock/Stock';
 import Sales from 'pages/Sales';
 import Entries from 'pages/Entries';
