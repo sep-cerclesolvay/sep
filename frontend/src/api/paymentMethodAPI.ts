@@ -1,14 +1,6 @@
-import environment from 'environment';
 import { PaymentMethod } from 'types/PaymentMethod';
+import { ReadApi } from './_API';
 
-export const fetchPaymentMethods = async (): Promise<PaymentMethod[] | undefined> => {
-  const resp = await fetch(`${environment.API_URL}/payment-methods/`, {
-    method: 'GET',
-    headers: new Headers({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    }),
-  });
-  if (resp.status >= 400) throw new Error(`${resp.status} ${resp.statusText}`);
-  return await resp.json();
-};
+const paymentMethodAPI = new ReadApi<PaymentMethod>('payment-methods');
+
+export const fetchPaymentMethods = paymentMethodAPI.fetchAll;
