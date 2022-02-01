@@ -11,7 +11,7 @@ import SaleEmpty from './SaleEmpty';
 import SaleItem from './SaleItem';
 import SaleLoading from './SaleLoading';
 import { downloadSalesReport } from 'api/saleAPI';
-import classes from './Sale.module.scss';
+import shared_classes from '../shared.module.scss';
 
 const Sales: VFC = () => {
   const sales = useSales();
@@ -65,7 +65,7 @@ const Sales: VFC = () => {
           )
         }
         renderGroup={(group, items) => (
-          <div className={classes.sale_group}>
+          <div className={shared_classes.group}>
             <p>
               {group} -{' '}
               {items.reduce((acc, sale) => (acc += sale.items.reduce((acc, sale) => (acc += sale.quantity), 0)), 0)}{' '}
