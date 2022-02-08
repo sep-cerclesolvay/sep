@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchPackById } from 'api/packAPI';
-import { fetchProductById } from 'api/productAPI';
-import { fetchSaleById, saveSale } from 'api/saleAPI';
+import { packApi } from 'api/packAPI';
+import { productApi } from 'api/productAPI';
+import { saleApi } from 'api/saleAPI';
 import { isEqual } from 'lodash';
 import { Id } from 'types/Id';
 import { Pack } from 'types/Pack';
@@ -26,7 +26,7 @@ export const loadSaleIntoBasket = createAsyncThunk(
   'basket/loadSale',
   async ({ id }: { id: Id }, { rejectWithValue }) => {
     try {
-      const sale = await fetchSaleById(id);
+      const sale = await saleApi.fetchById(id);
       // The value we return becomes the `fulfilled` action payload
       return { initial: sale, editable: sale };
     } catch (e) {
@@ -39,7 +39,7 @@ export const addOneProductById = createAsyncThunk(
   'basket/addOneProductById',
   async (id: Product['id'], { rejectWithValue }) => {
     try {
-      const product = await fetchProductById(id);
+      const product = await productApi.fetchById(id);
       return product;
     } catch (e) {
       return rejectWithValue(e);
@@ -60,7 +60,7 @@ export const addProductsByPackId = createAsyncThunk(
   'basket/addProductsByPackId',
   async (id: Pack['id'], { rejectWithValue }) => {
     try {
-      const pack = await fetchPackById(id);
+      const pack = await packApi.fetchById(id);
       return pack;
     } catch (e) {
       return rejectWithValue(e);
@@ -76,16 +76,6 @@ export const addProductsByPackId = createAsyncThunk(
     dispatchConditionRejection: true,
   }
 );
-
-export const saveBasket = createAsyncThunk('basket/save', async (_, { getState, rejectWithValue }) => {
-  const state = getState() as RootState;
-  try {
-    const sale = await saveSale(state.basket.data?.editable);
-    return sale;
-  } catch (e) {
-    return rejectWithValue(e);
-  }
-});
 
 const updateTotal = (sale: EditableSale) => {
   sale.total = `${sale.items.reduce((acc, item) => acc + item.quantity * +item.product.sell_price, 0)}`;
@@ -181,13 +171,6 @@ export const basketSlice = createSlice({
       state.isLoading = false;
       state.error = undefined;
     });
-    builder.addCase(saveBasket.fulfilled, (state, action) => {
-      if (action.payload) {
-        state.data = { initial: action.payload, editable: action.payload, saved: true };
-      }
-      state.isLoading = false;
-      state.error = undefined;
-    });
   },
 });
 
@@ -200,6 +183,7 @@ export const {
 } = basketSlice.actions;
 
 export const selectBasket = (state: RootState): BasketState => state.basket;
+export const useBasket = (): BasketState => useAppSelector(selectBasket);
 
 export const useIsBasketDirty = (): boolean => {
   const basket = useAppSelector(selectBasket);

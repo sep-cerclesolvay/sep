@@ -1,36 +1,17 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Product } from 'types/Product';
 import { AsyncState } from '../types/AsyncState';
 import { RootState } from './store';
-import { addAsyncThunk } from './utils';
-import { fetchProducts } from 'api/productAPI';
+import { productApi } from 'api/productAPI';
 import { useAppSelector } from './hooks';
+import { createRestSlice } from './rest';
 
-type ProductsState = AsyncState<Product[]>;
-
-const initialState: ProductsState = {
-  isLoading: true,
-};
-
-export const loadProducts = createAsyncThunk('products/fetchProducts', async (_i, { rejectWithValue }) => {
-  try {
-    const response = await fetchProducts();
-    return response;
-  } catch (e) {
-    return rejectWithValue(JSON.stringify(e));
-  }
-});
-
-export const productsSlice = createSlice({
+export const { slice, extraReducers } = createRestSlice({
   name: 'products',
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    addAsyncThunk(builder, loadProducts);
-  },
+  api: productApi,
 });
 
-export const selectProducts = (state: RootState): ProductsState => state.products;
+export const { fetchAll: loadProducts } = extraReducers;
+export const selectProducts = (state: RootState) => state.products;
 export const useProducts = (): AsyncState<Product[]> => useAppSelector(selectProducts);
 
-export default productsSlice.reducer;
+export default slice.reducer;

@@ -1,9 +1,9 @@
 import { IonApp, setupIonicReact } from '@ionic/react';
 import Router from 'router/Router';
 import { ToastProvider } from '@agney/ir-toast';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { useAppDispatch } from 'redux/hooks';
 import { useEffect, useRef } from 'react';
-import { loadUser, selectUser } from 'redux/userSlice';
+import { loadUser, useUser } from 'redux/userSlice';
 import LoadingBar from 'components/LoadingBar';
 import WaitingServerConnection from 'pages/WaitingServerConnection';
 import {
@@ -25,7 +25,7 @@ setupIonicReact();
 
 const App: React.FC = () => {
   const { showUpdateAvailable } = usePWAContext();
-  const asyncUser = useAppSelector(selectUser);
+  const asyncUser = useUser();
   const dispatch = useAppDispatch();
   const banner = useBanner();
   const network = useNetwork();
@@ -54,7 +54,7 @@ const App: React.FC = () => {
   return (
     <>
       <LoadingBar show={asyncUser.isLoading} />
-      <CSSTransition nodeRef={nodeRef} mountOnEnter={true} in={banner.length > 0} timeout={200}>
+      <CSSTransition nodeRef={nodeRef} mountOnEnter={true} unmountOnExit={true} in={banner.length > 0} timeout={200}>
         <div
           className={classes.banner}
           title={banner.length > 0 ? banner[0].explanation : undefined}

@@ -9,8 +9,8 @@ import FormSubmitButton from 'components/FormSubmitButton';
 import Message from 'components/Message';
 import { useAppDispatch } from 'redux/hooks';
 import { login } from 'redux/userSlice';
-import { isRequestStatusError } from 'types/RequestStatusError';
 import RequiredAsterisk from 'components/RequiredAsterisk';
+import { serializeError } from 'utils/errors';
 
 interface LoginFormValues {
   username: string;
@@ -37,13 +37,7 @@ const Login: VFC = () => {
         dispatch(login(result));
         router.push('/stock');
       } catch (e) {
-        if (isRequestStatusError(e)) {
-          setErrorMessage(e.message);
-        } else if (e instanceof Error) {
-          setErrorMessage(e.toString());
-        } else {
-          setErrorMessage(JSON.stringify(e));
-        }
+        setErrorMessage(serializeError(e));
         console.error(e);
       }
     },

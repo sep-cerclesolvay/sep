@@ -3,11 +3,11 @@ import { Product } from 'types/Product';
 import { AsyncState } from '../types/AsyncState';
 import { RootState } from './store';
 import { addAsyncThunk } from './utils';
-import { fetchProductById } from 'api/productAPI';
+import { productApi } from 'api/productAPI';
 import { useAppSelector } from './hooks';
 import { Id } from 'types/Id';
 import { Pack } from 'types/Pack';
-import { fetchPackById } from 'api/packAPI';
+import { packApi } from 'api/packAPI';
 
 type QrCodeData = { type: 'product' | 'pack'; value: Product | Pack };
 
@@ -22,11 +22,11 @@ export const loadQrCode = createAsyncThunk(
   async ({ type, id }: { type: string; id: Id }, { rejectWithValue }) => {
     try {
       if (type === 'product') {
-        const response = await fetchProductById(id);
+        const response = await productApi.fetchById(id);
         return { type, value: response };
       }
       if (type === 'pack') {
-        const response = await fetchPackById(id);
+        const response = await packApi.fetchById(id);
         return { type, value: response };
       }
       return rejectWithValue('Type inconnu');

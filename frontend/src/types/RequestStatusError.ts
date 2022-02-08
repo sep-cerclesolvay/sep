@@ -1,9 +1,10 @@
-export class RequestStatusError {
+export class RequestStatusError extends Error {
   status: number;
   statusMessage: string;
   message: string;
 
   constructor(status: number, statusMessage: string, message: string) {
+    super(message);
     this.status = status;
     this.statusMessage = statusMessage;
     this.message = message;

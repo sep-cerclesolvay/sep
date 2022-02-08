@@ -5,8 +5,8 @@ import environment from 'environment';
 import { useContext, useEffect, useState, VFC } from 'react';
 import { useToast } from '@agney/ir-toast';
 import classes from './Scanner.module.scss';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { addOneProductById, addProductsByPackId, initializeNewSale, selectBasket } from 'redux/basketSlice';
+import { useAppDispatch } from 'redux/hooks';
+import { addOneProductById, addProductsByPackId, initializeNewSale, useBasket } from 'redux/basketSlice';
 import { reverseMapping } from 'utils/collections';
 import { typesMap } from 'types/typesMap';
 import { Base58 } from 'utils/base58';
@@ -19,7 +19,7 @@ const Scanner: VFC = () => {
   const navContext = useContext(NavContext);
   const router = useIonRouter();
   const Toast = useToast();
-  const basket = useAppSelector(selectBasket);
+  const basket = useBasket();
   const dispatch = useAppDispatch();
 
   useEffect(() => {

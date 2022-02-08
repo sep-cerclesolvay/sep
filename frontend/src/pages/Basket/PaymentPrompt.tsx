@@ -1,7 +1,7 @@
 import { IonAlert } from '@ionic/react';
 import { useEffect, VFC } from 'react';
-import { selectBasket, setPaymentMethod } from 'redux/basketSlice';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { setPaymentMethod, useBasket } from 'redux/basketSlice';
+import { useAppDispatch } from 'redux/hooks';
 import { usePaymentMethods } from 'redux/paymentMethodSlice';
 
 export interface PaymentPromptProps {
@@ -13,23 +13,28 @@ export interface PaymentPromptProps {
 const PaymentPrompt: VFC<PaymentPromptProps> = ({ open, onDidDismiss, onDidFinish }) => {
   const dispatch = useAppDispatch();
   const paymentMethods = usePaymentMethods();
-  const basket = useAppSelector(selectBasket);
+  const basket = useBasket();
 
-  const canAutoSelectPayment = paymentMethods.data?.length == 1;
+  const autoSelectPayment =
+    !paymentMethods.isLoading && paymentMethods.data?.length == 1 ? paymentMethods.data[0] : undefined;
 
   useEffect(() => {
-    if (open && canAutoSelectPayment && paymentMethods.data?.length == 1) {
-      dispatch(setPaymentMethod(paymentMethods.data[0]));
-      onDidFinish();
+    if (open && autoSelectPayment) {
+      dispatch(setPaymentMethod(autoSelectPayment));
+      if (basket.data?.editable.payment_method?.id === autoSelectPayment.id) {
+        onDidFinish();
+      }
     }
-  }, [open, canAutoSelectPayment, dispatch, paymentMethods.data, onDidFinish]);
+  }, [open, autoSelectPayment, dispatch, onDidFinish, basket.data?.editable.payment_method?.id]);
 
   return (
     <IonAlert
-      isOpen={open && !canAutoSelectPayment}
+      isOpen={open && autoSelectPayment === undefined}
       onDidDismiss={onDidDismiss}
       header={'Payment'}
-      subHeader={paymentMethods.data ? 'Indiquez comment le client vous a payé' : 'Chargement...'}
+      subHeader={
+        !paymentMethods.isLoading && paymentMethods.data ? 'Indiquez comment le client vous a payé' : 'Chargement...'
+      }
       inputs={paymentMethods.data?.map((paymentMethod) => ({
         name: 'paymentMethod',
         type: 'radio',

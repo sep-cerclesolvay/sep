@@ -2,8 +2,8 @@ import { IonButton, IonFab, IonFabButton, IonIcon, IonItem, useIonLoading, useIo
 import Page from 'components/Page';
 import { qrCodeOutline, qrCodeSharp } from 'ionicons/icons';
 import { useEffect, useState, VFC } from 'react';
-import { initializeNewSale, saveBasket, selectBasket } from 'redux/basketSlice';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { initializeNewSale, useBasket } from 'redux/basketSlice';
+import { useAppDispatch } from 'redux/hooks';
 import BasketEmpty from './BasketEmpty';
 import BasketLoading from './BasketLoading';
 import BasketRemoveItem from './BasketRemoveItem';
@@ -14,27 +14,20 @@ import { EditableSaleItem } from 'types/SaleItem';
 import { removeDecimalZeros } from 'utils/math';
 import PaymentPrompt from './PaymentPrompt';
 import { loadPaymentMethods } from 'redux/paymentMethodSlice';
-import { add } from 'redux/salesSlice';
+import { saveSale } from 'redux/salesSlice';
 import BasketEditItem from './BasketEditItem';
+import { useToast } from '@agney/ir-toast';
 
 const Basket: VFC = () => {
   const [editSaleItem, setEditSaleItem] = useState<EditableSaleItem | undefined>();
   const [removeSaleItem, setRemoveSaleItem] = useState<EditableSaleItem | undefined>();
   const [showPaymentPrompt, setShowPaymentPrompt] = useState<boolean>(false);
   const [present, dismiss] = useIonLoading();
+  const Toast = useToast();
   const router = useIonRouter();
 
-  const basket = useAppSelector(selectBasket);
+  const basket = useBasket();
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (basket.data?.saved) {
-      dismiss();
-      if (basket.data.initial) dispatch(add(basket.data.initial));
-      dispatch(initializeNewSale());
-      router.push('/ventes');
-    }
-  }, [basket, dismiss, dispatch, router]);
 
   useEffect(() => {
     dispatch(loadPaymentMethods());
@@ -90,9 +83,18 @@ const Basket: VFC = () => {
         open={showPaymentPrompt}
         onDidDismiss={() => setShowPaymentPrompt(false)}
         onDidFinish={() => {
-          dispatch(saveBasket());
           present({ message: 'Enregistrement...' });
           setShowPaymentPrompt(false);
+          dispatch(saveSale({ data: basket.data?.editable }))
+            .then(() => {
+              dismiss();
+              dispatch(initializeNewSale());
+              router.push('/ventes');
+            })
+            .catch((reason) => {
+              dismiss();
+              Toast.error(reason.toString());
+            });
         }}
       />
       <IonFab className={classes.scanner_btn} vertical="bottom" horizontal="end" slot="fixed">

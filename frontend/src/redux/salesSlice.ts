@@ -1,44 +1,18 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AsyncState } from '../types/AsyncState';
 import { RootState } from './store';
-import { addAsyncThunk } from './utils';
 import { useAppSelector } from './hooks';
-import { fetchSales } from 'api/saleAPI';
+import { saleApi } from 'api/saleAPI';
 import { Sale } from 'types/Sale';
+import { createRestSlice } from './rest';
 
-type SalesState = AsyncState<Sale[]>;
-
-const initialState: SalesState = {
-  isLoading: true,
-};
-
-export const loadSales = createAsyncThunk('sales/fetchSales', async (_i, { rejectWithValue }) => {
-  try {
-    const response = await fetchSales();
-    return response?.sort((a, b) => b.created_date.localeCompare(a.created_date));
-  } catch (e) {
-    return rejectWithValue(JSON.stringify(e));
-  }
-});
-
-export const productsSlice = createSlice({
+export const { slice, extraReducers } = createRestSlice({
   name: 'sales',
-  initialState,
-  reducers: {
-    add: (state, action: PayloadAction<Sale>) => {
-      if (state.data) {
-        return { ...state, data: [action.payload, ...state.data.filter((sale) => sale.id !== action.payload.id)] };
-      }
-    },
-  },
-  extraReducers: (builder) => {
-    addAsyncThunk(builder, loadSales);
-  },
+  api: saleApi,
+  sortCompareFn: (a, b) => b.created_date.localeCompare(a.created_date),
 });
 
-export const { add } = productsSlice.actions;
-
-export const selectSales = (state: RootState): SalesState => state.sales;
+export const { fetchAll: loadSales, save: saveSale } = extraReducers;
+export const selectSales = (state: RootState) => state.sales;
 export const useSales = (): AsyncState<Sale[]> => useAppSelector(selectSales);
 
-export default productsSlice.reducer;
+export default slice.reducer;

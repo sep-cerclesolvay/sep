@@ -1,36 +1,17 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AsyncState } from '../types/AsyncState';
 import { RootState } from './store';
-import { addAsyncThunk } from './utils';
 import { useAppSelector } from './hooks';
 import { Pack } from 'types/Pack';
-import { fetchPacks } from 'api/packAPI';
+import { packApi } from 'api/packAPI';
+import { createRestSlice } from './rest';
 
-type PacksState = AsyncState<Pack[]>;
-
-const initialState: PacksState = {
-  isLoading: true,
-};
-
-export const loadPacks = createAsyncThunk('packs/fetchPacks', async (_i, { rejectWithValue }) => {
-  try {
-    const response = await fetchPacks();
-    return response;
-  } catch (e) {
-    return rejectWithValue(JSON.stringify(e));
-  }
-});
-
-export const productsSlice = createSlice({
+export const { slice, extraReducers } = createRestSlice({
   name: 'packs',
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    addAsyncThunk(builder, loadPacks);
-  },
+  api: packApi,
 });
 
-export const selectPacks = (state: RootState): PacksState => state.packs;
+export const { fetchAll: loadPacks } = extraReducers;
+export const selectPacks = (state: RootState) => state.packs;
 export const usePacks = (): AsyncState<Pack[]> => useAppSelector(selectPacks);
 
-export default productsSlice.reducer;
+export default slice.reducer;

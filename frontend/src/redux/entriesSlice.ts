@@ -1,36 +1,17 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AsyncState } from '../types/AsyncState';
 import { RootState } from './store';
-import { addAsyncThunk } from './utils';
 import { useAppSelector } from './hooks';
 import { Entry } from 'types/Entry';
-import { fetchEntries } from 'api/entriesAPI';
+import { entriesApi } from 'api/entriesAPI';
+import { createRestSlice } from './rest';
 
-type EntriesState = AsyncState<Entry[]>;
-
-const initialState: EntriesState = {
-  isLoading: true,
-};
-
-export const loadEntries = createAsyncThunk('entries/fetchEntries', async (_i, { rejectWithValue }) => {
-  try {
-    const response = await fetchEntries();
-    return response;
-  } catch (e) {
-    return rejectWithValue(JSON.stringify(e));
-  }
-});
-
-export const entriesSlice = createSlice({
+export const { slice, extraReducers } = createRestSlice({
   name: 'entries',
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    addAsyncThunk(builder, loadEntries);
-  },
+  api: entriesApi,
 });
 
-export const selectEntries = (state: RootState): EntriesState => state.entries;
+export const { fetchAll: loadEntries } = extraReducers;
+export const selectEntries = (state: RootState) => state.entries;
 export const useEntries = (): AsyncState<Entry[]> => useAppSelector(selectEntries);
 
-export default entriesSlice.reducer;
+export default slice.reducer;
