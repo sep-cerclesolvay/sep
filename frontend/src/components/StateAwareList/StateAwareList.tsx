@@ -6,6 +6,7 @@ import { refreshOutline, refreshSharp } from 'ionicons/icons';
 import { groupBy } from 'lodash';
 import { ReactElement, ReactNode, useMemo, useState } from 'react';
 import { GroupedVirtuoso, Virtuoso } from 'react-virtuoso';
+import Empty from './Empty';
 import classes from './StateAwareList.module.scss';
 
 export interface StateAwareList<Item> {
@@ -17,7 +18,7 @@ export interface StateAwareList<Item> {
   toolbarButtons?: ReactNode[];
   loadingComponent: ReactNode;
   numberOfLoadingComponents?: number;
-  emptyComponent: ReactNode;
+  emptyComponent: string | ReactNode;
   renderItem: (item: Item) => ReactNode;
   renderError: (error: unknown) => ReactNode;
   keyResolver: (item: Item) => string;
@@ -65,7 +66,9 @@ const StateAwareList = <Item,>({
 
   if (!content) {
     if (!state.items || state.items.length === 0) {
-      content = <IonList>{emptyComponent}</IonList>;
+      content = (
+        <IonList>{typeof emptyComponent === 'string' ? <Empty message={emptyComponent} /> : emptyComponent}</IonList>
+      );
     } else {
       const data = state.items;
       const commonVirtuosoProps = {

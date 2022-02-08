@@ -8,7 +8,6 @@ import { loadPacks, usePacks } from 'redux/packsSlice';
 import { Pack } from 'types/Pack';
 import { Base58 } from 'utils/base58';
 import PackLoading from './PackLoading';
-import PackEmpty from './PackEmpty';
 
 const base58 = new Base58();
 
@@ -46,7 +45,7 @@ const Packs: VFC = () => {
         )}
         keyResolver={(pack) => `${pack.id}`}
         loadingComponent={<PackLoading />}
-        emptyComponent={<PackEmpty />}
+        emptyComponent={'Aucun Pack'}
         renderError={(error) => <IonItem>Error: {JSON.stringify(error, undefined, 2)}</IonItem>}
         onRefresh={handleRefresh}
       />

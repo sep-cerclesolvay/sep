@@ -6,7 +6,6 @@ import { useAppDispatch } from 'redux/hooks';
 import { loadProducts, useProducts } from 'redux/productsSlice';
 import { Product } from 'types/Product';
 import { Base58 } from 'utils/base58';
-import StockEmpty from './StockEmpty';
 import StockItem from './StockItem';
 import StockLoading from './StockLoading';
 
@@ -61,7 +60,7 @@ const Stock: VFC = () => {
           ]
         }
         loadingComponent={<StockLoading />}
-        emptyComponent={<StockEmpty />}
+        emptyComponent={'Aucun Produit'}
         renderError={(error) => <IonItem>Error: {JSON.stringify(error, undefined, 2)}</IonItem>}
         onRefresh={handleRefresh}
       />

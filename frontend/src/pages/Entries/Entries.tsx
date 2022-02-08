@@ -5,7 +5,6 @@ import { capitalize } from 'lodash';
 import { VFC, useEffect } from 'react';
 import { loadEntries, useEntries } from 'redux/entriesSlice';
 import { useAppDispatch } from 'redux/hooks';
-import EntryEmpty from './EntryEmpty';
 import EntryItem from './EntryItem';
 import EntryLoading from './EntryLoading';
 import shared_classes from '../shared.module.scss';
@@ -29,7 +28,7 @@ const Entries: VFC = () => {
         renderItem={(entry) => <EntryItem entry={entry} />}
         keyResolver={(entry) => `${entry.id}`}
         loadingComponent={<EntryLoading />}
-        emptyComponent={<EntryEmpty />}
+        emptyComponent={'Aucune Entrée'}
         renderError={(error) => <IonItem>Error: {JSON.stringify(error, undefined, 2)}</IonItem>}
         groupResolver={(entry) =>
           capitalize(

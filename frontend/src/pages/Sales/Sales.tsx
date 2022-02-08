@@ -7,7 +7,6 @@ import { useEffect, VFC } from 'react';
 import { initializeNewSale } from 'redux/basketSlice';
 import { useAppDispatch } from 'redux/hooks';
 import { loadSales, useSales } from 'redux/salesSlice';
-import SaleEmpty from './SaleEmpty';
 import SaleItem from './SaleItem';
 import SaleLoading from './SaleLoading';
 import { downloadSalesReport } from 'api/saleAPI';
@@ -52,7 +51,7 @@ const Sales: VFC = () => {
         renderItem={(sale) => <SaleItem sale={sale} />}
         keyResolver={(sale) => `${sale.id}`}
         loadingComponent={<SaleLoading />}
-        emptyComponent={<SaleEmpty />}
+        emptyComponent={'Aucune Vente'}
         renderError={(error) => <IonItem>Error: {JSON.stringify(error, undefined, 2)}</IonItem>}
         groupResolver={(sale) =>
           capitalize(

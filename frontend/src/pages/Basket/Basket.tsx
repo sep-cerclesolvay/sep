@@ -4,7 +4,6 @@ import { qrCodeOutline, qrCodeSharp } from 'ionicons/icons';
 import { useEffect, useState, VFC } from 'react';
 import { initializeNewSale, useBasket } from 'redux/basketSlice';
 import { useAppDispatch } from 'redux/hooks';
-import BasketEmpty from './BasketEmpty';
 import BasketLoading from './BasketLoading';
 import BasketRemoveItem from './BasketRemoveItem';
 import classes from './Basket.module.scss';
@@ -64,7 +63,7 @@ const Basket: VFC = () => {
           )}
           keyResolver={(saleItem) => `${saleItem.product.id}`}
           loadingComponent={<BasketLoading />}
-          emptyComponent={<BasketEmpty />}
+          emptyComponent={'Le panier est vide'}
           renderError={(error) => <IonItem>Error: {JSON.stringify(error, undefined, 2)}</IonItem>}
         />
         <div className={classes.save_btn}>

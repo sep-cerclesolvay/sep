@@ -1,14 +1,18 @@
 import { IonItem, IonLabel } from '@ionic/react';
 import { VFC } from 'react';
 
-const BasketEmpty: VFC = () => {
+export interface EmptyProps {
+  message: string;
+}
+
+const Empty: VFC<EmptyProps> = ({ message }) => {
   return (
     <IonItem>
       <IonLabel>
-        <p>Aucun Produit</p>
+        <p>{message}</p>
       </IonLabel>
     </IonItem>
   );
 };
 
-export default BasketEmpty;
+export default Empty;
