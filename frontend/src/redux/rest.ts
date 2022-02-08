@@ -10,7 +10,6 @@ import { AsyncState } from '../types/AsyncState';
 import { ReadApi, CRUDApi, isCRUDApi } from 'api/_API';
 import { Id } from 'types/Id';
 import { createDraft, Draft } from 'immer';
-import { WritableDraft } from '@reduxjs/toolkit/node_modules/immer/dist/internal';
 import { BaseObject } from 'types/BaseObject';
 import { BaseEditableObject } from 'types/BaseEditableObject';
 import { serializeError } from 'utils/errors';
@@ -76,7 +75,7 @@ export const createRestSlice = <ReadDataType extends BaseObject, SaveDataType ex
   });
 
   const insertNewData = (
-    state: WritableDraft<AsyncState<ReadDataType[]>>,
+    state: Draft<AsyncState<ReadDataType[]>>,
     action: PayloadAction<ReadDataType | undefined, string, unknown, never>
   ) => {
     if (state.data && action.payload) {
