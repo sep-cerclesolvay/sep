@@ -1,5 +1,15 @@
 {
   "github": {
     "silent": true
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/admin/:path*",
+      "destination": "https://sep-prod-backend.herokuapp.com/admin/:path*"
+    },
+    {
+      "source": "/admin/:path*/",
+      "destination": "https://sep-prod-backend.herokuapp.com/admin/:path*/"
+    }
+  ]
 }
