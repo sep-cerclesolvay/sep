@@ -2,10 +2,11 @@
   "github": {
     "silent": true
   },
+  "trailingSlash": true,
   "rewrites": [
     {
-      "source": "/admin/:path*",
-      "destination": "https://sep-prod-backend.herokuapp.com/admin/:path*"
+      "source": "/admin/",
+      "destination": "https://sep-prod-backend.herokuapp.com/admin/"
     },
     {
       "source": "/admin/:path*/",
