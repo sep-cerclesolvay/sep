@@ -35,7 +35,7 @@ const Login: VFC = () => {
         const result = await loginUser(values.username, values.password);
         setErrorMessage(undefined);
         dispatch(login(result));
-        router.push('/stock');
+        router.push('/stock/');
       } catch (e) {
         if (isRequestStatusError(e)) {
           setErrorMessage(e.message);

@@ -30,7 +30,7 @@ const Basket: VFC = () => {
       dismiss();
       if (basket.data.initial) dispatch(add(basket.data.initial));
       dispatch(initializeNewSale());
-      router.push('/ventes');
+      router.push('/ventes/');
     }
   }, [basket, dismiss, dispatch, router]);
 
@@ -85,7 +85,7 @@ const Basket: VFC = () => {
         }}
       />
       <IonFab className={classes.scanner_btn} vertical="bottom" horizontal="end" slot="fixed">
-        <IonFabButton routerLink="/ventes/scanner">
+        <IonFabButton routerLink="/ventes/scanner/">
           <IonIcon ios={qrCodeOutline} md={qrCodeSharp} />
         </IonFabButton>
       </IonFab>

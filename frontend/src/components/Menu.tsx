@@ -37,7 +37,7 @@ interface AppPage {
 const anonPages: AppPage[] = [
   {
     title: 'Se Connecter',
-    url: '/connexion',
+    url: '/connexion/',
     iosIcon: logInOutline,
     mdIcon: logInSharp,
   },
@@ -46,25 +46,25 @@ const anonPages: AppPage[] = [
 const userPages: AppPage[] = [
   {
     title: 'Stock',
-    url: '/stock',
+    url: '/stock/',
     iosIcon: fileTrayStackedOutline,
     mdIcon: fileTrayStackedSharp,
   },
   {
     title: 'Packs',
-    url: '/packs',
+    url: '/packs/',
     iosIcon: cubeOutline,
     mdIcon: cubeSharp,
   },
   {
     title: 'Ventes',
-    url: '/ventes',
+    url: '/ventes/',
     iosIcon: cartOutline,
     mdIcon: cartSharp,
   },
   {
     title: 'Entrées',
-    url: '/entrees',
+    url: '/entrees/',
     iosIcon: fileTrayOutline,
     mdIcon: fileTrayFullSharp,
   },

@@ -15,7 +15,7 @@ const LeavePrompt: VFC = () => {
     <Prompt
       when={!!text}
       message={(location) => {
-        if (location.pathname === '/ventes/pannier' || location.pathname === '/ventes/scanner') return true;
+        if (location.pathname === '/ventes/pannier/' || location.pathname === '/ventes/scanner/') return true;
         return text || '';
       }}
     />

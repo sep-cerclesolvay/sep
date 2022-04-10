@@ -7,7 +7,7 @@ export interface RestrictedRouteProps extends RouteProps {
   redirectTo?: LocationDescriptor;
 }
 
-const RestrictedRoute: FC<RestrictedRouteProps> = ({ children, canAccess, redirectTo = '/connexion', ...props }) => {
+const RestrictedRoute: FC<RestrictedRouteProps> = ({ children, canAccess, redirectTo = '/connexion/', ...props }) => {
   return <Route {...props} render={() => (canAccess ? children : <Redirect to={redirectTo} />)} />;
 };
 

@@ -38,29 +38,29 @@ const Router: React.VFC = () => {
       <IonSplitPane contentId="main">
         <Menu />
         <IonRouterOutlet id="main">
-          <RestrictedRoute path="/qr/:slug/:base58Id" canAccess={!!user.data} exact={true} strict={true}>
+          <RestrictedRoute path="/qr/:slug/:base58Id/" canAccess={!!user.data} exact={true} strict={true}>
             <QrCode />
           </RestrictedRoute>
-          <RestrictedRoute path="/connexion" canAccess={!user.data} redirectTo="/stock" exact={true} strict={true}>
+          <RestrictedRoute path="/connexion/" canAccess={!user.data} redirectTo="/stock/" exact={true} strict={true}>
             <Login />
           </RestrictedRoute>
-          <RestrictedRoute path="/stock" canAccess={!!user.data} exact={true} strict={true}>
+          <RestrictedRoute path="/stock/" canAccess={!!user.data} exact={true} strict={true}>
             <Stock />
           </RestrictedRoute>
-          <RestrictedRoute path="/packs" canAccess={!!user.data} exact={true} strict={true}>
+          <RestrictedRoute path="/packs/" canAccess={!!user.data} exact={true} strict={true}>
             <Packs />
           </RestrictedRoute>
-          <RestrictedRoute path="/ventes" canAccess={!!user.data} exact={true} strict={true}>
+          <RestrictedRoute path="/ventes/" canAccess={!!user.data} exact={true} strict={true}>
             <Sales />
           </RestrictedRoute>
-          <RestrictedRoute path="/ventes/pannier" canAccess={!!user.data} exact={true} strict={true}>
+          <RestrictedRoute path="/ventes/pannier/" canAccess={!!user.data} exact={true} strict={true}>
             <Basket />
           </RestrictedRoute>
-          <RestrictedRoute path="/ventes/scanner" canAccess={!!user.data} exact={true} strict={true}>
+          <RestrictedRoute path="/ventes/scanner/" canAccess={!!user.data} exact={true} strict={true}>
             <Scanner />
           </RestrictedRoute>
           <RestrictedRoute
-            path="/ventes/:id/pannier"
+            path="/ventes/:id/pannier/"
             canAccess={!!user.data}
             component={Basket}
             exact={true}
@@ -68,20 +68,20 @@ const Router: React.VFC = () => {
           >
             <Basket />
           </RestrictedRoute>
-          <RestrictedRoute path="/ventes/:id/scanner" canAccess={!!user.data} exact={true} strict={true}>
+          <RestrictedRoute path="/ventes/:id/scanner/" canAccess={!!user.data} exact={true} strict={true}>
             <Scanner />
           </RestrictedRoute>
-          <RestrictedRoute path="/entrees" canAccess={!!user.data} exact={true} strict={true}>
+          <RestrictedRoute path="/entrees/" canAccess={!!user.data} exact={true} strict={true}>
             <Entries />
           </RestrictedRoute>
-          <RestrictedRoute path="/entrees/ajouter" canAccess={!!user.data} exact={true} strict={true}>
+          <RestrictedRoute path="/entrees/ajouter/" canAccess={!!user.data} exact={true} strict={true}>
             <EntryForm />
           </RestrictedRoute>
-          <RestrictedRoute path="/entrees/:id" canAccess={!!user.data} exact={true} strict={true}>
+          <RestrictedRoute path="/entrees/:id/" canAccess={!!user.data} exact={true} strict={true}>
             <EntryForm />
           </RestrictedRoute>
           <Route path="/" exact={true} strict={false}>
-            {user.data ? <Redirect to="/stock" /> : <Redirect to="/connexion" />}
+            {user.data ? <Redirect to="/stock/" /> : <Redirect to="/connexion/" />}
           </Route>
           <Route component={NotFound} exact={false} strict={false} />
         </IonRouterOutlet>
