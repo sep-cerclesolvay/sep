@@ -28,6 +28,9 @@ precacheAndRoute(self.__WB_MANIFEST);
 // are fulfilled with your index.html shell. Learn more at
 // https://developers.google.com/web/fundamentals/architecture/app-shell
 const fileExtensionRegexp = new RegExp('/[^/?]+\\.[^/]+$');
+
+const urlBlacklistRegexp = /^\/admin/;
+
 registerRoute(
   // Return false to exempt requests from being fulfilled by index.html.
   ({ request, url }: { request: Request; url: URL }) => {
@@ -38,6 +41,11 @@ registerRoute(
 
     // If this is a URL that starts with /_, skip.
     if (url.pathname.startsWith('/_')) {
+      return false;
+    }
+
+    // If this is a URL that is blacklisted form the cache, skip
+    if (urlBlacklistRegexp.test(url.pathname)) {
       return false;
     }
 
