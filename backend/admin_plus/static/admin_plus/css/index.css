@@ -1,0 +1,28 @@
+/*****************************************************************************/
+/* Custom modules                                                            */
+/*****************************************************************************/
+
+.module.module__custom {
+  padding-bottom: 0.01px;
+  background-color: var(--darkened-bg);
+}
+
+.module.module__custom .module-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--hairline-color);
+}
+
+.module.module__custom .module-header h2 {
+  background: none;
+  padding: 0;
+  font-size: 18px;
+  color: var(--body-fg);
+}
+
+.module.module__custom .module-body {
+  margin: 16px;
+}

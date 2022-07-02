@@ -1,0 +1,75 @@
+/*****************************************************************************/
+/* Utils                                                                     */
+/*****************************************************************************/
+
+td.right {
+  text-align: right;
+}
+
+.zoomed-chart {
+  width: 110%;
+  transform: translate(-4.5%, -20px);
+}
+
+/*****************************************************************************/
+/* Header                                                                    */
+/*****************************************************************************/
+
+.admin_plus-usertools {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin_plus-usertools #user-tools {
+  margin: auto;
+  text-align: center;
+}
+
+.admin_plus-usertools .lang-switch {
+  margin-right: 20px;
+}
+
+.admin_plus-usertools .lang-switch select {
+  background: none;
+  color: var(--header-link-color);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.admin_plus-usertools .lang-switch select option {
+  color: initial;
+}
+
+@media (max-width: 1024px) {
+  div#header {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    gap: 0.5rem;
+  }
+
+  div#header #branding h1 {
+    margin: 0;
+  }
+
+  .admin_plus-usertools {
+    display: contents;
+  }
+
+  .admin_plus-usertools #user-tools {
+    width: 100%;
+    grid-column: 1 / -1;
+  }
+
+  .admin_plus-usertools .lang-switch {
+    align-self: start;
+    margin-left: auto;
+  }
+
+  .admin_plus-usertools .lang-switch select {
+    height: initial;
+  }
+}

@@ -1,0 +1,50 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}">
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script src="https://cdn.jsdelivr.net/npm/frappe-charts@1.6.2/dist/frappe-charts.min.umd.js"
+    integrity="sha256-77HRXznViw6+XwGfSX2YMIOjsO69g2fFuzKKWgo+X8U=" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard database-usage{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content %}
+
+{% if database_usage_graph and database_usage_all %}
+
+{% include "admin_plus/database_usage_graph.html" %}
+
+{% for config_name, models in database_usage_all.items %}
+<div class="module">
+    <table>
+        <caption>{{ config_name }}</caption>
+        {% for model, count in models.items %}
+        <tr class="model-{{ model|lower }}">
+            <th scope="row">{{ model }}</th>
+            <td class="right">{{ count }} {% translate 'rows' %}</td>
+            {% if count > 0 %}
+            <td>
+                <!--<a href="#" class="deletelink">{% translate 'Clear' %}</a>-->
+            </td>
+            {% else %}
+            <td></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endfor %}
+{% else %}
+<p>{% translate 'You don’t have permission to view or edit anything.' %}</p>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "admin/base_site.html" %}
+{% load lang_switch static %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{% static "admin_plus/css/base.css" %}">
+{% endblock %}
+
+{% block usertools %}
+<div class="admin_plus-usertools">
+  {% lang_switch_dropdown %}
+  {{ block.super }}
+</div>
+{% endblock %}

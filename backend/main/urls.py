@@ -15,15 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import include
 from django.contrib import admin
-from django.urls import path, reverse
+from django.urls import path
 from django.urls.conf import re_path
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
+    path('django_lang_switch/', include('django_lang_switch.urls')),
     path('admin/', admin.site.urls),
     path('docs/', include('docs.urls')),
     path('', include("sep_inventory.urls")),
     path('', include("sep_custom_auth.urls")),
     re_path(r'^.*$', RedirectView.as_view(url='/docs/',
-            permanent=False), name='index')
+                                          permanent=False), name='index')
 ]

@@ -1,0 +1,10 @@
+<div class="module module__custom">
+  <div class="module-header">
+    <h2>Database usage</h2>
+    <a href="{% url 'admin:database-usage' %}">Show Details</a>
+  </div>
+  <div class="module-body">
+    <p>Number of rows used by each models.</p>
+    {% include "admin_plus/database_usage_graph.html" %}
+  </div>
+</div>

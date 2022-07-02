@@ -1,0 +1,22 @@
+<div id="database-usage-chart" class="zoomed-chart"></div>
+<script>
+  const data = {
+    labels: [
+      {% for database_usage_item in database_usage_graph %}
+        "{{ database_usage_item.1 }}",
+      {% endfor %}
+    ],
+    datasets: [{
+      values: [
+        {% for database_usage_item in database_usage_graph %}
+        "{{ database_usage_item.2 }}",
+        {% endfor %}
+      ]
+    }]
+  }
+
+  const chart = new frappe.Chart("#database-usage-chart", {
+    data: data,
+    type: 'percentage'
+  })
+</script>

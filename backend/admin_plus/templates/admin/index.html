@@ -1,0 +1,21 @@
+{% extends "admin/index.html" %}
+{% load static lang_switch %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "admin_plus/css/index.css" %}">
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script src="https://cdn.jsdelivr.net/npm/frappe-charts@1.6.2/dist/frappe-charts.min.umd.js"
+    integrity="sha256-77HRXznViw6+XwGfSX2YMIOjsO69g2fFuzKKWgo+X8U=" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
+    {% if database_usage_graph %}{% include "admin_plus/database_usage_overview.html" %}{% endif %}
+    {% if api_doc %}{% include "admin_plus/api_documentation.html" %}{% endif %}
+</div>
+{% endblock %}
