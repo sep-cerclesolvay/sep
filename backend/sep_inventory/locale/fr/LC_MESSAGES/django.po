@@ -1,0 +1,143 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-06 22:29+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: sep_inventory/admin.py:53
+msgid "number of products"
+msgstr "nombre de produits"
+
+#: sep_inventory/admin.py:60
+#, python-format
+msgid "%(count)s product"
+msgid_plural "%(count)s products"
+msgstr[0] "%(count)s produit"
+msgstr[1] "%(count)s produits"
+
+#: sep_inventory/apps.py:7
+msgid "Inventory"
+msgstr "Inventaire"
+
+#: sep_inventory/models.py:13 sep_inventory/models.py:57
+#: sep_inventory/models.py:69 sep_inventory/models.py:125
+msgid "product"
+msgstr "produit"
+
+#: sep_inventory/models.py:14 sep_inventory/models.py:42
+msgid "products"
+msgstr "produits"
+
+#: sep_inventory/models.py:16 sep_inventory/models.py:40
+#: sep_inventory/models.py:85
+msgid "name"
+msgstr "Nom"
+
+#: sep_inventory/models.py:18
+msgid "purchase price"
+msgstr "prix d'achat"
+
+#: sep_inventory/models.py:20
+msgid "selling price"
+msgstr "prix de vente"
+
+#: sep_inventory/models.py:23 sep_inventory/models.py:70
+#: sep_inventory/models.py:128
+msgid "quantity"
+msgstr "quantité"
+
+#: sep_inventory/models.py:37 sep_inventory/models.py:55
+msgid "pack"
+msgstr "pack"
+
+#: sep_inventory/models.py:38
+msgid "packs"
+msgstr "packs"
+
+#: sep_inventory/models.py:50
+msgid "pack item"
+msgstr "élément du pack"
+
+#: sep_inventory/models.py:51
+msgid "pack items"
+msgstr "éléments du pack"
+
+#: sep_inventory/models.py:60
+#, python-format
+msgid "Pack-Product: %(pack)s - %(product)s"
+msgstr "Pack-Produit: %(pack)s - %(product)s"
+
+#: sep_inventory/models.py:65
+msgid "entry"
+msgstr "entrée"
+
+#: sep_inventory/models.py:66
+msgid "entries"
+msgstr "entrées"
+
+#: sep_inventory/models.py:71 sep_inventory/models.py:99
+msgid "creation date"
+msgstr "date de création"
+
+#: sep_inventory/models.py:72 sep_inventory/models.py:100
+msgid "modification date"
+msgstr "date de modification"
+
+#: sep_inventory/models.py:74 sep_inventory/models.py:102
+msgid "deletion date"
+msgstr "date de suppression"
+
+#: sep_inventory/models.py:82 sep_inventory/models.py:97
+msgid "payment method"
+msgstr "méthode de paiement"
+
+#: sep_inventory/models.py:83
+msgid "payment methods"
+msgstr "méthodes de paiement"
+
+#: sep_inventory/models.py:93 sep_inventory/models.py:127
+msgid "sale"
+msgstr "vente"
+
+#: sep_inventory/models.py:94
+msgid "sales"
+msgstr "ventes"
+
+#: sep_inventory/models.py:105
+msgid "total"
+msgstr "total"
+
+#: sep_inventory/models.py:115
+#, python-format
+msgid "Sale %(id)s"
+msgstr "Vente %(id)s"
+
+#: sep_inventory/models.py:120
+msgid "sale item"
+msgstr "élément vendu"
+
+#: sep_inventory/models.py:121
+msgid "sale items"
+msgstr "éléments vendus"
+
+#: sep_inventory/models.py:131
+#, python-format
+msgid "Sale %(id)s - %(product)s x%(quantity)s"
+msgstr "Vente %(id)s - %(product)s x%(quantity)s"
+
+#~ msgid "Products"
+#~ msgstr "Produits"
