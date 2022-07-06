@@ -1,3 +1,4 @@
+from functools import update_wrapper
 from typing import List
 from django.contrib.admin import AdminSite
 from django.template.response import TemplateResponse
@@ -10,6 +11,14 @@ class AdminPlusSite(AdminSite):
     database_usage_template = None
 
     def get_urls(self) -> List[URLResolver]:
+
+        def wrap(view, cacheable=False):
+            def wrapper(*args, **kwargs):
+                return self.admin_view(view, cacheable)(*args, **kwargs)
+
+            wrapper.admin_site = self
+            return update_wrapper(wrapper, view)
+
         temp_final_catch_all_view = self.final_catch_all_view
         self.final_catch_all_view = False
         urlpatterns = super(AdminPlusSite, self).get_urls()
@@ -18,7 +27,7 @@ class AdminPlusSite(AdminSite):
         from django.urls import path, re_path
 
         urlpatterns += [
-            path("database/", self.database_usage, name="database-usage"),
+            path("database/", wrap(self.database_usage), name="database-usage"),
         ]
 
         if self.final_catch_all_view:
