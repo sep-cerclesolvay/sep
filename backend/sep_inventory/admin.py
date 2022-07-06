@@ -99,9 +99,9 @@ class SaleItemInline(TabularInline):
 @admin.register(Sale)
 class SaleAdmin(DatedModelAdmin):
     search_fields = ('id', 'sale_to_product__product__name')
-    list_display = ('id', 'total_price', 'payment_method', 'created_date',
+    list_display = ('id', 'total', 'payment_method', 'created_date',
                     'updated_date', 'deleted_date')
-    readonly_fields = ('total_price',
+    readonly_fields = ('total',
                        'created_date', 'updated_date')
     inlines = [
         SaleItemInline,

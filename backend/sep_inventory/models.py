@@ -103,13 +103,13 @@ class Sale(models.Model):
 
     @property
     @admin.display(description=_('total'))
-    def total_price(self):
-        total_price = SaleItem.objects.filter(
+    def total(self):
+        total = SaleItem.objects.filter(
             sale=self).annotate(item_total=F('quantity') * F('product__sell_price')).aggregate(total=Sum('item_total'))['total']
-        if total_price == None:
-            total_price = decimal.Decimal('0.000')
+        if total == None:
+            total = decimal.Decimal('0.000')
 
-        return str(total_price)
+        return str(total)
 
     def __str__(self) -> str:
         return _('Sale %(id)s') % {'id': self.id}
