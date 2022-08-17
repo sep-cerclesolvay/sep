@@ -48,7 +48,7 @@ const stateReducer = (prevState: State, action: Action): State => {
 };
 
 const ScannerBox: React.FC<{
-  enableOnlyOnRoute?: string;
+  enableOnlyOnRoute?: RegExp;
   onScan: (result: string) => void;
 }> = ({ enableOnlyOnRoute, onScan }) => {
   const [state, stateDispatcher] = useReducer(stateReducer, initialState);
@@ -60,7 +60,7 @@ const ScannerBox: React.FC<{
   const Toast = useToast();
 
   useEffect(() => {
-    if (isVisible && (!enableOnlyOnRoute || enableOnlyOnRoute === location.pathname)) {
+    if (isVisible && (!enableOnlyOnRoute || enableOnlyOnRoute.test(location.pathname))) {
       stateDispatcher({ type: 'ENABLE_CAMERA' });
     } else {
       stateDispatcher({ type: 'DISABLE_CAMERA' });

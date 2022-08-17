@@ -18,56 +18,70 @@ import {
   cartSharp,
   cubeOutline,
   cubeSharp,
+  cogOutline,
+  cogSharp,
   logInSharp,
   logInOutline,
   fileTrayStackedOutline,
   fileTrayStackedSharp,
+  openOutline,
 } from 'ionicons/icons';
 import classes from './Menu.module.scss';
 import { VFC } from 'react';
 import { useUser } from 'redux/userSlice';
 import Version from './Version';
 
-interface AppPage {
+interface MenuEntry {
   url: string;
   iosIcon: string;
   mdIcon: string;
   title: string;
+  separatorAfter?: boolean;
+  external?: boolean;
 }
 
-const anonPages: AppPage[] = [
+const anonPages: MenuEntry[] = [
   {
     title: 'Se Connecter',
-    url: '/connexion',
+    url: '/connexion/',
     iosIcon: logInOutline,
     mdIcon: logInSharp,
   },
 ];
 
-const userPages: AppPage[] = [
+const userPages: MenuEntry[] = [
   {
     title: 'Stock',
-    url: '/stock',
+    url: '/stock/',
     iosIcon: fileTrayStackedOutline,
     mdIcon: fileTrayStackedSharp,
   },
   {
     title: 'Packs',
-    url: '/packs',
+    url: '/packs/',
     iosIcon: cubeOutline,
     mdIcon: cubeSharp,
   },
   {
     title: 'Ventes',
-    url: '/ventes',
+    url: '/ventes/',
     iosIcon: cartOutline,
     mdIcon: cartSharp,
   },
   {
     title: 'Entrées',
-    url: '/entrees',
+    url: '/entrees/',
     iosIcon: fileTrayOutline,
     mdIcon: fileTrayFullSharp,
+    separatorAfter: true,
+  },
+  {
+    title: 'Admin Panel',
+    url: '/admin/',
+    iosIcon: cogOutline,
+    mdIcon: cogSharp,
+    separatorAfter: true,
+    external: true,
   },
 ];
 
@@ -96,20 +110,25 @@ const Menu: VFC = () => {
             <IonNote>Solvay Entraide et Publication</IonNote>
           </div>
           <hr />
-          {pages.map((appPage) => {
+          {pages.map((menuEntry) => {
             return (
-              <IonMenuToggle key={appPage.url} autoHide={false}>
-                <IonItem
-                  className={location.pathname === appPage.url ? classes.selected : undefined}
-                  routerLink={appPage.url}
-                  routerDirection="none"
-                  lines="none"
-                  detail={false}
-                >
-                  <IonIcon slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
-                  <IonLabel>{appPage.title}</IonLabel>
-                </IonItem>
-              </IonMenuToggle>
+              <>
+                <IonMenuToggle key={menuEntry.url} autoHide={false}>
+                  <IonItem
+                    className={location.pathname === menuEntry.url ? classes.selected : undefined}
+                    href={menuEntry.external ? menuEntry.url : undefined}
+                    routerLink={!menuEntry.external ? menuEntry.url : undefined}
+                    routerDirection="none"
+                    lines="none"
+                    detail={false}
+                  >
+                    <IonIcon slot="start" ios={menuEntry.iosIcon} md={menuEntry.mdIcon} />
+                    <IonLabel>{menuEntry.title}</IonLabel>
+                    {menuEntry.external && <IonIcon slot="end" ios={openOutline} md={openOutline} />}
+                  </IonItem>
+                </IonMenuToggle>
+                {menuEntry.separatorAfter && <hr />}
+              </>
             );
           })}
           <hr />

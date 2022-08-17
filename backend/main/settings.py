@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import json
 import django_on_heroku
 from pathlib import Path
 import os
@@ -28,6 +29,7 @@ SECRET_KEY = 'django-insecure-6mqw4#osf25!#ol8lay#dv$aqm%j2xva8el94%bj(0&dw5qa-z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('RUNNING_ON_HEROKU', '') != 'True'
 
+CSRF_TRUSTED_ORIGINS = json.loads(os.environ.get('CSRF_TRUSTED_ORIGINS', '[]'))
 ALLOWED_HOSTS = []
 CORS_ORIGIN_ALLOW_ALL = True
 

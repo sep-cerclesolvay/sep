@@ -74,7 +74,7 @@ main > slot{
                 <IonIcon slot="end" ios={logOutOutline} md={logOutSharp} />
               </IonButton>
             ) : (
-              <IonButton fill="clear" size="small" shape="round" className={classes.logout} routerLink="/connexion">
+              <IonButton fill="clear" size="small" shape="round" className={classes.logout} routerLink="/connexion/">
                 <span>Se Connecter</span>
                 <IonIcon slot="end" ios={logInOutline} md={logInSharp} />
               </IonButton>

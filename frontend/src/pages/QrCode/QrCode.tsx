@@ -71,7 +71,7 @@ const QrCode: VFC = () => {
   };
 
   return (
-    <Page title="Qr Code" backButton={true} defaultBackUrl={slug === 'pack' ? '/packs' : '/stock'} backText={'Stock'}>
+    <Page title="Qr Code" backButton={true} defaultBackUrl={slug === 'pack' ? '/packs/' : '/stock/'} backText={'Stock'}>
       <div className={classes.qr_code_page}>
         <IonItem>
           <IonLabel>Taille</IonLabel>
@@ -96,7 +96,7 @@ const QrCode: VFC = () => {
             <div style={{ margin: `${size / 16}px` }}>
               <QRCodeGenerator
                 id="QRCode"
-                value={`${QR_CODE_URL}/qr/${qrCode.data?.type}/${base58Id}`}
+                value={`${QR_CODE_URL}/qr/${qrCode.data?.type}/${base58Id}/`}
                 size={size - size / 8}
                 bgColor={background ? '#fff' : '#00000000'}
                 fgColor={qrCode.isLoading || qrCode.error ? '#fff' : undefined}

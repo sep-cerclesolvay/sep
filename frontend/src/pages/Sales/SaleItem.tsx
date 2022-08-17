@@ -21,7 +21,7 @@ const SaleItem: VFC<SaleItemProps> = ({ sale }) => {
 
   const handleEditButtonClick = () => {
     dispatch(loadSaleIntoBasket(sale));
-    router.push('/ventes/pannier');
+    router.push('/ventes/pannier/');
   };
 
   return (

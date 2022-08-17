@@ -27,7 +27,7 @@ const Sales: VFC = () => {
 
   const handleAddButtonClick = () => {
     dispatch(initializeNewSale());
-    router.push('/ventes/scanner');
+    router.push('/ventes/scanner/');
   };
 
   const handleDownloadReportButtonClick = () => {

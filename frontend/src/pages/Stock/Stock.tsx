@@ -25,7 +25,7 @@ const Stock: VFC = () => {
   };
 
   const handleQrCodeButtonClick = (product: Product) => {
-    router.push(`/qr/product/${base58.encode(product.id)}`);
+    router.push(`/qr/product/${base58.encode(product.id)}/`);
   };
 
   const handleRefresh = () => {

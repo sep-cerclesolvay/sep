@@ -39,8 +39,9 @@ const Scanner: VFC = () => {
 
       if (qrCodeData) {
         const qrCodeDataParts = qrCodeData.split('/');
-        if (qrCodeDataParts.length === 2) {
-          const [type, shortName] = qrCodeDataParts;
+        if (qrCodeDataParts.length >= 2) {
+          const type = qrCodeDataParts[0];
+          const shortName = qrCodeDataParts[1];
           if (has(typesMap, type)) {
             const id = base58.decode(shortName);
             if (type === 'product') {
@@ -50,7 +51,7 @@ const Scanner: VFC = () => {
               dispatch(addProductsByPackId(id));
             }
             // navContext.navigate('/qr/' + qrCodeDataParts.join('/'));
-            navContext.navigate('/ventes/pannier');
+            navContext.navigate('/ventes/pannier/');
           }
           return;
         }
@@ -64,12 +65,12 @@ const Scanner: VFC = () => {
     <Page
       title="Scan"
       backButton={true}
-      defaultBackUrl="/ventes"
-      backText={router.routeInfo.pushedByRoute === '/ventes/pannier' ? 'Pannier' : 'Ventes'}
+      defaultBackUrl="/ventes/"
+      backText={router.routeInfo.pushedByRoute === '/ventes/pannier/' ? 'Pannier' : 'Ventes'}
     >
       <div className={classes.scanner}>
         <div>
-          <ScannerBox enableOnlyOnRoute="/ventes/scanner" onScan={handleScan} />
+          <ScannerBox enableOnlyOnRoute={RegExp(/ventes\/scanner/)} onScan={handleScan} />
         </div>
         <div className={classes.tips_and_manual}>
           <p className={classes.tips}>Dirigez votre appareil vers un QR Code</p>

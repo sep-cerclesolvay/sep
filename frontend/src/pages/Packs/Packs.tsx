@@ -25,7 +25,7 @@ const Packs: VFC = () => {
   };
 
   const handleQrCodeButtonClick = (pack: Pack) => {
-    router.push(`/qr/pack/${base58.encode(pack.id)}`);
+    router.push(`/qr/pack/${base58.encode(pack.id)}/`);
   };
 
   const handleRefresh = () => {

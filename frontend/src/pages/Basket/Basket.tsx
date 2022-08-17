@@ -97,7 +97,7 @@ const Basket: VFC = () => {
         }}
       />
       <IonFab className={classes.scanner_btn} vertical="bottom" horizontal="end" slot="fixed">
-        <IonFabButton routerLink="/ventes/scanner">
+        <IonFabButton routerLink="/ventes/scanner/">
           <IonIcon ios={qrCodeOutline} md={qrCodeSharp} />
         </IonFabButton>
       </IonFab>
