@@ -6,15 +6,33 @@
   "rewrites": [
     {
       "source": "/admin/",
-      "destination": "https://sep-prod-backend.herokuapp.com/admin/"
+      "destination": "https://sep-cerclesolvay.herokuapp.com/admin/",
+      "has": [
+        {
+          "type": "host",
+          "value": "sep-git-vercel-rewrite-mathieu-cosyns.vercel.app"
+        }
+      ]
     },
     {
       "source": "/admin/:path*/",
-      "destination": "https://sep-prod-backend.herokuapp.com/admin/:path*/"
+      "destination": "https://sep-cerclesolvay.herokuapp.com/admin/:path*/",
+      "has": [
+        {
+          "type": "host",
+          "value": "sep-git-vercel-rewrite-mathieu-cosyns.vercel.app"
+        }
+      ]
     },
     {
       "source": "/static/admin/:path*",
-      "destination": "https://sep-prod-backend.herokuapp.com/static/admin/:path*"
+      "destination": "https://sep-cerclesolvay.herokuapp.com/static/admin/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "sep-git-vercel-rewrite-mathieu-cosyns.vercel.app"
+        }
+      ]
     }
   ]
 }
