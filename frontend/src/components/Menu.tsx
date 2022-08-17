@@ -36,7 +36,7 @@ interface MenuEntry {
   iosIcon: string;
   mdIcon: string;
   title: string;
-  separatorAfter?: boolean;
+  separatorBefore?: boolean;
   external?: boolean;
 }
 
@@ -73,14 +73,13 @@ const userPages: MenuEntry[] = [
     url: '/entrees/',
     iosIcon: fileTrayOutline,
     mdIcon: fileTrayFullSharp,
-    separatorAfter: true,
   },
   {
     title: 'Admin Panel',
     url: '/admin/',
     iosIcon: cogOutline,
     mdIcon: cogSharp,
-    separatorAfter: true,
+    separatorBefore: true,
     external: true,
   },
 ];
@@ -113,6 +112,7 @@ const Menu: VFC = () => {
           {pages.map((menuEntry) => {
             return (
               <>
+                {menuEntry.separatorBefore && <hr />}
                 <IonMenuToggle key={menuEntry.url} autoHide={false}>
                   <IonItem
                     className={location.pathname === menuEntry.url ? classes.selected : undefined}
@@ -127,7 +127,6 @@ const Menu: VFC = () => {
                     {menuEntry.external && <IonIcon slot="end" ios={openOutline} md={openOutline} />}
                   </IonItem>
                 </IonMenuToggle>
-                {menuEntry.separatorAfter && <hr />}
               </>
             );
           })}
