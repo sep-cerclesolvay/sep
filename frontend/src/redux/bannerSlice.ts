@@ -36,7 +36,7 @@ export const bannerSlice = createSlice({
         message: 'Mise à jour disponible',
         explanation:
           "Une mise à jour est disponible. Veuillez fermer l'application ou toutes les fenêtres du navigateur dans lesquelles l'application est ouverte. La prochaine fois que vous ouvrirez l'application, elle sera à jour.",
-        type: 'error',
+        type: 'warning',
       };
       return [...state.filter((value) => value.id != 'updateAvailable'), updateAvailableBanner];
     },
