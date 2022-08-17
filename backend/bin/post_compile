@@ -1,3 +1,2 @@
 echo Running "python manage.py compilemessages"
-pwd
-python manage.py compilemessages --ignore=**/python/lib/**/*
+python manage.py compilemessages --ignore=.heroku/python/lib/**/*
