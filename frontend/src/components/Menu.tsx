@@ -24,6 +24,7 @@ import {
   logInOutline,
   fileTrayStackedOutline,
   fileTrayStackedSharp,
+  openOutline,
 } from 'ionicons/icons';
 import classes from './Menu.module.scss';
 import { VFC } from 'react';
@@ -35,6 +36,7 @@ interface MenuEntry {
   mdIcon: string;
   title: string;
   separatorAfter?: boolean;
+  external?: boolean;
 }
 
 const anonPages: MenuEntry[] = [
@@ -78,6 +80,7 @@ const userPages: MenuEntry[] = [
     iosIcon: cogOutline,
     mdIcon: cogSharp,
     separatorAfter: true,
+    external: true,
   },
 ];
 
@@ -112,13 +115,15 @@ const Menu: VFC = () => {
                 <IonMenuToggle key={menuEntry.url} autoHide={false}>
                   <IonItem
                     className={location.pathname === menuEntry.url ? classes.selected : undefined}
-                    routerLink={menuEntry.url}
+                    href={menuEntry.external ? menuEntry.url : undefined}
+                    routerLink={!menuEntry.external ? menuEntry.url : undefined}
                     routerDirection="none"
                     lines="none"
                     detail={false}
                   >
                     <IonIcon slot="start" ios={menuEntry.iosIcon} md={menuEntry.mdIcon} />
                     <IonLabel>{menuEntry.title}</IonLabel>
+                    {menuEntry.external && <IonIcon slot="end" ios={openOutline} md={openOutline} />}
                   </IonItem>
                 </IonMenuToggle>
                 {menuEntry.separatorAfter && <hr />}
