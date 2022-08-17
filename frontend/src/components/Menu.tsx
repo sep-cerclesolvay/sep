@@ -18,6 +18,8 @@ import {
   cartSharp,
   cubeOutline,
   cubeSharp,
+  cogOutline,
+  cogSharp,
   logInSharp,
   logInOutline,
   fileTrayStackedOutline,
@@ -27,14 +29,15 @@ import classes from './Menu.module.scss';
 import { VFC } from 'react';
 import { useUser } from 'redux/userSlice';
 
-interface AppPage {
+interface MenuEntry {
   url: string;
   iosIcon: string;
   mdIcon: string;
   title: string;
+  separatorAfter?: boolean;
 }
 
-const anonPages: AppPage[] = [
+const anonPages: MenuEntry[] = [
   {
     title: 'Se Connecter',
     url: '/connexion/',
@@ -43,7 +46,7 @@ const anonPages: AppPage[] = [
   },
 ];
 
-const userPages: AppPage[] = [
+const userPages: MenuEntry[] = [
   {
     title: 'Stock',
     url: '/stock/',
@@ -67,6 +70,14 @@ const userPages: AppPage[] = [
     url: '/entrees/',
     iosIcon: fileTrayOutline,
     mdIcon: fileTrayFullSharp,
+    separatorAfter: true,
+  },
+  {
+    title: 'Admin Panel',
+    url: '/admin/',
+    iosIcon: cogOutline,
+    mdIcon: cogSharp,
+    separatorAfter: true,
   },
 ];
 
@@ -95,20 +106,23 @@ const Menu: VFC = () => {
             <IonNote>Solvay Entraide et Publication</IonNote>
           </div>
           <hr />
-          {pages.map((appPage) => {
+          {pages.map((menuEntry) => {
             return (
-              <IonMenuToggle key={appPage.url} autoHide={false}>
-                <IonItem
-                  className={location.pathname === appPage.url ? classes.selected : undefined}
-                  routerLink={appPage.url}
-                  routerDirection="none"
-                  lines="none"
-                  detail={false}
-                >
-                  <IonIcon slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
-                  <IonLabel>{appPage.title}</IonLabel>
-                </IonItem>
-              </IonMenuToggle>
+              <>
+                <IonMenuToggle key={menuEntry.url} autoHide={false}>
+                  <IonItem
+                    className={location.pathname === menuEntry.url ? classes.selected : undefined}
+                    routerLink={menuEntry.url}
+                    routerDirection="none"
+                    lines="none"
+                    detail={false}
+                  >
+                    <IonIcon slot="start" ios={menuEntry.iosIcon} md={menuEntry.mdIcon} />
+                    <IonLabel>{menuEntry.title}</IonLabel>
+                  </IonItem>
+                </IonMenuToggle>
+                {menuEntry.separatorAfter && <hr />}
+              </>
             );
           })}
         </IonList>
