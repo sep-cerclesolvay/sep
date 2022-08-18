@@ -31,6 +31,7 @@ DEBUG = os.environ.get('RUNNING_ON_HEROKU', '') != 'True'
 
 CSRF_TRUSTED_ORIGINS = json.loads(os.environ.get('CSRF_TRUSTED_ORIGINS', '[]'))
 ALLOWED_HOSTS = []
+USE_X_FORWARDED_HOST = True
 CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
