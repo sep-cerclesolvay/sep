@@ -25,6 +25,16 @@
       ]
     },
     {
+      "source": "/django_lang_switch/:path*/",
+      "destination": "https://sep-cerclesolvay.herokuapp.com/django_lang_switch/:path*/",
+      "has": [
+        {
+          "type": "host",
+          "value": "sep-ten.vercel.app"
+        }
+      ]
+    },
+    {
       "source": "/static/admin/:path*",
       "destination": "https://sep-cerclesolvay.herokuapp.com/static/admin/:path*",
       "has": [
