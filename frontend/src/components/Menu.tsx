@@ -27,7 +27,7 @@ import {
   openOutline,
 } from 'ionicons/icons';
 import classes from './Menu.module.scss';
-import { VFC } from 'react';
+import { Fragment, VFC } from 'react';
 import { useUser } from 'redux/userSlice';
 import Version from './Version';
 
@@ -111,9 +111,9 @@ const Menu: VFC = () => {
           <hr />
           {pages.map((menuEntry) => {
             return (
-              <>
+              <Fragment key={menuEntry.url}>
                 {menuEntry.separatorBefore && <hr />}
-                <IonMenuToggle key={menuEntry.url} autoHide={false}>
+                <IonMenuToggle autoHide={false}>
                   <IonItem
                     className={location.pathname === menuEntry.url ? classes.selected : undefined}
                     href={menuEntry.external ? menuEntry.url : undefined}
@@ -127,7 +127,7 @@ const Menu: VFC = () => {
                     {menuEntry.external && <IonIcon slot="end" ios={openOutline} md={openOutline} />}
                   </IonItem>
                 </IonMenuToggle>
-              </>
+              </Fragment>
             );
           })}
           <hr />
