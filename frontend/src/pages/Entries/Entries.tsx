@@ -2,14 +2,14 @@ import { IonItem } from '@ionic/react';
 import Page from 'components/Page';
 import StateAwareList from 'components/StateAwareList';
 import { capitalize } from 'lodash';
-import { VFC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { loadEntries, useEntries } from 'redux/entriesSlice';
 import { useAppDispatch } from 'redux/hooks';
 import EntryItem from './EntryItem';
 import EntryLoading from './EntryLoading';
 import shared_classes from '../shared.module.scss';
 
-const Entries: VFC = () => {
+const Entries: FC = () => {
   const entries = useEntries();
   const dispatch = useAppDispatch();
 

@@ -1,8 +1,8 @@
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonSkeletonText } from '@ionic/react';
-import { VFC } from 'react';
+import { FC } from 'react';
 import classes from './Entries.module.scss';
 
-const EntryLoading: VFC = () => {
+const EntryLoading: FC = () => {
   return (
     <IonCard>
       <IonCardHeader>

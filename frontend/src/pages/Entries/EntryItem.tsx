@@ -1,6 +1,6 @@
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonText } from '@ionic/react';
 import ListItem from 'components/ListItem';
-import { VFC } from 'react';
+import { FC } from 'react';
 import { Entry } from 'types/Entry';
 import classes from './Entries.module.scss';
 import classes_stock from '../Stock/Stock.module.scss';
@@ -9,7 +9,7 @@ export interface EntriesItemProps {
   entry: Entry;
 }
 
-const EntryItem: VFC<EntriesItemProps> = ({ entry }) => {
+const EntryItem: FC<EntriesItemProps> = ({ entry }) => {
   return (
     <IonCard>
       <ListItem card={true}>

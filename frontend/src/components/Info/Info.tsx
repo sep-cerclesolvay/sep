@@ -1,10 +1,11 @@
-import { useRef, useReducer, FC } from 'react';
+import { useRef, useReducer, FC, ReactNode } from 'react';
 import classes from './Info.module.scss';
 import { informationCircleOutline, informationCircleSharp } from 'ionicons/icons';
 import { IonAlert, IonIcon } from '@ionic/react';
 
 interface InfoProps {
   infos?: string;
+  children: ReactNode;
 }
 
 function reducer(state: { clicked: boolean }, action: { type: string; payload: boolean }) {

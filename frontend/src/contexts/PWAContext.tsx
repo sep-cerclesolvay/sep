@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import { createCtx } from './utils';
 import * as serviceWorkerRegistration from '../serviceWorkerRegistration';
 import { useHistory } from 'react-router';
@@ -10,7 +10,7 @@ interface PWAContext {
 
 const [usePWAContext, CtxProvider] = createCtx<PWAContext>();
 
-const PWAContextProvider: React.FC = ({ children }) => {
+const PWAContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const history = useHistory();
   const [showUpdateAvailable, setUpdateAvailable] = useState(false);
   const [waitingWorker, setWaitingWorker] = useState<ServiceWorker | null>(null);

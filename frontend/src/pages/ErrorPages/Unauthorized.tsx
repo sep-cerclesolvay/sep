@@ -1,7 +1,7 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import ErrorPage from './ErrorPage';
 
-const UnauthorizedPage: VFC = () => {
+const UnauthorizedPage: FC = () => {
   return (
     <ErrorPage
       title="403 Non autorisé"

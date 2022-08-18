@@ -27,7 +27,7 @@ import {
   openOutline,
 } from 'ionicons/icons';
 import classes from './Menu.module.scss';
-import { Fragment, VFC } from 'react';
+import { Fragment, FC } from 'react';
 import { useUser } from 'redux/userSlice';
 import Version from './Version';
 
@@ -84,7 +84,7 @@ const userPages: MenuEntry[] = [
   },
 ];
 
-const Menu: VFC = () => {
+const Menu: FC = () => {
   const location = useLocation();
   const user = useUser();
 

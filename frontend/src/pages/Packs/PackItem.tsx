@@ -2,7 +2,7 @@ import { IonBadge, IonCard, IonCardHeader, IonCardTitle } from '@ionic/react';
 import Accordions from 'components/Accordions';
 import ListItem, { ListItemButton } from 'components/ListItem';
 import { qrCodeOutline, qrCodeSharp } from 'ionicons/icons';
-import { VFC } from 'react';
+import { FC } from 'react';
 import { Pack } from 'types/Pack';
 import { Base58 } from 'utils/base58';
 import classes from '../Stock/Stock.module.scss';
@@ -15,7 +15,7 @@ export interface PackItemProps {
   onEditButtonClick: (pack: Pack) => void;
 }
 
-const PackItem: VFC<PackItemProps> = ({ pack, onQrCodeButtonClick /*onEditButtonClick*/ }) => {
+const PackItem: FC<PackItemProps> = ({ pack, onQrCodeButtonClick /*onEditButtonClick*/ }) => {
   const customButtons: ListItemButton[] = [
     {
       id: 'qr-code',

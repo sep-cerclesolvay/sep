@@ -1,9 +1,9 @@
 import { IonNote, IonSpinner } from '@ionic/react';
 import EmptyPage from 'components/EmptyPage';
-import { VFC } from 'react';
+import { FC } from 'react';
 import classes from './WaitingServerConnection.module.scss';
 
-const WaitingServerConnection: VFC = () => {
+const WaitingServerConnection: FC = () => {
   return (
     <EmptyPage>
       <div className={classes.container}>

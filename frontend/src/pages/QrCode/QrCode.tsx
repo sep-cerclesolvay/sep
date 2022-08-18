@@ -1,7 +1,7 @@
 import { IonButton, IonItem, IonLabel, IonSelect, IonSelectOption, IonSkeletonText, IonToggle } from '@ionic/react';
 import Page from 'components/Page';
 import environment from 'environment';
-import { useEffect, useState, VFC } from 'react';
+import { useEffect, useState, FC } from 'react';
 import QRCodeGenerator from 'react-qr-code';
 import { useParams } from 'react-router';
 import { useAppDispatch } from 'redux/hooks';
@@ -12,7 +12,7 @@ import classes from './QrCode.module.scss';
 
 const base58 = new Base58();
 
-const QrCode: VFC = () => {
+const QrCode: FC = () => {
   const { QR_CODE_URL } = environment;
   const { slug, base58Id } = useParams<{ slug: string; base58Id: string }>();
   const [size, setSize] = useState(+(localStorage.getItem('qr-code-size') || 256));
@@ -89,8 +89,12 @@ const QrCode: VFC = () => {
         </IonItem>
         <div className={classes.content}>
           <h2 style={{ color: !qrCode.isLoading && qrCode.error ? 'var(--ion-color-danger, #f00)' : undefined }}>
-            {qrCode.isLoading && <IonSkeletonText animated style={{ width: '75%', height: '26px', margin: 'auto' }} />}
-            {qrCode.error ? qrCode.error : qrCode.data?.value.name}
+            <>
+              {qrCode.isLoading && (
+                <IonSkeletonText animated style={{ width: '75%', height: '26px', margin: 'auto' }} />
+              )}
+              {qrCode.error ? qrCode.error : qrCode.data?.value.name}
+            </>
           </h2>
           <div className={classes.qr_code_container}>
             <div style={{ margin: `${size / 16}px` }}>

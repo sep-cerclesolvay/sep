@@ -1,7 +1,7 @@
 import { IonBadge, IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/react';
 import ListItem, { ListItemButton } from 'components/ListItem';
 import { qrCodeOutline, qrCodeSharp } from 'ionicons/icons';
-import { VFC } from 'react';
+import { FC } from 'react';
 import { Product } from 'types/Product';
 import { Base58 } from 'utils/base58';
 import { removeDecimalZeros } from 'utils/math';
@@ -15,7 +15,7 @@ export interface BasketListProps {
   onEditButtonClick: (product: Product) => void;
 }
 
-const BasketList: VFC<BasketListProps> = ({ product, onQrCodeButtonClick /*onEditButtonClick*/ }) => {
+const BasketList: FC<BasketListProps> = ({ product, onQrCodeButtonClick /*onEditButtonClick*/ }) => {
   const customButtons: ListItemButton[] = [
     {
       id: 'qr-code',

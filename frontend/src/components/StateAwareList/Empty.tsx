@@ -1,11 +1,11 @@
 import { IonItem, IonLabel } from '@ionic/react';
-import { VFC } from 'react';
+import { FC } from 'react';
 
 export interface EmptyProps {
   message: string;
 }
 
-const Empty: VFC<EmptyProps> = ({ message }) => {
+const Empty: FC<EmptyProps> = ({ message }) => {
   return (
     <IonItem>
       <IonLabel>

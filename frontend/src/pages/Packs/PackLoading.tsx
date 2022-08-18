@@ -1,8 +1,8 @@
 import { IonCard, IonCardHeader, IonCardTitle, IonSkeletonText } from '@ionic/react';
-import { VFC } from 'react';
+import { FC } from 'react';
 import classes from '../Stock/Stock.module.scss';
 
-const PackLoading: VFC = () => {
+const PackLoading: FC = () => {
   return (
     <IonCard>
       <IonCardHeader>

@@ -1,7 +1,7 @@
 import { IonCard, IonCardHeader, IonCardTitle, useIonRouter } from '@ionic/react';
 import Accordions from 'components/Accordions';
 import ListItem from 'components/ListItem';
-import { VFC } from 'react';
+import { FC } from 'react';
 import { loadSaleIntoBasket } from 'redux/basketSlice';
 import { useAppDispatch } from 'redux/hooks';
 import { Sale } from 'types/Sale';
@@ -12,7 +12,7 @@ export interface SaleItemProps {
   sale: Sale;
 }
 
-const SaleItem: VFC<SaleItemProps> = ({ sale }) => {
+const SaleItem: FC<SaleItemProps> = ({ sale }) => {
   const dispatch = useAppDispatch();
   const router = useIonRouter();
 

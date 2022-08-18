@@ -1,5 +1,5 @@
 import { IonRefresher, IonRefresherContent } from '@ionic/react';
-import { useEffect, useRef, VFC } from 'react';
+import { useEffect, useRef, FC } from 'react';
 
 export interface RefresherProps {
   isLoading: boolean;
@@ -7,7 +7,7 @@ export interface RefresherProps {
   disabled?: boolean;
 }
 
-const Refresher: VFC<RefresherProps> = ({ isLoading, onRefresh, disabled }) => {
+const Refresher: FC<RefresherProps> = ({ isLoading, onRefresh, disabled }) => {
   const ref = useRef<HTMLIonRefresherElement>(null);
   useEffect(() => {
     if (!isLoading) ref.current?.complete();

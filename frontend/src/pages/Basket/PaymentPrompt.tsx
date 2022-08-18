@@ -1,5 +1,5 @@
 import { IonAlert } from '@ionic/react';
-import { useEffect, VFC } from 'react';
+import { useEffect, FC } from 'react';
 import { setPaymentMethod, useBasket } from 'redux/basketSlice';
 import { useAppDispatch } from 'redux/hooks';
 import { usePaymentMethods } from 'redux/paymentMethodSlice';
@@ -10,7 +10,7 @@ export interface PaymentPromptProps {
   onDidFinish: () => void;
 }
 
-const PaymentPrompt: VFC<PaymentPromptProps> = ({ open, onDidDismiss, onDidFinish }) => {
+const PaymentPrompt: FC<PaymentPromptProps> = ({ open, onDidDismiss, onDidFinish }) => {
   const dispatch = useAppDispatch();
   const paymentMethods = usePaymentMethods();
   const basket = useBasket();

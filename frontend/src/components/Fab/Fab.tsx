@@ -1,6 +1,6 @@
 import { IonFab, IonFabButton, IonIcon, IonLabel } from '@ionic/react';
 import useBreakpoints from 'hooks/useBreakpoints';
-import { VFC } from 'react';
+import { FC } from 'react';
 import classes from './Fab.module.scss';
 
 export interface FabProps {
@@ -9,7 +9,7 @@ export interface FabProps {
   mdIcon: string;
 }
 
-const Fab: VFC<FabProps> = ({ text, iosIcon, mdIcon }) => {
+const Fab: FC<FabProps> = ({ text, iosIcon, mdIcon }) => {
   const { minBreakpoint } = useBreakpoints();
   const small = !minBreakpoint('md');
 

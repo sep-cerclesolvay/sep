@@ -12,7 +12,7 @@ import {
   useIonRouter,
 } from '@ionic/react';
 import { logOutOutline, logOutSharp, logInOutline, logInSharp } from 'ionicons/icons';
-import { useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from 'redux/hooks';
 import { logout, useUser } from 'redux/userSlice';
@@ -23,7 +23,8 @@ export interface PageProps {
   backButton?: boolean;
   defaultBackUrl?: string;
   backText?: string;
-  headerEndButtons?: React.ReactNode;
+  headerEndButtons?: ReactNode;
+  children: ReactNode;
 }
 
 const Page: React.FC<PageProps> = ({ title, backButton = false, defaultBackUrl = '/', backText, children }) => {

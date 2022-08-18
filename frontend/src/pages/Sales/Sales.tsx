@@ -3,7 +3,7 @@ import Page from 'components/Page';
 import StateAwareList from 'components/StateAwareList';
 import { addOutline, addSharp, downloadOutline, downloadSharp } from 'ionicons/icons';
 import { capitalize } from 'lodash';
-import { useEffect, VFC } from 'react';
+import { useEffect, FC } from 'react';
 import { initializeNewSale } from 'redux/basketSlice';
 import { useAppDispatch } from 'redux/hooks';
 import { loadSales, useSales } from 'redux/salesSlice';
@@ -12,7 +12,7 @@ import SaleLoading from './SaleLoading';
 import { downloadSalesReport } from 'api/saleAPI';
 import shared_classes from '../shared.module.scss';
 
-const Sales: VFC = () => {
+const Sales: FC = () => {
   const sales = useSales();
   const dispatch = useAppDispatch();
   const router = useIonRouter();

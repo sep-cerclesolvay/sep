@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import { IonButton, IonIcon } from '@ionic/react';
 import { arrowBackOutline } from 'ionicons/icons';
 import Page from 'components/Page';
@@ -10,7 +10,7 @@ export interface ErrorPageProps {
   explanation: string;
 }
 
-const ErrorPage: VFC<ErrorPageProps> = ({ title, code, explanation }) => {
+const ErrorPage: FC<ErrorPageProps> = ({ title, code, explanation }) => {
   return (
     <Page title={title}>
       <div className={classes.container}>

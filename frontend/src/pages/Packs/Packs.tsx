@@ -2,7 +2,7 @@ import { IonItem, useIonRouter } from '@ionic/react';
 import Page from 'components/Page';
 import StateAwareList from 'components/StateAwareList';
 import PackItem from './PackItem';
-import { useEffect, VFC } from 'react';
+import { useEffect, FC } from 'react';
 import { useAppDispatch } from 'redux/hooks';
 import { loadPacks, usePacks } from 'redux/packsSlice';
 import { Pack } from 'types/Pack';
@@ -11,7 +11,7 @@ import PackLoading from './PackLoading';
 
 const base58 = new Base58();
 
-const Packs: VFC = () => {
+const Packs: FC = () => {
   const router = useIonRouter();
   const packs = usePacks();
   const dispatch = useAppDispatch();

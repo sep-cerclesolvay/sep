@@ -1,5 +1,5 @@
 import ListItem from 'components/ListItem';
-import { VFC } from 'react';
+import { FC } from 'react';
 import { EditableSaleItem } from 'types/SaleItem';
 import { removeDecimalZeros } from 'utils/math';
 import classes from './Basket.module.scss';
@@ -10,7 +10,7 @@ export interface BasketListProps {
   onRemoveButtonClick: (saleItem: EditableSaleItem) => void;
 }
 
-const BasketList: VFC<BasketListProps> = ({ saleItem, onEditButtonClick, onRemoveButtonClick }) => {
+const BasketList: FC<BasketListProps> = ({ saleItem, onEditButtonClick, onRemoveButtonClick }) => {
   return (
     <ListItem
       onClickEditButton={onEditButtonClick.bind(this, saleItem)}

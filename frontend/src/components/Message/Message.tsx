@@ -1,5 +1,5 @@
 import { IonButton, IonCard, IonCardContent, IonIcon } from '@ionic/react';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { Color } from '@ionic/core/dist/types/interface';
 import classes from './Message.module.scss';
 import { closeOutline, closeSharp } from 'ionicons/icons';
@@ -9,6 +9,7 @@ interface MessageProps {
   color?: Color;
   disabled?: boolean;
   mode?: 'ios' | 'md';
+  children: ReactNode;
 }
 
 const Message: FC<MessageProps> = ({ onDismiss, color, disabled, mode, children }) => {

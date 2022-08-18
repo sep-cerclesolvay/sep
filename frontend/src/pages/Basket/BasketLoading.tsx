@@ -1,7 +1,7 @@
 import { IonItem, IonLabel, IonSkeletonText } from '@ionic/react';
-import { VFC } from 'react';
+import { FC } from 'react';
 
-const BasketLoading: VFC = () => {
+const BasketLoading: FC = () => {
   return (
     <IonItem>
       <IonLabel>

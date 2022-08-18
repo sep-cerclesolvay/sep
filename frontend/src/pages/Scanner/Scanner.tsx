@@ -2,7 +2,7 @@ import { IonAlert, IonButton, NavContext, useIonRouter } from '@ionic/react';
 import Page from 'components/Page';
 import ScannerBox from 'components/ScannerBox';
 import environment from 'environment';
-import { useContext, useEffect, useState, VFC } from 'react';
+import { useContext, useEffect, useState, FC } from 'react';
 import { useToast } from '@agney/ir-toast';
 import classes from './Scanner.module.scss';
 import { useAppDispatch } from 'redux/hooks';
@@ -14,7 +14,7 @@ import { has } from 'lodash';
 
 const base58 = new Base58();
 
-const Scanner: VFC = () => {
+const Scanner: FC = () => {
   const [showQrOverride, setShowQrOverride] = useState(false);
   const navContext = useContext(NavContext);
   const router = useIonRouter();

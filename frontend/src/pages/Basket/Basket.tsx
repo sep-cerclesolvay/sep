@@ -1,7 +1,7 @@
 import { IonButton, IonFab, IonFabButton, IonIcon, IonItem, useIonLoading, useIonRouter } from '@ionic/react';
 import Page from 'components/Page';
 import { qrCodeOutline, qrCodeSharp } from 'ionicons/icons';
-import { useEffect, useState, VFC } from 'react';
+import { useEffect, useState, FC } from 'react';
 import { initializeNewSale, useBasket } from 'redux/basketSlice';
 import { useAppDispatch } from 'redux/hooks';
 import BasketLoading from './BasketLoading';
@@ -17,7 +17,7 @@ import { saveSale } from 'redux/salesSlice';
 import BasketEditItem from './BasketEditItem';
 import { useToast } from '@agney/ir-toast';
 
-const Basket: VFC = () => {
+const Basket: FC = () => {
   const [editSaleItem, setEditSaleItem] = useState<EditableSaleItem | undefined>();
   const [removeSaleItem, setRemoveSaleItem] = useState<EditableSaleItem | undefined>();
   const [showPaymentPrompt, setShowPaymentPrompt] = useState<boolean>(false);

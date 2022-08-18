@@ -1,7 +1,7 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import ErrorPage from './ErrorPage';
 
-const NotFoundPage: VFC = () => {
+const NotFoundPage: FC = () => {
   return (
     <ErrorPage
       title="404 Non trouvée"

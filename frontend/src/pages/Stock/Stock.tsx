@@ -1,7 +1,7 @@
 import { IonItem, useIonRouter } from '@ionic/react';
 import Page from 'components/Page';
 import StateAwareList from 'components/StateAwareList';
-import { useEffect, VFC } from 'react';
+import { useEffect, FC } from 'react';
 import { useAppDispatch } from 'redux/hooks';
 import { loadProducts, useProducts } from 'redux/productsSlice';
 import { Product } from 'types/Product';
@@ -11,7 +11,7 @@ import StockLoading from './StockLoading';
 
 const base58 = new Base58();
 
-const Stock: VFC = () => {
+const Stock: FC = () => {
   const router = useIonRouter();
   const products = useProducts();
   const dispatch = useAppDispatch();

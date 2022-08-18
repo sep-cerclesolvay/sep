@@ -1,4 +1,4 @@
-import { ReactNode, useState, VFC } from 'react';
+import { ReactNode, useState, FC } from 'react';
 import Accordion from './Accordion';
 import classes from './Accordion.module.scss';
 
@@ -6,7 +6,7 @@ export interface AccordionsProps {
   accordions: { key: string; title: string; children: ReactNode }[];
 }
 
-const Accordions: VFC<AccordionsProps> = ({ accordions }) => {
+const Accordions: FC<AccordionsProps> = ({ accordions }) => {
   const [open, setOpen] = useState<{ [key: string]: boolean }>({});
 
   return (

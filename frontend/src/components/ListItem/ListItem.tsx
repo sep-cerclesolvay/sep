@@ -6,6 +6,7 @@ import { Color } from '@ionic/core/dist/types/interface';
 import classes from './ListItem.module.scss';
 
 export interface ListItemProps {
+  children: ReactNode;
   card?: boolean;
   onClickEditButton?: () => void;
   onClickDeleteButton?: () => void;

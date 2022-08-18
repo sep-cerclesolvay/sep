@@ -1,9 +1,9 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import { Prompt } from 'react-router';
 import { useBeforeUnload } from 'react-use';
 import { useIsBasketDirty } from 'redux/basketSlice';
 
-const LeavePrompt: VFC = () => {
+const LeavePrompt: FC = () => {
   const basketDirty = useIsBasketDirty();
   const text = basketDirty
     ? 'Êtes-vous sûr de vouloir quittez la page ? Les données du pannier ne seront pas sauvegardées.'

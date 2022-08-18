@@ -14,12 +14,12 @@ import QrCode from 'pages/QrCode';
 import Login from 'pages/Login';
 import { useUser } from 'redux/userSlice';
 import Packs from 'pages/Packs';
-import { useRef, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import LeavePrompt from 'components/LeavePrompt';
 import { useAppDispatch } from 'redux/hooks';
 import { initializeNewSale } from 'redux/basketSlice';
 
-const Router: React.VFC = () => {
+const Router: FC = () => {
   const user = useUser();
   const dispatch = useAppDispatch();
   const [leaveConfirmMessage, setLeaveConfirmMessage] = useState<string>();

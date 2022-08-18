@@ -1,5 +1,5 @@
 import { AlertButton, IonAlert } from '@ionic/react';
-import { VFC } from 'react';
+import { FC } from 'react';
 import { removeOneProductById, removeItemByProductId } from 'redux/basketSlice';
 import { useAppDispatch } from 'redux/hooks';
 import { EditableSaleItem } from 'types/SaleItem';
@@ -9,7 +9,7 @@ export interface BasketRemoveItemProps {
   onDidDismiss?: () => void;
 }
 
-const BasketRemoveItem: VFC<BasketRemoveItemProps> = ({ saleItem, onDidDismiss }) => {
+const BasketRemoveItem: FC<BasketRemoveItemProps> = ({ saleItem, onDidDismiss }) => {
   const dispatch = useAppDispatch();
 
   const buttons: (string | AlertButton)[] = [];

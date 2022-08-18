@@ -1,5 +1,5 @@
 import Page from 'components/Page';
-import { useState, VFC } from 'react';
+import { useState, FC } from 'react';
 import { useFormik } from 'formik';
 import { IonInput, IonItem, IonLabel, IonNote, IonSpinner, useIonRouter } from '@ionic/react';
 import classes from './Login.module.scss';
@@ -22,7 +22,7 @@ const validationSchema = yup.object({
   password: yup.string().required('Mot de passe requis'),
 });
 
-const Login: VFC = () => {
+const Login: FC = () => {
   const dispatch = useAppDispatch();
   const router = useIonRouter();
   const initialValues: LoginFormValues = { username: '', password: '' };
