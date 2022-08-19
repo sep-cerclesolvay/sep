@@ -35,7 +35,8 @@ const stateReducer = (prevState: State, action: Action): State => {
     case 'IS_LOADING':
       return { ...prevState, loading: action.payload };
     case 'ENABLE_CAMERA':
-      return { ...prevState, loading: true, enableCamera: true };
+      if (!prevState.enableCamera) return { ...prevState, loading: true, enableCamera: true };
+      return { ...prevState };
     case 'DISABLE_CAMERA':
       return { ...prevState, loading: false, enableCamera: false };
     case 'ENABLE_LEGACY_MODE':
@@ -53,19 +54,19 @@ const ScannerBox: React.FC<{
 }> = ({ enableOnlyOnRoute, onScan }) => {
   const [state, stateDispatcher] = useReducer(stateReducer, initialState);
 
-  const location = useLocation();
+  const { pathname } = useLocation();
   const isVisible = usePageVisibility();
   const ref = useRef<QrReader>(null);
 
   const Toast = useToast();
 
   useEffect(() => {
-    if (isVisible && (!enableOnlyOnRoute || enableOnlyOnRoute.test(location.pathname))) {
+    if (isVisible && (!enableOnlyOnRoute || enableOnlyOnRoute.test(pathname))) {
       stateDispatcher({ type: 'ENABLE_CAMERA' });
     } else {
       stateDispatcher({ type: 'DISABLE_CAMERA' });
     }
-  }, [isVisible, location, enableOnlyOnRoute]);
+  }, [isVisible, pathname, enableOnlyOnRoute]);
 
   const handleScan = (data: string | null) => {
     if (state.legacyLoadPending) {
