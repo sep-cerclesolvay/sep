@@ -1,6 +1,5 @@
 from rest_framework.permissions import AllowAny
 from rest_framework.schemas.openapi import AutoSchema, SchemaGenerator
-from rest_framework.compat import uritemplate
 
 
 class OASSchemaGenerator(SchemaGenerator):
@@ -14,8 +13,12 @@ class OASSchemaGenerator(SchemaGenerator):
             'version': '1.0',
             'title': 'SEP API',
         }
+        protocol = 'https' if request.is_secure() else 'http'
         schema['servers'] = [
-            {'url': 'http://localhost:8000/', 'description': 'Local server'},
+            {
+                'url': f'{protocol}://{request.get_host()}/',
+                'description': 'Current Host'
+            },
         ]
         schema['components']['securitySchemes'] = {
             'BearerAuth': {
