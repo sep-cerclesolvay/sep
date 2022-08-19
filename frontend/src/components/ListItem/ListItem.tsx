@@ -74,7 +74,11 @@ const ListItem: FC<ListItemProps> = ({
   }));
 
   return (
-    <IonItemSliding ref={ionItemSlidingRef} className={card ? classes.card : undefined} disabled={!small}>
+    <IonItemSliding
+      ref={ionItemSlidingRef}
+      className={card ? classes.card : undefined}
+      disabled={!small || buttons.length == 0}
+    >
       {/* TODO: disabled off even if true. bug ? */}
       <IonItem className={classes.ion_item}>
         <div>
