@@ -8,7 +8,6 @@ import Sales from 'pages/Sales';
 import Entries from 'pages/Entries';
 import Basket from 'pages/Basket';
 import Scanner from 'pages/Scanner';
-import EntryForm from 'pages/EntryForm';
 import RestrictedRoute from './RestrictedRoute';
 import QrCode from 'pages/QrCode';
 import Login from 'pages/Login';
@@ -73,12 +72,6 @@ const Router: FC = () => {
           </RestrictedRoute>
           <RestrictedRoute path="/entrees/" canAccess={!!user.data} exact={true} strict={true}>
             <Entries />
-          </RestrictedRoute>
-          <RestrictedRoute path="/entrees/ajouter/" canAccess={!!user.data} exact={true} strict={true}>
-            <EntryForm />
-          </RestrictedRoute>
-          <RestrictedRoute path="/entrees/:id/" canAccess={!!user.data} exact={true} strict={true}>
-            <EntryForm />
           </RestrictedRoute>
           <Route path="/" exact={true} strict={false}>
             {user.data ? <Redirect to="/stock/" /> : <Redirect to="/connexion/" />}
