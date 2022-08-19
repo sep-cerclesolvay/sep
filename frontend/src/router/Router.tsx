@@ -1,6 +1,6 @@
 import { IonAlert, IonRouterOutlet, IonSplitPane } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Menu from 'components/Menu';
 import { NotFound } from 'pages/ErrorPages';
 import Stock from 'pages/Stock/Stock';
@@ -8,7 +8,7 @@ import Sales from 'pages/Sales';
 import Entries from 'pages/Entries';
 import Basket from 'pages/Basket';
 import Scanner from 'pages/Scanner';
-import RestrictedRoute from './RestrictedRoute';
+import RestrictedRoute, { AccessLevel } from './RestrictedRoute';
 import QrCode from 'pages/QrCode';
 import Login from 'pages/Login';
 import { useUser } from 'redux/userSlice';
@@ -37,46 +37,67 @@ const Router: FC = () => {
       <IonSplitPane contentId="main">
         <Menu />
         <IonRouterOutlet id="main">
-          <RestrictedRoute path="/qr/:slug/:base58Id/" canAccess={!!user.data} exact={true} strict={true}>
-            <QrCode />
-          </RestrictedRoute>
-          <RestrictedRoute path="/connexion/" canAccess={!user.data} redirectTo="/stock/" exact={true} strict={true}>
-            <Login />
-          </RestrictedRoute>
-          <RestrictedRoute path="/stock/" canAccess={!!user.data} exact={true} strict={true}>
-            <Stock />
-          </RestrictedRoute>
-          <RestrictedRoute path="/packs/" canAccess={!!user.data} exact={true} strict={true}>
-            <Packs />
-          </RestrictedRoute>
-          <RestrictedRoute path="/ventes/" canAccess={!!user.data} exact={true} strict={true}>
-            <Sales />
-          </RestrictedRoute>
-          <RestrictedRoute path="/ventes/pannier/" canAccess={!!user.data} exact={true} strict={true}>
-            <Basket />
-          </RestrictedRoute>
-          <RestrictedRoute path="/ventes/scanner/" canAccess={!!user.data} exact={true} strict={true}>
-            <Scanner />
-          </RestrictedRoute>
-          <RestrictedRoute
-            path="/ventes/:id/pannier/"
-            canAccess={!!user.data}
-            component={Basket}
-            exact={true}
-            strict={true}
-          >
-            <Basket />
-          </RestrictedRoute>
-          <RestrictedRoute path="/ventes/:id/scanner/" canAccess={!!user.data} exact={true} strict={true}>
-            <Scanner />
-          </RestrictedRoute>
-          <RestrictedRoute path="/entrees/" canAccess={!!user.data} exact={true} strict={true}>
-            <Entries />
-          </RestrictedRoute>
-          <Route path="/" exact={true} strict={false}>
-            {user.data ? <Redirect to="/stock/" /> : <Redirect to="/connexion/" />}
-          </Route>
-          <Route component={NotFound} exact={false} strict={false} />
+          <Switch>
+            <RestrictedRoute
+              path="/qr/:slug/:base58Id/"
+              accessLevel={AccessLevel.AUTHENTICATED}
+              exact={true}
+              strict={true}
+            >
+              <QrCode />
+            </RestrictedRoute>
+            <RestrictedRoute
+              path="/connexion/"
+              accessLevel={AccessLevel.ANONYM}
+              redirectTo="/stock/"
+              exact={true}
+              strict={true}
+            >
+              <Login />
+            </RestrictedRoute>
+            <RestrictedRoute path="/stock/" accessLevel={AccessLevel.AUTHENTICATED} exact={true} strict={true}>
+              <Stock />
+            </RestrictedRoute>
+            <RestrictedRoute path="/packs/" accessLevel={AccessLevel.AUTHENTICATED} exact={true} strict={true}>
+              <Packs />
+            </RestrictedRoute>
+            <RestrictedRoute path="/ventes/" accessLevel={AccessLevel.AUTHENTICATED} exact={true} strict={true}>
+              <Sales />
+            </RestrictedRoute>
+            <RestrictedRoute path="/ventes/pannier/" accessLevel={AccessLevel.AUTHENTICATED} exact={true} strict={true}>
+              <Basket />
+            </RestrictedRoute>
+            <RestrictedRoute path="/ventes/scanner/" accessLevel={AccessLevel.AUTHENTICATED} exact={true} strict={true}>
+              <Scanner />
+            </RestrictedRoute>
+            <RestrictedRoute
+              path="/ventes/:id/pannier/"
+              accessLevel={AccessLevel.AUTHENTICATED}
+              component={Basket}
+              exact={true}
+              strict={true}
+            >
+              <Basket />
+            </RestrictedRoute>
+            <RestrictedRoute
+              path="/ventes/:id/scanner/"
+              accessLevel={AccessLevel.AUTHENTICATED}
+              exact={true}
+              strict={true}
+            >
+              <Scanner />
+            </RestrictedRoute>
+            <RestrictedRoute path="/entrees/" accessLevel={AccessLevel.AUTHENTICATED} exact={true} strict={true}>
+              <Entries />
+            </RestrictedRoute>
+            <Route
+              path="/"
+              exact={true}
+              strict={false}
+              render={() => (user.data ? <Redirect to="/stock/" /> : <Redirect to="/connexion/" />)}
+            />
+            <Route component={NotFound} exact={false} strict={false} />
+          </Switch>
         </IonRouterOutlet>
       </IonSplitPane>
       <IonAlert

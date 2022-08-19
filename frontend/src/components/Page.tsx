@@ -24,10 +24,18 @@ export interface PageProps {
   defaultBackUrl?: string;
   backText?: string;
   headerEndButtons?: ReactNode;
+  hideLoginLogoutButton?: boolean;
   children: ReactNode;
 }
 
-const Page: React.FC<PageProps> = ({ title, backButton = false, defaultBackUrl = '/', backText, children }) => {
+const Page: React.FC<PageProps> = ({
+  title,
+  backButton = false,
+  defaultBackUrl = '/',
+  backText,
+  hideLoginLogoutButton = false,
+  children,
+}) => {
   const ionContentRef = useRef<HTMLIonContentElement>(null);
   const { name } = useParams<{ name: string }>();
   const user = useUser();
@@ -48,7 +56,7 @@ main > slot{
 
   const handleLogoutClick = () => {
     dispatch(logout());
-    router.push('/');
+    router.push('/connexion/');
   };
 
   if (!title) title = name;
@@ -68,19 +76,27 @@ main > slot{
             )}
           </IonButtons>
           <IonTitle>{title}</IonTitle>
-          <IonButtons slot="end">
-            {user.data ? (
-              <IonButton fill="clear" size="small" shape="round" className={classes.logout} onClick={handleLogoutClick}>
-                <span>Se déconnecter</span>
-                <IonIcon slot="end" ios={logOutOutline} md={logOutSharp} />
-              </IonButton>
-            ) : (
-              <IonButton fill="clear" size="small" shape="round" className={classes.logout} routerLink="/connexion/">
-                <span>Se Connecter</span>
-                <IonIcon slot="end" ios={logInOutline} md={logInSharp} />
-              </IonButton>
-            )}
-          </IonButtons>
+          {!hideLoginLogoutButton && (
+            <IonButtons slot="end">
+              {user.data ? (
+                <IonButton
+                  fill="clear"
+                  size="small"
+                  shape="round"
+                  className={classes.logout}
+                  onClick={handleLogoutClick}
+                >
+                  <span>Se déconnecter</span>
+                  <IonIcon slot="end" ios={logOutOutline} md={logOutSharp} />
+                </IonButton>
+              ) : (
+                <IonButton fill="clear" size="small" shape="round" className={classes.logout} routerLink="/connexion/">
+                  <span>Se Connecter</span>
+                  <IonIcon slot="end" ios={logInOutline} md={logInSharp} />
+                </IonButton>
+              )}
+            </IonButtons>
+          )}
         </IonToolbar>
       </IonHeader>
 

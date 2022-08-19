@@ -30,11 +30,12 @@ const Login: FC = () => {
   const formik = useFormik<LoginFormValues>({
     initialValues,
     validationSchema,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
         const result = await loginUser(values.username, values.password);
         setErrorMessage(undefined);
         dispatch(login(result));
+        resetForm({});
         router.push('/stock/');
       } catch (e) {
         setErrorMessage(serializeError(e));
@@ -43,7 +44,7 @@ const Login: FC = () => {
     },
   });
   return (
-    <Page title="Connexion">
+    <Page title="Connexion" hideLoginLogoutButton>
       <form onSubmit={formik.handleSubmit} className={classes.form}>
         <div className={classes.logo_container}>
           <img src="/assets/icon/sep.svg" alt="logo" />

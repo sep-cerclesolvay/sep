@@ -88,7 +88,7 @@ const Basket: FC = () => {
             .then(() => {
               dismiss();
               dispatch(initializeNewSale());
-              router.push('/ventes');
+              router.push('/ventes/');
             })
             .catch((reason) => {
               dismiss();
