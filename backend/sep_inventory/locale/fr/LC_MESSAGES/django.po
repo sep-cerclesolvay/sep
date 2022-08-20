@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-20 15:25+0200\n"
+"POT-Creation-Date: 2022-08-20 16:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: sep_inventory/admin.py:53
+#: sep_inventory/admin.py:36
 msgid "number of products"
 msgstr "nombre de produits"
 
-#: sep_inventory/admin.py:60
+#: sep_inventory/admin.py:43
 #, python-format
 msgid "%(count)s product"
 msgid_plural "%(count)s products"
@@ -33,111 +33,108 @@ msgstr[1] "%(count)s produits"
 msgid "Inventory"
 msgstr "Inventaire"
 
-#: sep_inventory/models.py:13 sep_inventory/models.py:57
-#: sep_inventory/models.py:69 sep_inventory/models.py:125
+#: sep_inventory/models.py:12 sep_inventory/models.py:66
+#: sep_inventory/models.py:78 sep_inventory/models.py:134
 msgid "product"
 msgstr "produit"
 
-#: sep_inventory/models.py:14 sep_inventory/models.py:42
+#: sep_inventory/models.py:13 sep_inventory/models.py:51
 msgid "products"
 msgstr "produits"
 
-#: sep_inventory/models.py:16 sep_inventory/models.py:40
-#: sep_inventory/models.py:85
+#: sep_inventory/models.py:15 sep_inventory/models.py:49
+#: sep_inventory/models.py:94
 msgid "name"
 msgstr "Nom"
 
-#: sep_inventory/models.py:18
+#: sep_inventory/models.py:17
 msgid "purchase price"
 msgstr "prix d'achat"
 
-#: sep_inventory/models.py:20
+#: sep_inventory/models.py:19
 msgid "selling price"
 msgstr "prix de vente"
 
-#: sep_inventory/models.py:23 sep_inventory/models.py:70
-#: sep_inventory/models.py:128
+#: sep_inventory/models.py:22 sep_inventory/models.py:79
+#: sep_inventory/models.py:137
 msgid "quantity"
 msgstr "quantité"
 
-#: sep_inventory/models.py:37 sep_inventory/models.py:55
+#: sep_inventory/models.py:46 sep_inventory/models.py:64
 msgid "pack"
 msgstr "pack"
 
-#: sep_inventory/models.py:38
+#: sep_inventory/models.py:47
 msgid "packs"
 msgstr "packs"
 
-#: sep_inventory/models.py:50
+#: sep_inventory/models.py:59
 msgid "pack item"
 msgstr "élément de pack"
 
-#: sep_inventory/models.py:51
+#: sep_inventory/models.py:60
 msgid "pack items"
 msgstr "éléments de pack"
 
-#: sep_inventory/models.py:60
+#: sep_inventory/models.py:69
 #, python-format
-msgid "Pack-Product: %(pack)s - %(product)s"
-msgstr "Pack-Produit: %(pack)s - %(product)s"
+msgid "\"%(product)s\" in the \"%(pack)s\" pack"
+msgstr "\"%(product)s\" dans le pack \"%(pack)s\""
 
-#: sep_inventory/models.py:65
+#: sep_inventory/models.py:74
 msgid "entry"
 msgstr "entrée"
 
-#: sep_inventory/models.py:66
+#: sep_inventory/models.py:75
 msgid "entries"
 msgstr "entrées"
 
-#: sep_inventory/models.py:71 sep_inventory/models.py:99
+#: sep_inventory/models.py:80 sep_inventory/models.py:108
 msgid "creation date"
 msgstr "date de création"
 
-#: sep_inventory/models.py:72 sep_inventory/models.py:100
+#: sep_inventory/models.py:81 sep_inventory/models.py:109
 msgid "modification date"
 msgstr "date de modification"
 
-#: sep_inventory/models.py:74 sep_inventory/models.py:102
+#: sep_inventory/models.py:83 sep_inventory/models.py:111
 msgid "deletion date"
 msgstr "date de suppression"
 
-#: sep_inventory/models.py:82 sep_inventory/models.py:97
+#: sep_inventory/models.py:91 sep_inventory/models.py:106
 msgid "payment method"
 msgstr "méthode de paiement"
 
-#: sep_inventory/models.py:83
+#: sep_inventory/models.py:92
 msgid "payment methods"
 msgstr "méthodes de paiement"
 
-#: sep_inventory/models.py:93 sep_inventory/models.py:127
+#: sep_inventory/models.py:102 sep_inventory/models.py:136
 msgid "sale"
 msgstr "vente"
 
-#: sep_inventory/models.py:94
+#: sep_inventory/models.py:103
 msgid "sales"
 msgstr "ventes"
 
-#: sep_inventory/models.py:105
+#: sep_inventory/models.py:114
 msgid "total"
 msgstr "total"
 
-#: sep_inventory/models.py:115
+#: sep_inventory/models.py:124
 #, python-format
 msgid "Sale %(id)s"
 msgstr "Vente %(id)s"
 
-#: sep_inventory/models.py:120
+#: sep_inventory/models.py:129
 msgid "sale item"
 msgstr "élément vendu"
 
-#: sep_inventory/models.py:121
+#: sep_inventory/models.py:130
 msgid "sale items"
 msgstr "éléments vendus"
 
-#: sep_inventory/models.py:131
+#: sep_inventory/models.py:140
 #, python-format
 msgid "Sale %(id)s - %(product)s x%(quantity)s"
 msgstr "Vente %(id)s - %(product)s x%(quantity)s"
-
-#~ msgid "Products"
-#~ msgstr "Produits"

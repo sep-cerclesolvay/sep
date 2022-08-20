@@ -66,7 +66,7 @@ class PackItem(models.Model):
         'Product', on_delete=RESTRICT, verbose_name=_('product'))
 
     def __str__(self) -> str:
-        return _('Pack-Product: %(pack)s - %(product)s') % {'pack': self.pack, 'product': self.product}
+        return _('"%(product)s" in the "%(pack)s" pack') % {'pack': self.pack, 'product': self.product}
 
 
 class Entry(models.Model):
