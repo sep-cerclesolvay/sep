@@ -4,14 +4,10 @@ from rest_framework.parsers import JSONParser
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.throttling import AnonRateThrottle
-from rest_framework.views import APIView
+from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 
 from .serializers import AuthTokenSerializer, UserSerializer
-
-from rest_framework.compat import coreapi, coreschema
-from rest_framework.schemas import ManualSchema
-from rest_framework.schemas import coreapi as coreapi_schema
 
 
 class CustomAuthToken(ObtainAuthToken):
@@ -35,12 +31,13 @@ class CustomAuthToken(ObtainAuthToken):
         return Response(userSerialized, status=status)
 
 
-class CurrentUser(APIView):
+class CurrentUser(RetrieveAPIView):
     """
     Retrieve current logged in user
     """
     permission_classes = [IsAuthenticated]
+    serializer_class = UserSerializer
 
     def get(self, request, *args, **kwargs):
-        serializer = UserSerializer(request.user)
+        serializer = self.serializer_class(request.user)
         return Response(serializer.data)
