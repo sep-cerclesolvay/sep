@@ -1,10 +1,9 @@
 import decimal
 from django.db import models
-from django.db.models import Sum, Value
+from django.db.models import Sum
 from django.db.models.deletion import RESTRICT
 from django.db.models.expressions import F
-from django.db.models.functions import Coalesce
-from django.utils.translation import gettext_lazy as _, ngettext_lazy
+from django.utils.translation import gettext_lazy as _
 from django.contrib import admin
 
 
@@ -22,11 +21,21 @@ class Product(models.Model):
     @property
     @admin.display(description=_('quantity'), ordering='qty')
     def quantity(self):
-        # if you change this query you should also change get_queryset in ProductAdmin
-        return Product.objects.filter(pk=self.pk).aggregate(
-            total=Coalesce(Sum('entry__quantity'), Value(0)) -
-            Coalesce(Sum('product_to_sale__quantity'), Value(0))
-        )['total']
+        entries_sum = Entry.objects.filter(
+            product=self,
+            deleted_date__isnull=True
+        ).aggregate(
+            total=Sum('quantity')
+        )['total'] or 0
+
+        sales_sum = SaleItem.objects.filter(
+            product=self,
+            sale__deleted_date__isnull=True
+        ).aggregate(
+            total=Sum('quantity')
+        )['total'] or 0
+
+        return entries_sum - sales_sum
 
     def __str__(self) -> str:
         return f'{self.name}'

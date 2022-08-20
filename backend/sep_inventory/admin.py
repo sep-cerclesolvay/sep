@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.db.models import Count, Sum, Value
+from django.db.models import Count, Value
 from django.db.models.functions import Coalesce
 from django.urls import reverse
 from django.utils.html import format_html
@@ -25,13 +25,6 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'quantity', 'buy_price', 'sell_price')
     # list_filter = ('pack',)
     readonly_fields = ('quantity',)
-
-    def get_queryset(self, request):
-        """Use this so we can annotate with additional info."""
-
-        qs = super(ProductAdmin, self).get_queryset(request)
-        return qs.annotate(qty=Coalesce(Sum('entry__quantity'), Value(0)) -
-                           Coalesce(Sum('product_to_sale__quantity'), Value(0)))
 
 
 class ProductInline(TabularInline):
