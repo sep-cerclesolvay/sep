@@ -4,19 +4,9 @@ from django.db.models.functions import Coalesce
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _, ngettext_lazy
-
+from admin_plus import TabularInline
 
 from .models import Product, Pack, Entry, PaymentMethod, Sale, SaleItem
-
-
-class TabularInline(admin.TabularInline):
-    def get_extra(self, request, obj=None, **kwargs):
-        if obj and self.get_inline_count(obj) > 0:
-            return 0
-        return 1
-
-    def get_inline_count(self, obj):
-        raise NotImplementedError
 
 
 @admin.register(Product)
