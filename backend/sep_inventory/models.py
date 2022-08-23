@@ -1,7 +1,7 @@
 import decimal
 from django.db import models
 from django.db.models import Sum
-from django.db.models.deletion import RESTRICT
+from django.db.models.deletion import RESTRICT, CASCADE
 from django.db.models.expressions import F
 from django.utils.translation import gettext_lazy as _
 from django.contrib import admin
@@ -61,7 +61,7 @@ class PackItem(models.Model):
         unique_together = ('pack', 'product')
 
     pack = models.ForeignKey(
-        'Pack', on_delete=RESTRICT, verbose_name=_('pack'))
+        'Pack', on_delete=CASCADE, verbose_name=_('pack'))
     product = models.ForeignKey(
         'Product', on_delete=RESTRICT, verbose_name=_('product'))
 
@@ -75,7 +75,7 @@ class Entry(models.Model):
         verbose_name_plural = _('entries')
 
     product = models.ForeignKey(
-        'Product', on_delete=RESTRICT, verbose_name=_('product'))
+        'Product', on_delete=CASCADE, verbose_name=_('product'))
     quantity = models.SmallIntegerField(_('quantity'))
     created_date = models.DateTimeField(_('creation date'), auto_now_add=True)
     updated_date = models.DateTimeField(_('modification date'), auto_now=True)
@@ -132,7 +132,7 @@ class SaleItem(models.Model):
 
     product = models.ForeignKey(
         'Product', on_delete=RESTRICT, related_name='product_to_sale', verbose_name=_('product'))
-    sale = models.ForeignKey('Sale', on_delete=RESTRICT,
+    sale = models.ForeignKey('Sale', on_delete=CASCADE,
                              related_name='sale_to_product', verbose_name=_('sale'))
     quantity = models.SmallIntegerField(_('quantity'))
 
