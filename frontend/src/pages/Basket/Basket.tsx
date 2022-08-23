@@ -2,7 +2,7 @@ import { IonButton, IonFab, IonFabButton, IonIcon, IonItem, useIonLoading, useIo
 import Page from 'components/Page';
 import { qrCodeOutline, qrCodeSharp } from 'ionicons/icons';
 import { useEffect, useState, FC } from 'react';
-import { initializeNewSale, useBasket } from 'redux/basketSlice';
+import { initializeNewSale, saveBasket, useBasket, useIsBasketDirty } from 'redux/basketSlice';
 import { useAppDispatch } from 'redux/hooks';
 import BasketLoading from './BasketLoading';
 import BasketRemoveItem from './BasketRemoveItem';
@@ -13,7 +13,6 @@ import { EditableSaleItem } from 'types/SaleItem';
 import { removeDecimalZeros } from 'utils/math';
 import PaymentPrompt from './PaymentPrompt';
 import { loadPaymentMethods } from 'redux/paymentMethodSlice';
-import { saveSale } from 'redux/salesSlice';
 import BasketEditItem from './BasketEditItem';
 import { useToast } from '@agney/ir-toast';
 
@@ -26,6 +25,7 @@ const Basket: FC = () => {
   const router = useIonRouter();
 
   const basket = useBasket();
+  const isBasketDirty = useIsBasketDirty();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -82,18 +82,22 @@ const Basket: FC = () => {
         open={showPaymentPrompt}
         onDidDismiss={() => setShowPaymentPrompt(false)}
         onDidFinish={() => {
-          present({ message: 'Enregistrement...' });
-          setShowPaymentPrompt(false);
-          dispatch(saveSale({ data: basket.data?.editable }))
-            .then(() => {
-              dismiss();
-              dispatch(initializeNewSale());
-              router.push('/ventes/');
-            })
-            .catch((reason) => {
-              dismiss();
-              Toast.error(reason.toString());
-            });
+          if (isBasketDirty) {
+            present({ message: 'Enregistrement...' });
+            setShowPaymentPrompt(false);
+            dispatch(saveBasket())
+              .then(async () => {
+                dispatch(initializeNewSale());
+                await dismiss();
+                router.push('/ventes/');
+              })
+              .catch(async (reason) => {
+                await dismiss();
+                Toast.error(reason.toString());
+              });
+          } else {
+            router.push('/ventes/');
+          }
         }}
       />
       <IonFab className={classes.scanner_btn} vertical="bottom" horizontal="end" slot="fixed">

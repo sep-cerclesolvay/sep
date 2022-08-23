@@ -11,6 +11,7 @@ import { EditableSale, Sale } from 'types/Sale';
 import { SaleItem } from 'types/SaleItem';
 import { AsyncState } from '../types/AsyncState';
 import { useAppSelector } from './hooks';
+import { saveSale } from './salesSlice';
 import { RootState } from './store';
 import { addAsyncThunk } from './utils';
 
@@ -72,6 +73,26 @@ export const addProductsByPackId = createAsyncThunk(
       if (state.basket.isLoading || state.basket.data === undefined) {
         return false;
       }
+    },
+    dispatchConditionRejection: true,
+  }
+);
+
+export const saveBasket = createAsyncThunk(
+  'basket/save',
+  async (_, { getState, dispatch, rejectWithValue }) => {
+    try {
+      const basketSaleToSave = (getState() as RootState).basket.data?.editable;
+      await dispatch(saveSale({ data: basketSaleToSave }));
+      return true;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  },
+  {
+    condition: (_, { getState }) => {
+      const state = getState() as RootState;
+      return isBasketDirty(state.basket);
     },
     dispatchConditionRejection: true,
   }
@@ -185,11 +206,15 @@ export const {
 export const selectBasket = (state: RootState): BasketState => state.basket;
 export const useBasket = (): BasketState => useAppSelector(selectBasket);
 
-export const useIsBasketDirty = (): boolean => {
-  const basket = useAppSelector(selectBasket);
+export const isBasketDirty = (basket: BasketState): boolean => {
   if (basket.isLoading || basket.data === undefined) return false;
   if (basket.data.initial === undefined && isEqual(basket.data.editable, newSale.editable)) return false;
   return !isEqual(basket.data?.initial, basket.data?.editable);
+};
+
+export const useIsBasketDirty = (): boolean => {
+  const basket = useAppSelector(selectBasket);
+  return isBasketDirty(basket);
 };
 
 export default basketSlice.reducer;

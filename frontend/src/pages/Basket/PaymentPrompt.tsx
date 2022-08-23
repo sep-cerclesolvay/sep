@@ -1,5 +1,5 @@
 import { IonAlert } from '@ionic/react';
-import { useEffect, FC } from 'react';
+import { useEffect, FC, useState } from 'react';
 import { setPaymentMethod, useBasket } from 'redux/basketSlice';
 import { useAppDispatch } from 'redux/hooks';
 import { usePaymentMethods } from 'redux/paymentMethodSlice';
@@ -11,6 +11,7 @@ export interface PaymentPromptProps {
 }
 
 const PaymentPrompt: FC<PaymentPromptProps> = ({ open, onDidDismiss, onDidFinish }) => {
+  const [closing, setClosing] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const paymentMethods = usePaymentMethods();
   const basket = useBasket();
@@ -20,12 +21,17 @@ const PaymentPrompt: FC<PaymentPromptProps> = ({ open, onDidDismiss, onDidFinish
 
   useEffect(() => {
     if (open && autoSelectPayment) {
-      dispatch(setPaymentMethod(autoSelectPayment));
       if (basket.data?.editable.payment_method?.id === autoSelectPayment.id) {
         onDidFinish();
+      } else {
+        dispatch(setPaymentMethod(autoSelectPayment));
       }
     }
   }, [open, autoSelectPayment, dispatch, onDidFinish, basket.data?.editable.payment_method?.id]);
+
+  useEffect(() => {
+    if (closing) onDidFinish();
+  }, [closing, onDidFinish]);
 
   return (
     <IonAlert
@@ -54,7 +60,7 @@ const PaymentPrompt: FC<PaymentPromptProps> = ({ open, onDidDismiss, onDidFinish
               const paymentMethod = paymentMethods.data.find((paymentMethod) => paymentMethod.id === value);
               if (paymentMethod) {
                 dispatch(setPaymentMethod(paymentMethod));
-                onDidFinish();
+                setClosing(true);
               }
             } else {
               return false;
