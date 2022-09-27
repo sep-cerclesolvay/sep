@@ -116,7 +116,7 @@ const Menu: FC = () => {
                 <IonMenuToggle autoHide={false}>
                   <IonItem
                     className={location.pathname === menuEntry.url ? classes.selected : undefined}
-                    href={menuEntry.external ? menuEntry.url : undefined}
+                    href={menuEntry.url}
                     routerLink={!menuEntry.external ? menuEntry.url : undefined}
                     routerDirection="none"
                     lines="none"
