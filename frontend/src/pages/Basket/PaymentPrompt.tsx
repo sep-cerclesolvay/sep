@@ -30,8 +30,8 @@ const PaymentPrompt: FC<PaymentPromptProps> = ({ open, onDidDismiss, onDidFinish
   }, [open, autoSelectPayment, dispatch, onDidFinish, basket.data?.editable.payment_method?.id]);
 
   useEffect(() => {
-    if (closing) onDidFinish();
-  }, [closing, onDidFinish]);
+    if (closing && open) onDidFinish();
+  }, [open, closing, onDidFinish]);
 
   return (
     <IonAlert

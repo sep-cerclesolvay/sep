@@ -48,6 +48,29 @@ const Basket: FC = () => {
     setShowPaymentPrompt(true);
   };
 
+  const handlePaymentPromptDismiss = () => {
+    setShowPaymentPrompt(false);
+  };
+
+  const handlePaymentPromptFinish = () => {
+    if (isBasketDirty) {
+      present({ message: 'Enregistrement...' });
+      setShowPaymentPrompt(false);
+      dispatch(saveBasket())
+        .then(async () => {
+          dispatch(initializeNewSale());
+          await dismiss();
+          router.push('/ventes/');
+        })
+        .catch(async (reason) => {
+          await dismiss();
+          Toast.error(reason.toString());
+        });
+    } else {
+      router.push('/ventes/');
+    }
+  };
+
   return (
     <Page title="Pannier">
       <div className={classes.basket}>
@@ -80,25 +103,8 @@ const Basket: FC = () => {
       <BasketRemoveItem saleItem={removeSaleItem} onDidDismiss={() => setRemoveSaleItem(undefined)} />
       <PaymentPrompt
         open={showPaymentPrompt}
-        onDidDismiss={() => setShowPaymentPrompt(false)}
-        onDidFinish={() => {
-          if (isBasketDirty) {
-            present({ message: 'Enregistrement...' });
-            setShowPaymentPrompt(false);
-            dispatch(saveBasket())
-              .then(async () => {
-                dispatch(initializeNewSale());
-                await dismiss();
-                router.push('/ventes/');
-              })
-              .catch(async (reason) => {
-                await dismiss();
-                Toast.error(reason.toString());
-              });
-          } else {
-            router.push('/ventes/');
-          }
-        }}
+        onDidDismiss={handlePaymentPromptDismiss}
+        onDidFinish={handlePaymentPromptFinish}
       />
       <IonFab className={classes.scanner_btn} vertical="bottom" horizontal="end" slot="fixed">
         <IonFabButton routerLink="/ventes/scanner/">
