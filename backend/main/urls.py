@@ -18,13 +18,21 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import re_path
 from django.views.generic.base import RedirectView
+from .settings import INSTALLED_APPS
 
 urlpatterns = [
     path('django_lang_switch/', include('django_lang_switch.urls')),
     path('admin/', admin.site.urls),
     path('docs/', include('docs.urls')),
-    path('', include("sep_inventory.urls")),
-    path('', include("sep_custom_auth.urls")),
+    path('', include('sep_custom_auth.urls')),
+]
+
+if 'sep_inventory' in INSTALLED_APPS:
+    urlpatterns += [path('', include('sep_inventory.urls'))]
+if 'events' in INSTALLED_APPS:
+    urlpatterns += [path('', include('events.urls'))]
+
+urlpatterns += [
     re_path(r'^.*$', RedirectView.as_view(url='/docs/',
                                           permanent=False), name='index')
 ]

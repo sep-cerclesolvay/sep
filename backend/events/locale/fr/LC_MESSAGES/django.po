@@ -1,0 +1,72 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-03 20:29+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: events/admin.py:17
+msgid "number of tickets sold"
+msgstr "nombre de tickets vendus"
+
+#: events/admin.py:24
+#, python-format
+msgid "%(count)s ticket"
+msgid_plural "%(count)s tickets"
+msgstr[0] ""
+msgstr[1] ""
+
+#: events/apps.py:8
+msgid "Events"
+msgstr "Événements"
+
+#: events/models.py:9 events/models.py:29
+msgid "event"
+msgstr "événement"
+
+#: events/models.py:10
+msgid "events"
+msgstr "événements"
+
+#: events/models.py:12
+msgid "name"
+msgstr "nom"
+
+#: events/models.py:20
+msgid "ticket"
+msgstr ""
+
+#: events/models.py:21
+msgid "tickets"
+msgstr ""
+
+#: events/models.py:24
+msgid "label"
+msgstr "description"
+
+#: events/models.py:25
+msgid "price"
+msgstr "prix"
+
+#: events/models.py:27
+msgid "QR code identifier"
+msgstr "identifiant du code QR"
+
+#: events/models.py:27
+msgid ""
+"The QR code identifier must contain exactly 8 characters in the A-Z,0-9 range"
+msgstr ""
+"L'identifiant du code QR doit contenir exactement 8 caractères de A-Z,0-9"

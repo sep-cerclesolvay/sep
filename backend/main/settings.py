@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'django_lang_switch',
     'docs',
     'sep_custom_auth',
-    'sep_inventory'
+    'sep_inventory',
+    # 'events',
 ]
 
 MIDDLEWARE = [
@@ -174,5 +175,6 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'anon': '100/hour',
         'user': '10000/second'
-    }
+    },
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
