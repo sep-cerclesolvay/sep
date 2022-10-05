@@ -47,7 +47,6 @@ class TicketRessource(resources.ModelResource):
         return super().before_save_instance(instance, using_transactions, dry_run)
 
 
-
 @admin.register(Ticket)
 class TicketAdmin(ImportMixin, admin.ModelAdmin):
     list_display = ('label', 'price', 'qrcode_id', 'event')
