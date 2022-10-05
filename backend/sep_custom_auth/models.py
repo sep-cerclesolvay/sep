@@ -56,6 +56,9 @@ class User(AbstractBaseUser):
             return True
         return False
 
+    def has_perms(self, perm_list, obj=None):
+        return all(self.has_perm(perm, obj) for perm in perm_list)
+
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app `app_label`?"
         if self.is_active and self.superuser:

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'main',
     'django_lang_switch',
+    'import_export',
     'docs',
     'sep_custom_auth',
     'sep_inventory',
@@ -178,3 +179,8 @@ REST_FRAMEWORK = {
     },
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
+
+# import_export
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+IMPORT_EXPORT_IMPORT_PERMISSION_CODE = "change"
+IMPORT_EXPORT_EXPORT_PERMISSION_CODE = "view"

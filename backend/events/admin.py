@@ -1,3 +1,5 @@
+from import_export import resources
+from import_export.admin import ImportMixin
 from django.contrib import admin
 from django.db.models import Count, Value
 from django.db.models.functions import Coalesce
@@ -32,8 +34,23 @@ class EventAdmin(admin.ModelAdmin):
         return qs.annotate(number_of_tickets_sold=Coalesce(Count('ticket'), Value(0)))
 
 
+class TicketRessource(resources.ModelResource):
+    class Meta:
+        model = Ticket
+        skip_unchanged = True
+        report_skipped = True
+        fields = ('label', 'price', 'qrcode_id', 'event')
+        import_id_fields = ['qrcode_id', 'event']
+
+    def before_save_instance(self, instance, using_transactions, dry_run):
+        print(instance)
+        return super().before_save_instance(instance, using_transactions, dry_run)
+
+
+
 @admin.register(Ticket)
-class TicketAdmin(admin.ModelAdmin):
+class TicketAdmin(ImportMixin, admin.ModelAdmin):
     list_display = ('label', 'price', 'qrcode_id', 'event')
     list_filter = ('event',)
     search_fields = ('label', 'qrcode_id')
+    resource_class = TicketRessource
