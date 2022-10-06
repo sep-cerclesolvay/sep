@@ -16,6 +16,7 @@ export interface StateAwareList<Item> {
     items?: Item[];
   };
   toolbarButtons?: ReactNode[];
+  tips?: ReactNode;
   loadingComponent: ReactNode;
   numberOfLoadingComponents?: number;
   emptyComponent: string | ReactNode;
@@ -29,6 +30,7 @@ export interface StateAwareList<Item> {
 
 const StateAwareList = <Item,>({
   toolbarButtons,
+  tips,
   loadingComponent,
   numberOfLoadingComponents = 5,
   emptyComponent,
@@ -47,28 +49,19 @@ const StateAwareList = <Item,>({
   const groupCounts = useMemo(() => Object.keys(groups).map((index) => groups[index].length), [groups]);
 
   let content = undefined;
+  let showLoading = false;
   if (state.isLoading) {
-    content = (
-      <div className={classes.container}>
-        <div style={{ position: 'relative' }}>
-          <LoadingBar show={true} />
-          <IonList style={{ height: '100%' }}>
-            <Virtuoso totalCount={numberOfLoadingComponents} itemContent={() => loadingComponent} />
-          </IonList>
-        </div>
-      </div>
-    );
+    showLoading = true;
+    content = <Virtuoso totalCount={numberOfLoadingComponents} itemContent={() => loadingComponent} />;
   }
 
   if (!content && state.error) {
-    content = <IonList>{renderError(state.error)}</IonList>;
+    content = renderError(state.error);
   }
 
   if (!content) {
     if (!state.items || state.items.length === 0) {
-      content = (
-        <IonList>{typeof emptyComponent === 'string' ? <Empty message={emptyComponent} /> : emptyComponent}</IonList>
-      );
+      content = typeof emptyComponent === 'string' ? <Empty message={emptyComponent} /> : emptyComponent;
     } else {
       const data = state.items;
       const commonVirtuosoProps = {
@@ -76,23 +69,16 @@ const StateAwareList = <Item,>({
         computeItemKey: (index: number, item: Item) => (item ? keyResolver(item) : index),
         atTopStateChange: (atTop: boolean) => setAtTop(atTop),
       };
-      content = (
-        <IonList className={classes.container}>
-          <div>
-            {groupResolver && renderGroup ? (
-              <GroupedVirtuoso
-                groupCounts={groupCounts}
-                groupContent={(index) => (
-                  <>{renderGroup(Object.keys(groups)[index], groups[Object.keys(groups)[index]])}</>
-                )}
-                {...commonVirtuosoProps}
-              />
-            ) : (
-              <Virtuoso totalCount={data.length} {...commonVirtuosoProps} />
-            )}
-          </div>
-        </IonList>
-      );
+      content =
+        groupResolver && renderGroup ? (
+          <GroupedVirtuoso
+            groupCounts={groupCounts}
+            groupContent={(index) => <>{renderGroup(Object.keys(groups)[index], groups[Object.keys(groups)[index]])}</>}
+            {...commonVirtuosoProps}
+          />
+        ) : (
+          <Virtuoso totalCount={data.length} {...commonVirtuosoProps} />
+        );
     }
   }
 
@@ -115,7 +101,11 @@ const StateAwareList = <Item,>({
           <IonButtons slot="start">{toolbarButtons}</IonButtons>
         </IonToolbar>
       )}
-      {content}
+      <div className={classes.container}>
+        <LoadingBar show={showLoading} />
+        {tips}
+        <IonList className={classes.list}>{content}</IonList>
+      </div>
     </>
   );
 };

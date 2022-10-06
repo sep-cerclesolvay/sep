@@ -17,7 +17,10 @@
     "jsx": "react-jsx",
     "baseUrl": "./src",
     "paths": {
-      "@agney/ir-toast": ["types/node_modules_fixes/ir-toast.d.ts"]
+      "@agney/ir-toast": ["types/node_modules_fixes/ir-toast.d.ts"],
+      "@/router/switch": ["router/SEPSwitch"],
+      "@/menu/entries": ["components/Menu/SEPMenuEntries"],
+      "@/pages/Scanner": ["pages/Scanner/SEPScannerWrapper"]
     }
   },
   "include": ["src"]

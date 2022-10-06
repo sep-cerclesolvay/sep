@@ -11,34 +11,13 @@ import {
 } from '@ionic/react';
 
 import { useLocation } from 'react-router-dom';
-import {
-  fileTrayOutline,
-  fileTrayFullSharp,
-  cartOutline,
-  cartSharp,
-  cubeOutline,
-  cubeSharp,
-  cogOutline,
-  cogSharp,
-  logInSharp,
-  logInOutline,
-  fileTrayStackedOutline,
-  fileTrayStackedSharp,
-  openOutline,
-} from 'ionicons/icons';
+import { cogOutline, cogSharp, logInSharp, logInOutline, openOutline } from 'ionicons/icons';
 import classes from './Menu.module.scss';
 import { Fragment, FC } from 'react';
 import { useUser } from 'redux/userSlice';
-import Version from './Version';
-
-interface MenuEntry {
-  url: string;
-  iosIcon: string;
-  mdIcon: string;
-  title: string;
-  separatorBefore?: boolean;
-  external?: boolean;
-}
+import Version from '../Version';
+import { MenuEntry } from './MenuEntry';
+import { entries } from '@/menu/entries';
 
 const anonPages: MenuEntry[] = [
   {
@@ -50,30 +29,7 @@ const anonPages: MenuEntry[] = [
 ];
 
 const userPages: MenuEntry[] = [
-  {
-    title: 'Stock',
-    url: '/stock/',
-    iosIcon: fileTrayStackedOutline,
-    mdIcon: fileTrayStackedSharp,
-  },
-  {
-    title: 'Packs',
-    url: '/packs/',
-    iosIcon: cubeOutline,
-    mdIcon: cubeSharp,
-  },
-  {
-    title: 'Ventes',
-    url: '/ventes/',
-    iosIcon: cartOutline,
-    mdIcon: cartSharp,
-  },
-  {
-    title: 'Entrées',
-    url: '/entrees/',
-    iosIcon: fileTrayOutline,
-    mdIcon: fileTrayFullSharp,
-  },
+  ...entries,
   {
     title: 'Admin Panel',
     url: '/admin/',

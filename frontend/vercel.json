@@ -63,6 +63,16 @@
           "value": "sep-ten.vercel.app"
         }
       ]
+    },
+    {
+      "source": "/static/import_export/:path*",
+      "destination": "https://sep-cerclesolvay.herokuapp.com/static/import_export/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "sep-ten.vercel.app"
+        }
+      ]
     }
   ]
 }

@@ -1,9 +1,18 @@
 .container {
+  position: relative;
   display: flex;
+  flex-direction: column;
   flex-grow: 1;
   align-items: stretch;
+}
+
+.list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 
   > * {
-    width: 100%;
+    flex-grow: 1;
   }
 }

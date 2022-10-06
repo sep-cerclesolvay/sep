@@ -1,3 +1,4 @@
+const path = require('node:path');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -14,5 +15,10 @@ module.exports = {
         ],
       }),
     ],
+    alias: {
+      '@/router/switch': path.resolve(__dirname, 'src/router/SEPSwitch'),
+      '@/menu/entries': path.resolve(__dirname, 'src/components/Menu/SEPMenuEntries'),
+      '@/pages/Scanner': path.resolve(__dirname, 'src/pages/Scanner/SEPScannerWrapper'),
+    },
   },
 };
