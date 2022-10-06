@@ -43,6 +43,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/react-transition-group": "^4.4.5",
     "ajv-keywords": "^5.1.0",
+    "dotenv-cra": "^3.0.2",
     "favicons": "^7.0.1",
     "favicons-webpack-plugin": "^6.0.0-alpha.1",
     "formik": "^2.2.9",
