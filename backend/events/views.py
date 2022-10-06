@@ -8,14 +8,17 @@ from .models import Event, Ticket
 from .serializers import EventSerializer, TicketSerializer
 
 
-class EventViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+class EventViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [IsAuthenticated]
 
 
 class EventTicketViewSet(viewsets.GenericViewSet):
-    queryset = Event.objects.all()
+    """
+    Kept separated from EventViewSet for openapi schema
+    """
+    queryset = Event.objects.none()
     serializer_class = TicketSerializer
     permission_classes = [IsAuthenticated]
 
