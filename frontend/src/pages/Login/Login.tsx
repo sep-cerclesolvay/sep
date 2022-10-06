@@ -47,7 +47,7 @@ const Login: FC = () => {
     <Page title="Connexion" hideLoginLogoutButton>
       <form onSubmit={formik.handleSubmit} className={classes.form}>
         <div className={classes.logo_container}>
-          <img src="/assets/icon/sep.svg" alt="logo" />
+          <img src="/assets/logo.svg" alt="logo" />
         </div>
         {errorMessage && (
           <Message color="danger" onDismiss={() => setErrorMessage(undefined)}>
