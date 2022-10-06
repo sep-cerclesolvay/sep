@@ -1,5 +1,7 @@
 const WebpackFavicons = require('webpack-favicons');
 
+const production = process.env.NODE_ENV == 'production';
+
 module.exports = {
   webpack: {
     plugins: [
@@ -23,12 +25,12 @@ module.exports = {
           version: process.env.REACT_APP_VERSION,
           logging: true,
           icons: {
-            android: true,
-            appleIcon: true,
-            appleStartup: true,
-            favicons: true,
-            windows: true,
-            yandex: true,
+            android: production,
+            appleIcon: production,
+            appleStartup: production,
+            favicons: production,
+            windows: production,
+            yandex: production,
           },
           screenshots: [
             {
