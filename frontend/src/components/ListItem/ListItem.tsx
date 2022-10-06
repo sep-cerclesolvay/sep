@@ -79,7 +79,6 @@ const ListItem: FC<ListItemProps> = ({
       className={card ? classes.card : undefined}
       disabled={!small || buttons.length == 0}
     >
-      {/* TODO: disabled off even if true. bug ? */}
       <IonItem className={classes.ion_item}>
         <div>
           <IonLabel className={classes.ion_label}>
