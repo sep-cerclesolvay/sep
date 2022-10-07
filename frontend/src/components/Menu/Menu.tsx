@@ -18,6 +18,7 @@ import { useUser } from 'redux/userSlice';
 import Version from '../Version';
 import { MenuEntry } from './MenuEntry';
 import { entries } from '@/menu/entries';
+import environment from 'environment';
 
 const anonPages: MenuEntry[] = [
   {
@@ -61,8 +62,14 @@ const Menu: FC = () => {
             </>
           )}
           <div className={classes.brand_box}>
-            <IonListHeader>SEP</IonListHeader>
-            <IonNote>Solvay Entraide et Publication</IonNote>
+            {environment.APP_SHORT_NAME ? (
+              <>
+                <IonListHeader>{environment.APP_SHORT_NAME}</IonListHeader>
+                <IonNote>{environment.APP_NAME}</IonNote>
+              </>
+            ) : (
+              <IonListHeader>{environment.APP_NAME}</IonListHeader>
+            )}
           </div>
           <hr />
           {pages.map((menuEntry) => {
