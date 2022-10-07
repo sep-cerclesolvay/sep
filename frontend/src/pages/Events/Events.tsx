@@ -25,7 +25,7 @@ const Events: FC = () => {
       <StateAwareList
         tips={
           <IonText className={classes.tips} color="dark">
-            Croissiez l&apos;événement pour lequel vous aller scanner les tickets.
+            Croissiez l&apos;événement pour lequel vous allez scanner les tickets.
           </IonText>
         }
         state={{ isLoading: events.isLoading, items: events.data, error: events.error }}
