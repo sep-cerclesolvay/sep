@@ -8,6 +8,7 @@ dotenvCra.config();
 process.env.REACT_APP_NAME = process.env.REACT_APP_NAME || config.appName;
 process.env.REACT_APP_SHORT_NAME = process.env.REACT_APP_SHORT_NAME || config.appShortName;
 process.env.REACT_APP_DESCRIPTION = process.env.REACT_APP_DESCRIPTION || config.appDescription;
+process.env.REACT_APP_LOGO = process.env.REACT_APP_LOGO || config.logo;
 process.env.REACT_APP_LOGO_BACKGROUND_COLOR = process.env.REACT_APP_LOGO_BACKGROUND_COLOR || config.logoBackgroundColor;
 process.env.REACT_APP_QR_CODE_URL = process.env.REACT_APP_QR_CODE_URL || config.qrCodeUrl;
 
@@ -15,7 +16,8 @@ module.exports = {
   webpack: {
     plugins: [
       new FaviconsWebpackPlugin({
-        logo: './public/assets/logo.svg',
+        logo: process.env.REACT_APP_LOGO,
+        prefix: 'assets/favicons',
         favicons: {
           appName: process.env.REACT_APP_NAME,
           appShortName: process.env.REACT_APP_SHORT_NAME,
