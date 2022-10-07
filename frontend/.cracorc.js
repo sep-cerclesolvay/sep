@@ -1,8 +1,15 @@
 const dotenvCra = require('dotenv-cra');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const config = require('./app.config.json');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 dotenvCra.config();
+
+process.env.REACT_APP_NAME = process.env.REACT_APP_NAME || config.appName;
+process.env.REACT_APP_SHORT_NAME = process.env.REACT_APP_SHORT_NAME || config.appShortName;
+process.env.REACT_APP_DESCRIPTION = process.env.REACT_APP_DESCRIPTION || config.appDescription;
+process.env.REACT_APP_LOGO_BACKGROUND_COLOR = process.env.REACT_APP_LOGO_BACKGROUND_COLOR || config.logoBackgroundColor;
+process.env.REACT_APP_QR_CODE_URL = process.env.REACT_APP_QR_CODE_URL || config.qrCodeUrl;
 
 module.exports = {
   webpack: {
@@ -10,13 +17,11 @@ module.exports = {
       new FaviconsWebpackPlugin({
         logo: './public/assets/logo.svg',
         favicons: {
-          appName: 'Solvay - Entraide & Publication',
-          appShortName: 'SEP',
-          appDescription: 'Une application web pour aider à la gestion des ventes du SEP.',
-          developerName: 'Mathieu COSYNS',
-          developerURL: 'https://github.com/Mathieu-COSYNS/',
+          appName: process.env.REACT_APP_NAME,
+          appShortName: process.env.REACT_APP_SHORT_NAME,
+          appDescription: process.env.REACT_APP_DESCRIPTION,
           lang: 'fr',
-          background: '#f07e38',
+          background: process.env.REACT_APP_LOGO_BACKGROUND_COLOR,
           theme_color: '#3880ff',
           appleStatusBarStyle: 'black',
           display: 'standalone',
@@ -40,23 +45,7 @@ module.exports = {
           },
         },
         manifest: {
-          screenshots: [
-            {
-              src: '/assets/screenshots/screenshot_login.png',
-              type: 'image/png',
-              sizes: '440x804',
-            },
-            {
-              src: '/assets/screenshots/screenshot_menu.png',
-              type: 'image/png',
-              sizes: '440x804',
-            },
-            {
-              src: '/assets/screenshots/screenshot_sales.png',
-              type: 'image/png',
-              sizes: '440x804',
-            },
-          ],
+          screenshots: config.screenshots,
           url_handlers: [
             {
               origin: process.env.REACT_APP_QR_CODE_URL,
