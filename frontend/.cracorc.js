@@ -17,7 +17,7 @@ module.exports = {
     plugins: [
       new FaviconsWebpackPlugin({
         logo: process.env.REACT_APP_LOGO,
-        prefix: 'assets/favicons',
+        prefix: 'assets/favicons/',
         favicons: {
           appName: process.env.REACT_APP_NAME,
           appShortName: process.env.REACT_APP_SHORT_NAME,
