@@ -51,8 +51,8 @@ INSTALLED_APPS = [
     'import_export',
     'docs',
     'sep_custom_auth',
-    'sep_inventory',
-    # 'events',
+    # 'sep_inventory',
+    'events',
 ]
 
 MIDDLEWARE = [

@@ -1,9 +1,9 @@
 {
   "logo": "./public/assets/logo.svg",
-  "logoBackgroundColor": "#f07e38",
-  "appName": "Solvay - Entraide & Publication",
-  "appShortName": "SEP",
-  "appDescription": "Une application web pour aider à la gestion des ventes du SEP.",
+  "logoBackgroundColor": "#ff9e2e",
+  "appName": "Bals & Fêtes - Tickets Scanner",
+  "appShortName": "BALEF",
+  "appDescription": "Une application web pour authentifier les tickets vendu par le comité Bals & Fêtes.",
   "screenshots": [
     {
       "src": "/assets/screenshots/screenshot_login.png",
@@ -16,7 +16,12 @@
       "sizes": "440x804"
     },
     {
-      "src": "/assets/screenshots/screenshot_sales.png",
+      "src": "/assets/screenshots/screenshot_events.png",
+      "type": "image/png",
+      "sizes": "440x804"
+    },
+    {
+      "src": "/assets/screenshots/screenshot_scanner.png",
       "type": "image/png",
       "sizes": "440x804"
     }

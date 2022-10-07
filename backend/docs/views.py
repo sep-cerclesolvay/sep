@@ -26,7 +26,7 @@ def docs(request):
 
 def get_schema_view():
     return super_get_schema_view(
-        title="SEP API",
+        title="BALEF API",
         generator_class=OASSchemaGenerator,
         authentication_classes=[SessionAuthentication],
         permission_classes=[IsAuthenticated, IsSuperUser],

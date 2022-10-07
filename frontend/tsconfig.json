@@ -18,9 +18,9 @@
     "baseUrl": "./src",
     "paths": {
       "@agney/ir-toast": ["types/node_modules_fixes/ir-toast.d.ts"],
-      "@/router/switch": ["router/SEPSwitch"],
-      "@/menu/entries": ["components/Menu/SEPMenuEntries"],
-      "@/pages/Scanner": ["pages/Scanner/SEPScannerWrapper"]
+      "@/router/switch": ["router/EventsSwitch"],
+      "@/menu/entries": ["components/Menu/EventsMenuEntries"],
+      "@/pages/Scanner": ["pages/Scanner/EventsScannerWrapper"]
     }
   },
   "include": ["src"]

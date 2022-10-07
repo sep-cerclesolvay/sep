@@ -11,7 +11,7 @@ class OASSchemaGenerator(SchemaGenerator):
         schema = super().get_schema(request, public)
         schema['info'] = {
             'version': '1.0',
-            'title': 'SEP API',
+            'title': 'BALEF API',
         }
         protocol = 'https' if request.is_secure() else 'http'
         schema['servers'] = [
