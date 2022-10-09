@@ -6,71 +6,71 @@
   "rewrites": [
     {
       "source": "/admin/",
-      "destination": "https://sep-cerclesolvay.herokuapp.com/admin/",
+      "destination": "https://eventvps.cerclesolvay.be/admin/",
       "has": [
         {
           "type": "host",
-          "value": "sep-ten.vercel.app"
+          "value": "events.cerclesolvay.be"
         }
       ]
     },
     {
       "source": "/admin/:path*/",
-      "destination": "https://sep-cerclesolvay.herokuapp.com/admin/:path*/",
+      "destination": "https://eventvps.cerclesolvay.be/admin/:path*/",
       "has": [
         {
           "type": "host",
-          "value": "sep-ten.vercel.app"
+          "value": "events.cerclesolvay.be"
         }
       ]
     },
     {
       "source": "/django_lang_switch/:path*/",
-      "destination": "https://sep-cerclesolvay.herokuapp.com/django_lang_switch/:path*/",
+      "destination": "https://eventvps.cerclesolvay.be/django_lang_switch/:path*/",
       "has": [
         {
           "type": "host",
-          "value": "sep-ten.vercel.app"
+          "value": "events.cerclesolvay.be"
         }
       ]
     },
     {
       "source": "/static/admin/:path*",
-      "destination": "https://sep-cerclesolvay.herokuapp.com/static/admin/:path*",
+      "destination": "https://eventvps.cerclesolvay.be/static/admin/:path*",
       "has": [
         {
           "type": "host",
-          "value": "sep-ten.vercel.app"
+          "value": "events.cerclesolvay.be"
         }
       ]
     },
     {
       "source": "/static/django_lang_switch/:path*",
-      "destination": "https://sep-cerclesolvay.herokuapp.com/static/django_lang_switch/:path*",
+      "destination": "https://eventvps.cerclesolvay.be/static/django_lang_switch/:path*",
       "has": [
         {
           "type": "host",
-          "value": "sep-ten.vercel.app"
+          "value": "events.cerclesolvay.be"
         }
       ]
     },
     {
       "source": "/static/admin_plus/:path*",
-      "destination": "https://sep-cerclesolvay.herokuapp.com/static/admin_plus/:path*",
+      "destination": "https://eventvps.cerclesolvay.be/static/admin_plus/:path*",
       "has": [
         {
           "type": "host",
-          "value": "sep-ten.vercel.app"
+          "value": "events.cerclesolvay.be"
         }
       ]
     },
     {
       "source": "/static/import_export/:path*",
-      "destination": "https://sep-cerclesolvay.herokuapp.com/static/import_export/:path*",
+      "destination": "https://eventvps.cerclesolvay.be/static/import_export/:path*",
       "has": [
         {
           "type": "host",
-          "value": "sep-ten.vercel.app"
+          "value": "events.cerclesolvay.be"
         }
       ]
     }
