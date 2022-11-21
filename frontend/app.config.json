@@ -1,0 +1,24 @@
+{
+  "logo": "./public/assets/logo.svg",
+  "logoBackgroundColor": "#f07e38",
+  "appName": "Solvay - Entraide & Publication",
+  "appShortName": "SEP",
+  "appDescription": "Une application web pour aider à la gestion des ventes du SEP.",
+  "screenshots": [
+    {
+      "src": "/assets/screenshots/screenshot_login.png",
+      "type": "image/png",
+      "sizes": "440x804"
+    },
+    {
+      "src": "/assets/screenshots/screenshot_menu.png",
+      "type": "image/png",
+      "sizes": "440x804"
+    },
+    {
+      "src": "/assets/screenshots/screenshot_sales.png",
+      "type": "image/png",
+      "sizes": "440x804"
+    }
+  ]
+}

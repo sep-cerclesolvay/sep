@@ -30,6 +30,7 @@ import classes from './Menu.module.scss';
 import { Fragment, FC } from 'react';
 import { useUser } from 'redux/userSlice';
 import Version from './Version';
+import environment from 'environment';
 
 interface MenuEntry {
   url: string;
@@ -105,8 +106,14 @@ const Menu: FC = () => {
             </>
           )}
           <div className={classes.brand_box}>
-            <IonListHeader>SEP</IonListHeader>
-            <IonNote>Solvay Entraide et Publication</IonNote>
+            {environment.APP_SHORT_NAME ? (
+              <>
+                <IonListHeader>{environment.APP_SHORT_NAME}</IonListHeader>
+                <IonNote>{environment.APP_NAME}</IonNote>
+              </>
+            ) : (
+              <IonListHeader>{environment.APP_NAME}</IonListHeader>
+            )}
           </div>
           <hr />
           {pages.map((menuEntry) => {
